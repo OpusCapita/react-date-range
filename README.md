@@ -1,15 +1,15 @@
-# react-component-template
+# react-date-range
 
 ### Description
 Describe the component here
 
 ### Installation
 ```
-npm install @opuscapita/react-component-template
+npm install @opuscapita/react-date-range
 ```
 
 ### Demo
-View the [DEMO](https://opuscapita.github.io/react-component-template)
+View the [DEMO](https://opuscapita.github.io/react-date-range)
 
 ### Builds
 #### UMD
