@@ -7,6 +7,7 @@ import relativeRangePropTypes from '../components/relative/prop-types';
 export default {
   ...absoluteRangePropTypes,
   ...relativeRangePropTypes,
+  onChange: PropTypes.func,
   selectedRangeType: PropTypes.oneOf(RangeTypes({}).map(type => type.value)),
   translations: PropTypes.shape({
     absolute: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),

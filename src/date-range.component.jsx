@@ -28,6 +28,7 @@ export default class DateRange extends React.PureComponent {
     super(props);
     this.state = {
       showOverlay: false,
+      value: this.props.value,
     };
   }
 
@@ -43,8 +44,7 @@ export default class DateRange extends React.PureComponent {
     });
   };
 
-  handleChange = (e) => {
-    const { value } = e.target;
+  handleChange = (value) => {
     this.setState({ value });
     this.props.onChange(value);
   };
@@ -56,7 +56,6 @@ export default class DateRange extends React.PureComponent {
       inputRef,
       inputProps,
       translations,
-      value,
     } = this.props;
     return (
       <FormGroup>
@@ -66,8 +65,8 @@ export default class DateRange extends React.PureComponent {
             this.input = el;
             inputRef(el);
           }}
-          value={value}
           {...inputProps}
+          value={this.state.value}
           onChange={this.handleChange}
           onFocus={() => this.setState({ showOverlay: true })}
           onBlur={() => this.setState({ showOverlay: true })}
@@ -80,6 +79,7 @@ export default class DateRange extends React.PureComponent {
           container={this}
         >
           <DateRangePopover
+            onChange={this.handleChange}
             translations={translations}
           />
         </Overlay>}

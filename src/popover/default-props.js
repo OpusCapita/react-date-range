@@ -4,10 +4,13 @@ import relativeRangeDefaultProps from '../components/relative/default-props';
 export default {
   ...absoluteRangeDefaultProps,
   ...relativeRangeDefaultProps,
+  onChange: () => {},
   selectedRangeType: null,
   translations: {
     absolute: 'Absolute',
     relative: 'Relative',
     anchorDate: 'Anchor date',
+    startDate: 'First day',
+    endDate: 'Last day'
   },
 };

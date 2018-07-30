@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormGroup, Radio } from 'react-bootstrap';
+
 import RangeTypes from './range-types';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 
 const PopoverSection = styled.div`
   display: flex;
+  flex-direction: column;
+  border: 0.1rem solid #CCC;
+  padding: 1rem;
+  hr {
+    color: #CCC;
+    size: 0.1rem;
+    margin: 0;
+  }
 `;
-
-// TODO oc-cm-common-layout dependency
-// background-color: ${theme.contentBackgroundColor};
-// width: calc(100% - 2 * ${theme.gutterWidth});
-// margin: ${theme.gutterWidth};
-// padding: ${theme.gutterWidth};
-// .responsive-navbar-container {
-//   flex: 1 1 100%;    
-// }
 
 export default class DateRangePopover extends React.PureComponent {
   constructor(props) {
@@ -40,6 +40,7 @@ export default class DateRangePopover extends React.PureComponent {
         name="rangeType"
         value={type.value}
         onChange={this.handleChange}
+        inline
       >
         {type.label}
       </Radio>))
@@ -51,7 +52,12 @@ export default class DateRangePopover extends React.PureComponent {
         <FormGroup>
           {this.renderOptions()}
         </FormGroup>
-        {this.state.rangeTypeComponent && <this.state.rangeTypeComponent />}
+        <hr />
+        {this.state.rangeTypeComponent &&
+        <this.state.rangeTypeComponent
+          {...this.props}
+          onChange={this.props.onChange}
+        />}
       </PopoverSection>
     );
   }
