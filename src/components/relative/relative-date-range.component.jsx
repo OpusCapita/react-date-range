@@ -1,11 +1,24 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
+import styled from 'styled-components';
 
 import { FloatingSelect } from '@opuscapita/react-floating-select';
 
 import propTypes from './prop-types';
 import defaultProps from './default-props';
-import RangeSection from '../range.component';
+
+const RelativeRangeSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  padding: 1rem 0;
+`;
+
+const DateSection = styled.div`
+  height: 100%;
+  width: 100%;
+`;
 
 export default class RelativeDateRange extends React.PureComponent {
   constructor(props) {
@@ -14,15 +27,18 @@ export default class RelativeDateRange extends React.PureComponent {
     };
   }
 
-
   render() {
     return (
-      <RangeSection>
-        <label htmlFor="startDate">{this.props.translations.startDate}</label>
-        <FloatingSelect {...this.props} inputProps={{ name: 'startDate' }} />
-        <label htmlFor="endDate">{this.props.translations.endDate}</label>
-        <FloatingSelect {...this.props} inputProps={{ name: 'endDate' }} />
-      </RangeSection>
+      <RelativeRangeSection>
+        <DateSection>
+          <label htmlFor="startDate">{this.props.translations.startDate}</label>
+          <FloatingSelect {...this.props} inputProps={{ name: 'startDate' }} />
+        </DateSection>
+        <DateSection>
+          <label htmlFor="endDate">{this.props.translations.endDate}</label>
+          <FloatingSelect {...this.props} inputProps={{ name: 'endDate' }} />
+        </DateSection>
+      </RelativeRangeSection>
     );
   }
 }
