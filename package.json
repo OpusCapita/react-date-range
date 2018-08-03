@@ -104,7 +104,7 @@
   },
   "dependencies": {
     "@opuscapita/oc-cm-common-styles": "2.1.0",
-    "@opuscapita/react-datetime": "3.1.1",
+    "@opuscapita/react-datetime": "3.2.0",
     "@opuscapita/react-floating-select": "2.0.0"
   },
   "repository": {

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { FloatingSelect } from '@opuscapita/react-floating-select';
 
+import DateSection from '../date-section.components';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 
@@ -13,11 +14,6 @@ const RelativeRangeSection = styled.div`
   height: 100%;
   width: 100%;
   padding: 1rem 0;
-`;
-
-const DateSection = styled.div`
-  height: 100%;
-  width: 100%;
 `;
 
 export default class RelativeDateRange extends React.PureComponent {

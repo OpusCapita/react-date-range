@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { DateInput } from '@opuscapita/react-datetime';
 
+import DateSection from '../date-section.components';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 
@@ -79,32 +80,40 @@ export default class AbsoluteDateRange extends React.PureComponent {
     const modifiers = { start: from, end: to };
     return (
       <AbsoluteRangeSection>
-        <DateInput
-          dateFormat={dateFormat}
-          locale={region}
-          showWeekNumbers={showWeekNumbers}
-          selectedDays={[from, { from, to }]}
-          disabledDays={disabledStartDays}
-          toMonth={to}
-          modifiers={modifiers}
-          numberOfMonths={2}
-          onChange={this.handleStartDateChange}
-          onDayClick={() => this.to.input.focus()}
-        />
+        <DateSection>
+          <label htmlFor="startDate">{this.props.translations.startDate}</label>
+          <DateInput
+            dateFormat={dateFormat}
+            disabledDays={disabledStartDays}
+            locale={region}
+            modifiers={modifiers}
+            numberOfMonths={2}
+            onChange={this.handleStartDateChange}
+            onDayClick={() => this.to.input.focus()}
+            selectedDays={[from, { from, to }]}
+            showWeekNumbers={showWeekNumbers}
+            toMonth={to}
+            value={startDate}
+          />
+        </DateSection>
         <HyphenSpan>-</HyphenSpan> 
-        <DateInput
-          dateFormat={dateFormat}
-          locale={region}
-          showWeekNumbers={showWeekNumbers}
-          ref={el => (this.to = el)}
-          selectedDays={[from, { from, to }]}
-          disabledDays={disabledEndDays}
-          modifiers={modifiers}
-          month={from}
-          fromMonth={from}
-          numberOfMonths={2}
-          onChange={this.handleEndDateChange}
-        />
+        <DateSection>
+          <label htmlFor="endDate">{this.props.translations.endDate}</label>
+          <DateInput
+            dateFormat={dateFormat}
+            disabledDays={disabledEndDays}
+            fromMonth={from}
+            locale={region}
+            modifiers={modifiers}
+            month={from}
+            numberOfMonths={2}
+            onChange={this.handleEndDateChange}
+            ref={el => (this.to = el)}
+            selectedDays={[from, { from, to }]}
+            showWeekNumbers={showWeekNumbers}
+            value={endDate}
+          />
+        </DateSection>
       </AbsoluteRangeSection>
     );
   }
