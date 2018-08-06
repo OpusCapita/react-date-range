@@ -4,6 +4,8 @@ import relativeRangeDefaultProps from '../components/relative/default-props';
 export default {
   ...absoluteRangeDefaultProps,
   ...relativeRangeDefaultProps,
+  isRelativeEnabled: false,
+  isRelativeSelected: false,
   onChange: () => {},
   selectedRangeType: null,
   translations: {

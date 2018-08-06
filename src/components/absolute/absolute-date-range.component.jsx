@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { DateInput } from '@opuscapita/react-datetime';
 
 import DateSection from '../date-section.components';
+import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 
@@ -19,10 +20,6 @@ const AbsoluteRangeSection = styled.div`
   .form-group {
     margin-bottom: 0;
   }
-`;
-
-const HyphenSpan = styled.span`
-  padding: 0 0.3rem;
 `;
 
 export default class AbsoluteDateRange extends React.PureComponent {
@@ -96,7 +93,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             value={startDate}
           />
         </DateSection>
-        <HyphenSpan>-</HyphenSpan> 
+        <Hyphen />
         <DateSection>
           <label htmlFor="endDate">{this.props.translations.endDate}</label>
           <DateInput

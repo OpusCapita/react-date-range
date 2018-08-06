@@ -9,9 +9,16 @@ export default class DateRangeView extends React.PureComponent {
 
   render() {
     return (
-      <div style={{ padding: '20px' }}>
-        <DateRange />
-      </div>
+      <React.Fragment>
+        <div style={{ padding: '20px' }}>
+          <h4>Absolute time period (default)</h4>
+          <DateRange />
+        </div>
+        <div style={{ padding: '20px' }}>
+          <h4>Absolute or relative time period</h4>
+          <DateRange isRelativeEnabled />
+        </div>
+      </React.Fragment>
     );
   }
 }

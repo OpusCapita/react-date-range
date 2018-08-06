@@ -79,6 +79,7 @@ export default class DateRange extends React.PureComponent {
           container={this}
         >
           <DateRangePopover
+            {...this.props}
             onChange={this.handleChange}
             translations={translations}
           />

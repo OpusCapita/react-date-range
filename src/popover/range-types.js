@@ -14,10 +14,4 @@ export default translations => ([
     label: translations.relative,
     component: RelativeDateRange,
   },
-  {
-    id: 3,
-    value: 'anchor',
-    label: translations.anchorDate,
-    component: null,
-  },
 ]);

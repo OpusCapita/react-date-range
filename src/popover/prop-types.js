@@ -7,6 +7,8 @@ import relativeRangePropTypes from '../components/relative/prop-types';
 export default {
   ...absoluteRangePropTypes,
   ...relativeRangePropTypes,
+  isRelativeEnabled: PropTypes.bool,
+  isRelativeSelected: PropTypes.bool,
   onChange: PropTypes.func,
   selectedRangeType: PropTypes.oneOf(RangeTypes({}).map(type => type.value)),
   translations: PropTypes.shape({

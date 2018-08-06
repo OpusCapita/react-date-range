@@ -22,15 +22,18 @@ export default class DateRangePopover extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      rangeTypeComponent: null,
+      rangeType: props.isRelativeSelected ? 'relative' : 'absolute',
     };
   }
 
-  handleChange = (e) => {
-    const { value } = e.target;
+  getRangeComponent = () => {
     const rangeTypes = RangeTypes(this.props.translations);
-    const index = rangeTypes.findIndex(type => type.value === value);
-    this.setState({ rangeTypeComponent: rangeTypes[index].component });
+    const index = rangeTypes.findIndex(type => type.value === this.state.rangeType);
+    return rangeTypes[index].component;
+  }
+
+  handleChange = (e) => {
+    this.setState({ rangeType: e.target.value });
   }
 
   renderOptions = () => (
@@ -40,6 +43,7 @@ export default class DateRangePopover extends React.PureComponent {
         name="rangeType"
         value={type.value}
         onChange={this.handleChange}
+        checked={this.state.rangeType === type.value}
         inline
       >
         {type.label}
@@ -47,17 +51,20 @@ export default class DateRangePopover extends React.PureComponent {
   );
 
   render() {
+    const RangeComponent = this.getRangeComponent();
     return (
       <PopoverSection>
-        <FormGroup>
-          {this.renderOptions()}
-        </FormGroup>
-        <hr />
-        {this.state.rangeTypeComponent &&
-        <this.state.rangeTypeComponent
+        {this.props.isRelativeEnabled &&
+        <React.Fragment>
+          <FormGroup>
+            {this.renderOptions()}
+          </FormGroup>
+          <hr />
+        </React.Fragment>}
+        <RangeComponent
           {...this.props}
           onChange={this.props.onChange}
-        />}
+        />
       </PopoverSection>
     );
   }
