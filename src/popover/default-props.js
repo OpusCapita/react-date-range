@@ -13,6 +13,6 @@ export default {
     relative: 'Relative',
     anchorDate: 'Anchor date',
     startDate: 'First day',
-    endDate: 'Last day'
+    endDate: 'Last day',
   },
 };

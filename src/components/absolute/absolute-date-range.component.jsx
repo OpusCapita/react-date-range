@@ -23,7 +23,6 @@ const AbsoluteRangeSection = styled.div`
 `;
 
 export default class AbsoluteDateRange extends React.PureComponent {
-
   constructor(props) {
     super(props);
     const { startDate, endDate } = this.props;
@@ -43,7 +42,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
       const disabledEndDays = { before: new Date(startDate) };
       this.setState({ startDate, disabledEndDays });
       const to = moment.utc(this.state.endDate, moment.ISO_8601);
-      this.props.onChange(`${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`);  
+      this.props.onChange({
+        startDate,
+        value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
+      });
     }
   }
 
@@ -53,19 +55,22 @@ export default class AbsoluteDateRange extends React.PureComponent {
       const disabledStartDays = { after: new Date(endDate) };
       this.setState({ endDate, disabledStartDays });
       const from = moment.utc(this.state.startDate, moment.ISO_8601);
-      this.props.onChange(`${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`);  
+      this.props.onChange({
+        endDate,
+        value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
+      });
     }
-    // const endDate = moment.utc(date).format(this.props.dateFormat);
-    // const startDate = moment.utc(this.state.startDate).format(this.props.dateFormat);
-    // this.setState({ endDate: date });
-    // this.props.onChange(`${startDate} - ${endDate}`);
   }
-
 
   /// TODO: onDayClick react-datetime
 
   render() {
-    const { region, dateFormat, showWeekNumbers } = this.props;
+    const {
+      region,
+      dateFormat,
+      numberOfMonths,
+      showWeekNumbers,
+    } = this.props;
     const {
       disabledEndDays,
       disabledStartDays,
@@ -103,7 +108,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             locale={region}
             modifiers={modifiers}
             month={from}
-            numberOfMonths={2}
+            numberOfMonths={numberOfMonths}
             onChange={this.handleEndDateChange}
             ref={el => (this.to = el)}
             selectedDays={[from, { from, to }]}

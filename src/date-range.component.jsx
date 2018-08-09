@@ -1,9 +1,19 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControl, FormGroup, Overlay } from 'react-bootstrap';
+import styled from 'styled-components';
+import { FormControl, Overlay } from 'react-bootstrap';
+import { theme } from '@opuscapita/oc-cm-common-layouts';
 import DateRangePopover from './popover/date-range-popover.component';
 import popoverPropTypes from './popover/prop-types';
 import popoverDefaultProps from './popover/default-props';
+
+const ReadOnlyInput = styled.div`
+  .form-control[readonly] {
+    width: 200px;
+    background-color: ${theme.contentBackgroundColor};
+  }
+`;
 
 export default class DateRange extends React.PureComponent {
   static propTypes = {
@@ -21,7 +31,7 @@ export default class DateRange extends React.PureComponent {
     },
     onChange() {
     },
-    value: '',
+    value: `${popoverDefaultProps.startDate} - ${popoverDefaultProps.endDate}`,
   };
 
   constructor(props) {
@@ -32,24 +42,18 @@ export default class DateRange extends React.PureComponent {
     };
   }
 
-  handleFocus = (e) => {
+  handleChange = (event) => {
     this.setState({
-      showOverlay: true,
+      value: event.value,
+      startDate: event.startDate,
+      endDate: event.endDate,
     });
+    this.props.onChange(event);
   };
 
-  closeOverlay = (e) => {
-    this.setState({
-      showOverlay: false,
-    });
-  };
+  handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
 
-  handleChange = (value) => {
-    this.setState({ value });
-    this.props.onChange(value);
-  };
-
-  handleToggle = () => this.setState({ showOverlay: !this.state.showOverlay });
+  handleHide = () => this.setState({ showOverlay: false });
 
   render() {
     const {
@@ -58,25 +62,27 @@ export default class DateRange extends React.PureComponent {
       translations,
     } = this.props;
     return (
-      <FormGroup>
-        <FormControl
-          type="text"
-          inputRef={(el) => {
-            this.input = el;
-            inputRef(el);
-          }}
-          {...inputProps}
-          value={this.state.value}
-          onChange={this.handleChange}
-          onFocus={() => this.setState({ showOverlay: true })}
-          onBlur={() => this.setState({ showOverlay: true })}
-        />
+      <React.Fragment>
+        <ReadOnlyInput>
+          <FormControl
+            type="text"
+            inputRef={(el) => {
+              this.input = el;
+              inputRef(el);
+            }}
+            {...inputProps}
+            readOnly="readonly"
+            value={this.state.value}
+            onClick={this.handleClick}
+          />
+        </ReadOnlyInput>
         {this.state.showOverlay &&
         <Overlay
           show={this.state.showOverlay}
-          onHide={() => this.setState({ showOverlay: false })}
+          onHide={this.handleHide}
           placement="bottom"
           container={this}
+          rootClose
         >
           <DateRangePopover
             {...this.props}
@@ -84,7 +90,7 @@ export default class DateRange extends React.PureComponent {
             translations={translations}
           />
         </Overlay>}
-      </FormGroup>
+      </React.Fragment>
     );
   }
 }
