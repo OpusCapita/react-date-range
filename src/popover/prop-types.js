@@ -5,15 +5,15 @@ import absoluteRangePropTypes from '../components/absolute/prop-types';
 import relativeRangePropTypes from '../components/relative/prop-types';
 
 export default {
-  ...absoluteRangePropTypes,
-  ...relativeRangePropTypes,
+  absoluteRange: PropTypes.shape(absoluteRangePropTypes),
   isRelativeEnabled: PropTypes.bool,
-  isRelativeSelected: PropTypes.bool,
+  selectedRangeType: PropTypes.oneOf(Object.keys(RangeTypes)),
   onChange: PropTypes.func,
-  selectedRangeType: PropTypes.oneOf(RangeTypes({}).map(type => type.value)),
+  relativeRange: PropTypes.shape(relativeRangePropTypes),
   translations: PropTypes.shape({
     absolute: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    endDate: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     relative: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    anchorDate: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    startDate: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   }),
 };

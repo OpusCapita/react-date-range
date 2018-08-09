@@ -17,7 +17,8 @@ const ReadOnlyInput = styled.div`
 
 export default class DateRange extends React.PureComponent {
   static propTypes = {
-    ...popoverPropTypes,
+    id: PropTypes.string.isRequired,
+    popoverProps: PropTypes.shape(popoverPropTypes),
     inputProps: PropTypes.object,
     inputRef: PropTypes.func,
     onChange: PropTypes.func,
@@ -25,13 +26,13 @@ export default class DateRange extends React.PureComponent {
   };
 
   static defaultProps = {
-    ...popoverDefaultProps,
+    popoverProps: popoverDefaultProps,
     inputProps: {},
     inputRef() {
     },
     onChange() {
     },
-    value: `${popoverDefaultProps.startDate} - ${popoverDefaultProps.endDate}`,
+    value: '',
   };
 
   constructor(props) {
@@ -39,14 +40,17 @@ export default class DateRange extends React.PureComponent {
     this.state = {
       showOverlay: false,
       value: this.props.value,
+      popoverProps: props.popoverProps,
     };
   }
 
   handleChange = (event) => {
     this.setState({
-      value: event.value,
-      startDate: event.startDate,
-      endDate: event.endDate,
+      ...event,
+      popoverProps: {
+        ...this.state.popoverProps,
+        ...event.popoverProps,
+      },
     });
     this.props.onChange(event);
   };
@@ -59,7 +63,6 @@ export default class DateRange extends React.PureComponent {
     const {
       inputRef,
       inputProps,
-      translations,
     } = this.props;
     return (
       <React.Fragment>
@@ -82,12 +85,10 @@ export default class DateRange extends React.PureComponent {
           onHide={this.handleHide}
           placement="bottom"
           container={this}
-          rootClose
         >
           <DateRangePopover
-            {...this.props}
+            {...this.state.popoverProps}
             onChange={this.handleChange}
-            translations={translations}
           />
         </Overlay>}
       </React.Fragment>

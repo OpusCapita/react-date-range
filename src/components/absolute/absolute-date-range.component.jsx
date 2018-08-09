@@ -36,33 +36,88 @@ export default class AbsoluteDateRange extends React.PureComponent {
     };
   }
 
-  handleStartDateChange = (startDate) => {
-    const from = moment.utc(startDate);
-    if (from.isValid()) {
-      const disabledEndDays = { before: new Date(startDate) };
-      this.setState({ startDate, disabledEndDays });
-      const to = moment.utc(this.state.endDate, moment.ISO_8601);
-      this.props.onChange({
+  handleStartDateChange = (date) => {
+    let startDate = date;
+    let from = moment.utc(startDate);
+    if (!from.isValid()) {
+      return;
+    }
+
+    const { endDate } = this.state;
+    let state;
+    if (!endDate) {
+      state = {
         startDate,
+        popoverProps: {
+          absoluteRange: {
+            startDate,
+          },
+        },
+      };
+    } else {
+      const to = moment.utc(endDate);
+      if (from.isAfter(to)) {
+        startDate = endDate;
+        from = to;
+      }
+      state = {
+        startDate,
+        endDate: to.endOf('day').toISOString(),
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
-      });
+        popoverProps: {
+          absoluteRange: {
+            startDate,
+            endDate,
+          },
+        },
+      };
     }
+    const disabledEndDays = { before: new Date(startDate) };
+    this.setState({ startDate, disabledEndDays });
+    this.props.onChange(state);
   }
 
-  handleEndDateChange = (endDate) => {
-    const to = moment.utc(endDate);
-    if (to.isValid()) {
-      const disabledStartDays = { after: new Date(endDate) };
-      this.setState({ endDate, disabledStartDays });
-      const from = moment.utc(this.state.startDate, moment.ISO_8601);
-      this.props.onChange({
+  handleEndDateChange = (date) => {
+    let endDate = date;
+    let to = moment.utc(endDate);
+    if (!to.isValid()) {
+      return;
+    }
+
+    const { startDate } = this.state;
+    let state;
+    if (!startDate) {
+      state = {
         endDate,
+        popoverProps: {
+          absoluteRange: {
+            endDate,
+          },
+        },
+      };
+    } else {
+      const from = moment.utc(startDate);
+      if (to.isBefore(from)) {
+        endDate = startDate;
+        to = from;
+      }
+      state = {
+        startDate,
+        endDate: to.endOf('day').toISOString(),
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
-      });
+        showOverlay: false,
+        popoverProps: {
+          absoluteRange: {
+            endDate,
+            startDate,
+          },
+        },
+      };
     }
+    const disabledStartDays = { after: new Date(endDate) };
+    this.setState({ endDate, disabledStartDays });
+    this.props.onChange(state);
   }
-
-  /// TODO: onDayClick react-datetime
 
   render() {
     const {
@@ -96,6 +151,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             showWeekNumbers={showWeekNumbers}
             toMonth={to}
             value={startDate}
+            onClick={this.handleClick}
           />
         </DateSection>
         <Hyphen />
@@ -121,10 +177,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
   }
 }
 
-AbsoluteDateRange.propTypes = {
-  ...propTypes,
-};
+AbsoluteDateRange.propTypes = propTypes;
 
-AbsoluteDateRange.defaultProps = {
-  ...defaultProps,
-};
+AbsoluteDateRange.defaultProps = defaultProps;
+

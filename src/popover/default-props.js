@@ -1,18 +1,18 @@
 import absoluteRangeDefaultProps from '../components/absolute/default-props';
 import relativeRangeDefaultProps from '../components/relative/default-props';
+import RangeTypes from './range-types';
 
 export default {
-  ...absoluteRangeDefaultProps,
-  ...relativeRangeDefaultProps,
+  absoluteRange: absoluteRangeDefaultProps,
   isRelativeEnabled: false,
   isRelativeSelected: false,
   onChange: () => {},
-  selectedRangeType: null,
+  relativeRange: relativeRangeDefaultProps,
+  selectedRangeType: Object.keys(RangeTypes)[0],
   translations: {
     absolute: 'Absolute',
-    relative: 'Relative',
-    anchorDate: 'Anchor date',
-    startDate: 'First day',
     endDate: 'Last day',
+    relative: 'Relative',
+    startDate: 'First day',
   },
 };

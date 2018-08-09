@@ -22,36 +22,46 @@ export default class DateRangePopover extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      rangeType: props.isRelativeSelected ? 'relative' : 'absolute',
+      selectedRangeType: props.selectedRangeType,
     };
   }
 
-  getRangeComponent = () => {
-    const rangeTypes = RangeTypes(this.props.translations);
-    const index = rangeTypes.findIndex(type => type.value === this.state.rangeType);
-    return rangeTypes[index].component;
+  handleChange = (e) => {
+    const selectedRangeType = e.target.value;
+    this.setState({ selectedRangeType });
+    this.props.onChange({
+      popoverProps: {
+        selectedRangeType,
+      },
+    });
   }
 
-  handleChange = (e) => {
-    this.setState({ rangeType: e.target.value });
+  renderRangeComponent = () => {
+    const selectedRange = RangeTypes[this.state.selectedRangeType];
+    return (
+      <selectedRange.component
+        {...this.props[selectedRange.propsKey]}
+        onChange={this.props.onChange}
+        translations={this.props.translations}
+      />
+    );
   }
 
   renderOptions = () => (
-    RangeTypes(this.props.translations).map(type => (
+    Object.keys(RangeTypes).map(type => (
       <Radio
-        key={type.id}
+        key={type}
         name="rangeType"
-        value={type.value}
+        value={type}
         onChange={this.handleChange}
-        checked={this.state.rangeType === type.value}
+        checked={this.state.selectedRangeType === type}
         inline
       >
-        {type.label}
+        {this.props.translations[type]}
       </Radio>))
   );
 
   render() {
-    const RangeComponent = this.getRangeComponent();
     return (
       <PopoverSection>
         {this.props.isRelativeEnabled &&
@@ -61,19 +71,12 @@ export default class DateRangePopover extends React.PureComponent {
           </FormGroup>
           <hr />
         </React.Fragment>}
-        <RangeComponent
-          {...this.props}
-          onChange={this.props.onChange}
-        />
+        {this.renderRangeComponent()}
       </PopoverSection>
     );
   }
 }
 
-DateRangePopover.propTypes = {
-  ...propTypes,
-};
+DateRangePopover.propTypes = propTypes;
 
-DateRangePopover.defaultProps = {
-  ...defaultProps,
-};
+DateRangePopover.defaultProps = defaultProps;

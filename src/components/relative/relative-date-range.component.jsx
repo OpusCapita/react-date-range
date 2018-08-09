@@ -44,10 +44,6 @@ export default class RelativeDateRange extends React.PureComponent {
   }
 }
 
-RelativeDateRange.propTypes = {
-  ...propTypes,
-};
+RelativeDateRange.propTypes = propTypes;
 
-RelativeDateRange.defaultProps = {
-  ...defaultProps,
-};
+RelativeDateRange.defaultProps = defaultProps;
