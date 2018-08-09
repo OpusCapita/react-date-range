@@ -47,7 +47,7 @@ export default {
       value: 7,
       order: 3,
       granularity: Granularities.year,
-      past: true, //vai onko? sama kuin today
+      past: true, // vai onko? sama kuin today
     },
     {
       label: 'End of the current year',
@@ -96,7 +96,7 @@ export default {
       label: 'Start of the current week',
       value: 15,
       granularity: Granularities.week,
-      past: true, //today
+      past: true, // today
     },
     {
       label: 'End of the current week',
