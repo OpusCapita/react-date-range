@@ -10,7 +10,6 @@ import popoverDefaultProps from './popover/default-props';
 
 const ReadOnlyInput = styled.div`
   .form-control[readonly] {
-    width: 200px;
     background-color: ${theme.contentBackgroundColor};
   }
 `;
@@ -18,14 +17,17 @@ const ReadOnlyInput = styled.div`
 export default class DateRange extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    className: PropTypes.string,
     popoverProps: PropTypes.shape(popoverPropTypes),
     inputProps: PropTypes.object,
     inputRef: PropTypes.func,
     onChange: PropTypes.func,
     value: PropTypes.string,
+    width: PropTypes.string,
   };
 
   static defaultProps = {
+    className: '',
     popoverProps: popoverDefaultProps,
     inputProps: {},
     inputRef() {
@@ -33,6 +35,7 @@ export default class DateRange extends React.PureComponent {
     onChange() {
     },
     value: '',
+    width: '200px',
   };
 
   constructor(props) {
@@ -40,13 +43,13 @@ export default class DateRange extends React.PureComponent {
     this.state = {
       showOverlay: false,
       value: this.props.value,
-      popoverProps: props.popoverProps,
+      popoverProps: null,
     };
   }
 
   handleChange = (event) => {
     this.setState({
-      ...event,
+      value: event.value,
       popoverProps: {
         ...this.state.popoverProps,
         ...event.popoverProps,
@@ -57,17 +60,33 @@ export default class DateRange extends React.PureComponent {
 
   handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
 
-  handleHide = () => this.setState({ showOverlay: false });
+  handleHide = (e) => {
+    if (e.target && e.target.className && e.target.className.includes('DayPicker')) {
+      e.preventDefault();
+    } else {
+      this.setState({ showOverlay: false });
+    }
+  }
 
   render() {
     const {
+      className,
+      id,
       inputRef,
       inputProps,
+      width,
     } = this.props;
 
-console.log(this.state.popoverProps);
+    const popoverProps = {
+      ...this.props.popoverProps,
+      ...this.state.popoverProps,
+    };
+
+    const DateRangeSection = styled.div`
+      width: ${width};
+    `;
     return (
-      <React.Fragment>
+      <DateRangeSection id={id} className={className}>
         <ReadOnlyInput>
           <FormControl
             type="text"
@@ -87,13 +106,14 @@ console.log(this.state.popoverProps);
           onHide={this.handleHide}
           placement="bottom"
           container={this}
+          rootClose
         >
           <DateRangePopover
-            {...this.state.popoverProps}
+            {...popoverProps}
             onChange={this.handleChange}
           />
         </Overlay>}
-      </React.Fragment>
+      </DateRangeSection>
     );
   }
 }

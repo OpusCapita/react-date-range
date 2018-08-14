@@ -9,6 +9,7 @@ import propTypes from './prop-types';
 import defaultProps from './default-props';
 
 const PopoverSection = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
   border: 0.1rem solid #ccc;
@@ -64,7 +65,7 @@ export default class DateRangePopover extends React.PureComponent {
       </Radio>))
   );
 
-  render() {
+  render = () => {
     return (
       <PopoverSection>
         {this.props.isRelativeEnabled &&

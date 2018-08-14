@@ -1,4 +1,5 @@
 import { configure } from '@storybook/react';
+import { setOptions } from '@storybook/addon-options'
 
 function loadStories() {
   require('../stories/index.jsx');
@@ -6,3 +7,8 @@ function loadStories() {
 }
 
 configure(loadStories, module);
+
+setOptions({
+  name: 'OC React Date Range Storybook',
+  addonPanelInRight: true,
+});

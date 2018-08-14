@@ -105,7 +105,6 @@ export default class AbsoluteDateRange extends React.PureComponent {
         startDate,
         endDate: to.endOf('day').toISOString(),
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
-        showOverlay: false,
         popoverProps: {
           absoluteRange: {
             endDate,
@@ -151,7 +150,6 @@ export default class AbsoluteDateRange extends React.PureComponent {
             showWeekNumbers={showWeekNumbers}
             toMonth={to}
             value={startDate}
-            onClick={this.handleClick}
           />
         </DateSection>
         <Hyphen />
