@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FormGroup, Radio } from 'react-bootstrap';
 
+import { theme } from '@opuscapita/oc-cm-common-layouts';
+
 import RangeTypes from './range-types';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
@@ -9,8 +11,9 @@ import defaultProps from './default-props';
 const PopoverSection = styled.div`
   display: flex;
   flex-direction: column;
-  border: 0.1rem solid #CCC;
+  border: 0.1rem solid #ccc;
   padding: 1rem;
+  background-color: ${theme.contentBackgroundColor}
   hr {
     color: #CCC;
     size: 0.1rem;

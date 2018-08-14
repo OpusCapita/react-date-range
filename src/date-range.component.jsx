@@ -64,6 +64,8 @@ export default class DateRange extends React.PureComponent {
       inputRef,
       inputProps,
     } = this.props;
+
+console.log(this.state.popoverProps);
     return (
       <React.Fragment>
         <ReadOnlyInput>

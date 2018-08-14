@@ -24,20 +24,111 @@ export default class RelativeDateRange extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      endDate: props.endDate,
+      endDateOptions: props.options,
+      startDate: props.startDate,
+      startDateOptions: props.options,
     };
   }
 
+  handleStartDateChange = (startDate) => {
+    let { endDateOptions } = this.state;
+    const { endDate } = this.state;
+    if (!startDate.past) {
+      endDateOptions = endDateOptions.filter(date => !date.past);
+    }
+    endDateOptions = endDateOptions.filter(date =>
+      date.granularity !== startDate.granularity ||
+      startDate.order <= date.order);
+    this.setState({ endDateOptions, startDate });
+    let state = {
+      startDate: startDate.value,
+      popoverProps: {
+        relativeRange: {
+          startDate,
+        },
+      },
+    };
+    if (endDate) {
+      state = {
+        ...state,
+        value: `${startDate.label} - ${endDate.label}`,
+        endDate,
+        popoverProps: {
+          relativeRange: {
+            ...state.popoverProps.relativeRange,
+            endDate,
+          },
+        },
+      };
+    }
+    this.props.onChange(state);
+  }
+
+  handleEndDateChange = (endDate) => {
+    let { startDateOptions } = this.state;
+    const { startDate } = this.state;
+    if (endDate.past) {
+      startDateOptions = startDateOptions.filter(date => date.past);
+    }
+    startDateOptions.filter(date =>
+      date.granularity !== endDate.granularity ||
+      date.order <= endDate.order);
+    this.setState({ startDateOptions, endDate });
+    let state = {
+      endDate: endDate.value,
+      popoverProps: {
+        relativeRange: {
+          endDate,
+        },
+      },
+    };
+    if (startDate) {
+      state = {
+        ...state,
+        value: `${startDate.label} - ${endDate.label}`,
+        startDate,
+        popoverProps: {
+          relativeRange: {
+            ...state.popoverProps.relativeRange,
+            startDate,
+          },
+        },
+      };
+    }
+    this.props.onChange(state);
+  }
+
   render() {
+    const {
+      startDateOptions,
+      endDateOptions,
+      startDate,
+      endDate,
+    } = this.state;
+
     return (
       <RelativeRangeSection>
         <DateSection>
           <label htmlFor="startDate">{this.props.translations.startDate}</label>
-          <FloatingSelect {...this.props} inputProps={{ name: 'startDate' }} />
+          <FloatingSelect
+            {...this.props}
+            inputProps={{ name: 'startDate' }}
+            onChange={this.handleStartDateChange}
+            options={startDateOptions}
+            value={startDate}
+          />
         </DateSection>
         <Hyphen />
         <DateSection>
           <label htmlFor="endDate">{this.props.translations.endDate}</label>
-          <FloatingSelect {...this.props} inputProps={{ name: 'endDate' }} />
+          <FloatingSelect
+            {...this.props}
+            inputProps={{ name: 'endDate' }}
+            onChange={this.handleEndDateChange}
+            options={endDateOptions}
+            value={endDate}
+          />
         </DateSection>
       </RelativeRangeSection>
     );
