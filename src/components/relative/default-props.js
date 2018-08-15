@@ -2,7 +2,7 @@ import Constants from './constants';
 import values from './values';
 
 export default {
-  value: null,
+  endDate: undefined,
   onChange: () => {},
   options: [
     {
@@ -142,4 +142,5 @@ export default {
       granularity: Constants.year,
     },
   ],
+  startDate: undefined,
 };
