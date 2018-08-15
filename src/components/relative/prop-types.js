@@ -1,10 +1,10 @@
 import { PropTypes } from 'prop-types';
-import granularities from './granularities';
+import constants from './constants';
 
 const relativeDate = PropTypes.shape({
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   value: PropTypes.string.isRequired,
-  granularity: PropTypes.oneOf(Object.keys(granularities)).isRequired,
+  granularity: PropTypes.oneOf(Object.keys(constants)).isRequired,
   past: PropTypes.bool,
 });
 

@@ -8,6 +8,7 @@ import DateSection from '../date-section.components';
 import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
+import Constants from './constants';
 
 const RelativeRangeSection = styled.div`
   display: flex;
@@ -31,7 +32,9 @@ export default class RelativeDateRange extends React.PureComponent {
     };
   }
 
-  handleStartDateChange = (startDate) => {
+  handleStartDateChange = (selectedStartDate) => {
+    const startDate = selectedStartDate.value.moment ? selectedStartDate :
+      Object.assign({}, selectedStartDate, { value: { ...selectedStartDate.value, moment: Constants.START } });
     let { endDateOptions } = this.state;
     const { endDate } = this.state;
     if (!startDate.past) {
@@ -53,7 +56,7 @@ export default class RelativeDateRange extends React.PureComponent {
       state = {
         ...state,
         value: `${startDate.label} - ${endDate.label}`,
-        endDate,
+        endDate: endDate.value,
         popoverProps: {
           relativeRange: {
             ...state.popoverProps.relativeRange,
@@ -65,7 +68,9 @@ export default class RelativeDateRange extends React.PureComponent {
     this.props.onChange(state);
   }
 
-  handleEndDateChange = (endDate) => {
+  handleEndDateChange = (selectedEndDate) => {
+    const endDate = selectedEndDate.value.moment ? selectedEndDate :
+      Object.assign({}, selectedEndDate, { value: { ...selectedEndDate.value, moment: Constants.END } });
     let { startDateOptions } = this.state;
     const { startDate } = this.state;
     if (endDate.past) {
@@ -77,23 +82,23 @@ export default class RelativeDateRange extends React.PureComponent {
     this.setState({ startDateOptions, endDate });
     let state = {
       endDate: endDate.value,
-      // popoverProps: {
-      //   relativeRange: {
-      //     endDate,
-      //   },
-      // },
+      popoverProps: {
+        relativeRange: {
+          endDate,
+        },
+      },
     };
     if (startDate) {
       state = {
         ...state,
         value: `${startDate.label} - ${endDate.label}`,
-        startDate,
-        // popoverProps: {
-        //   relativeRange: {
-        //     ...state.popoverProps.relativeRange,
-        //     startDate,
-        //   },
-        // },
+        startDate: startDate.value,
+        popoverProps: {
+          relativeRange: {
+            ...state.popoverProps.relativeRange,
+            startDate,
+          },
+        },
       };
     }
     this.props.onChange(state);

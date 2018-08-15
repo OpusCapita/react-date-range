@@ -143,7 +143,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             disabledDays={disabledStartDays}
             locale={region}
             modifiers={modifiers}
-            numberOfMonths={2}
+            numberOfMonths={numberOfMonths}
             onChange={this.handleStartDateChange}
             onDayClick={() => this.to.input.focus()}
             selectedDays={[from, { from, to }]}

@@ -43,19 +43,37 @@ export default class DateRange extends React.PureComponent {
     this.state = {
       showOverlay: false,
       value: this.props.value,
-      popoverProps: null,
+      popoverProps: undefined,
     };
   }
 
+  mergePopoverProps = (target = {}, source = {}) => (
+    Object.assign(
+      {},
+      target,
+      source,
+      {
+        absoluteRange: {
+          ...target.absoluteRange || {},
+          ...source.absoluteRange || {},
+        },
+        relativeRange: {
+          ...target.relativeRange || {},
+          ...source.relativeRange || {},
+        },
+      },
+    ));
+
   handleChange = (event) => {
     this.setState({
+      popoverProps: this.mergePopoverProps(this.state.popoverProps, event.popoverProps),
       value: event.value,
-      popoverProps: {
-        ...this.state.popoverProps,
-        ...event.popoverProps,
-      },
     });
-    this.props.onChange(event);
+
+    const { startDate, endDate } = event;
+    if (startDate || endDate) {
+      this.props.onChange({ startDate, endDate });
+    }
   };
 
   handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
@@ -77,14 +95,10 @@ export default class DateRange extends React.PureComponent {
       width,
     } = this.props;
 
-    const popoverProps = {
-      ...this.props.popoverProps,
-      ...this.state.popoverProps,
-    };
-
     const DateRangeSection = styled.div`
       width: ${width};
     `;
+
     return (
       <DateRangeSection id={id} className={className}>
         <ReadOnlyInput>
@@ -109,7 +123,7 @@ export default class DateRange extends React.PureComponent {
           rootClose
         >
           <DateRangePopover
-            {...popoverProps}
+            {...this.mergePopoverProps(this.props.popoverProps, this.state.popoverProps)}
             onChange={this.handleChange}
           />
         </Overlay>}

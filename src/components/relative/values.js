@@ -1,24 +1,106 @@
+import Constants from './constants';
+
 export default {
-  today: 'TODAY',
-  tomorrow: 'TOMORROW',
-  yesterday: 'YESTERDAY',
-  spot: 'SPOT-T+2',
-  startOfPreviousYear: 'START_OF_PREVIOUS_YEAR',
-  endOfPreviousYear: 'END_OF_PREVIOUS-YEAR',
-  startOfCurrentYear: 'START_OF_CURRENT_YEAR',
-  endOfCurrentYear: 'END_OF_CURRENT_YEAR',
-  startOfPreviousMonth: 'START_OF_PREVIOUS_MONTH',
-  endOfPreviousMonth: 'END_OF_PREVIOUS_MONTH',
-  startOfCurrentMonth: 'START_OF_CURRENT_MONTH',
-  endOfCurrentMonth: 'END_OF_CURRENT_MONTH',
-  startOfPreviousWeek: 'START_OF_PREVIOUS_WEEK',
-  endOfPreviousWeek: 'END_OF_PREVIOUS_WEEK',
-  startOfCurrentWeek: 'START_OF_CURRENT_WEEK',
-  endOfCurrentWeek: 'END_OF_CURRENT_WEEK',
-  startOfNextWeek: 'START_OF_NEXT_WEEK',
-  endOfNextWeek: 'END_OF_NEXT_WEEK',
-  startOfNextMonth: 'START_OF_NEXT_MONTH',
-  endOfNextMonth: 'END_OF_NEXT_MONTH',
-  startOfNextYear: 'START_OF_NEXT_YEAR',
-  endOfNextYear: 'END_OF_NEXT_YEAR',
+  yesterday: {
+    unit: Constants.DAY,
+    timing: Constants.PREVIOUS,
+  },
+  today: {
+    unit: Constants.DAY,
+    timing: Constants.CURRENT,
+  },
+  tomorrow: {
+    unit: Constants.DAY,
+    timing: Constants.NEXT,
+  },
+  startOfPreviousWeek: {
+    unit: Constants.WEEK,
+    timing: Constants.PREVIOUS,
+    moment: Constants.START,
+  },
+  endOfPreviousWeek: {
+    unit: Constants.WEEK,
+    timing: Constants.PREVIOUS,
+    moment: Constants.END,
+  },
+  startOfCurrentWeek: {
+    unit: Constants.WEEK,
+    timing: Constants.CURRENT,
+    moment: Constants.START,
+  },
+  endOfCurrentWeek: {
+    unit: Constants.WEEK,
+    timing: Constants.CURRENT,
+    moment: Constants.END,
+  },
+  startOfNextWeek: {
+    unit: Constants.WEEK,
+    timing: Constants.NEXT,
+    moment: Constants.START,
+  },
+  endOfNextWeek: {
+    unit: Constants.WEEK,
+    timing: Constants.NEXT,
+    moment: Constants.END,
+  },
+  startOfPreviousMonth: {
+    unit: Constants.MONTH,
+    timing: Constants.PREVIOUS,
+    moment: Constants.START,
+  },
+  endOfPreviousMonth: {
+    unit: Constants.MONTH,
+    timing: Constants.PREVIOUS,
+    moment: Constants.END,
+  },
+  startOfCurrentMonth: {
+    unit: Constants.MONTH,
+    timing: Constants.CURRENT,
+    moment: Constants.START,
+  },
+  endOfCurrentMonth: {
+    unit: Constants.MONTH,
+    timing: Constants.CURRENT,
+    moment: Constants.END,
+  },
+  startOfNextMonth: {
+    unit: Constants.MONTH,
+    timing: Constants.NEXT,
+    moment: Constants.START,
+  },
+  endOfNextMonth: {
+    unit: Constants.MONTH,
+    timing: Constants.NEXT,
+    moment: Constants.END,
+  },
+  startOfPreviousYear: {
+    unit: Constants.YEAR,
+    timing: Constants.PREVIOUS,
+    moment: Constants.START,
+  },
+  endOfPreviousYear: {
+    unit: Constants.YEAR,
+    timing: Constants.PREVIOUS,
+    moment: Constants.END,
+  },
+  startOfCurrentYear: {
+    unit: Constants.YEAR,
+    timing: Constants.CURRENT,
+    moment: Constants.START,
+  },
+  endOfCurrentYear: {
+    unit: Constants.YEAR,
+    timing: Constants.CURRENT,
+    moment: Constants.END,
+  },
+  startOfNextYear: {
+    unit: Constants.YEAR,
+    timing: Constants.NEXT,
+    moment: Constants.START,
+  },
+  endOfNextYear: {
+    unit: Constants.YEAR,
+    timing: Constants.NEXT,
+    moment: Constants.END,
+  },
 };
