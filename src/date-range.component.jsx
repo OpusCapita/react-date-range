@@ -18,23 +18,19 @@ export default class DateRange extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
-    popoverProps: PropTypes.shape(popoverPropTypes),
     inputProps: PropTypes.object,
     inputRef: PropTypes.func,
     onChange: PropTypes.func,
-    value: PropTypes.string,
+    popoverProps: PropTypes.shape(popoverPropTypes),
     width: PropTypes.string,
   };
 
   static defaultProps = {
     className: '',
-    popoverProps: popoverDefaultProps,
     inputProps: {},
-    inputRef() {
-    },
-    onChange() {
-    },
-    value: '',
+    inputRef: () => {},
+    onChange: () => {},
+    popoverProps: popoverDefaultProps,
     width: '200px',
   };
 
@@ -42,7 +38,7 @@ export default class DateRange extends React.PureComponent {
     super(props);
     this.state = {
       showOverlay: false,
-      value: this.props.value,
+      value: undefined,
       popoverProps: undefined,
     };
   }

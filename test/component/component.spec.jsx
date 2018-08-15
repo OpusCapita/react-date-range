@@ -3,11 +3,11 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 
-import Example from '../../src/index';
+import DateRange from '../../src/index';
 
-describe('Example component', () => {
+describe('DateRange component', () => {
   it('is rendered', () => {
-    const wrapper = mount(<Example />);
+    const wrapper = mount(<DateRange id="test" />);
     expect(wrapper).to.exist;
   });
 });

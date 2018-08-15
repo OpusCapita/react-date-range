@@ -26,23 +26,41 @@ export default class RelativeDateRange extends React.PureComponent {
     super(props);
     this.state = {
       endDate: props.endDate,
-      endDateOptions: props.options,
+      endDateOptions: props.startDate ?
+        this.filterEndDateOptions(props.startDate, props.options) :
+        props.options,
       startDate: props.startDate,
-      startDateOptions: props.options,
+      startDateOptions: props.endDate ?
+        this.filterStartDateOptions(props.endDate, props.options) :
+        props.options,
     };
+  }
+
+  filterEndDateOptions = (startDate, endDateOptions) => {
+    const options = startDate.past ? endDateOptions :
+      endDateOptions.filter(date => !date.past);
+    return options.filter(date =>
+      date.granularity !== startDate.granularity ||
+      startDate.order <= date.order);
+  }
+
+  filterStartDateOptions = (endDate, startDateOptions) => {
+    const options = endDate.past ?
+      startDateOptions.filter(date => date.past) :
+      startDateOptions;
+    return options.filter(date =>
+      date.granularity !== endDate.granularity ||
+      date.order <= endDate.order);
   }
 
   handleStartDateChange = (selectedStartDate) => {
     const startDate = selectedStartDate.value.moment ? selectedStartDate :
-      Object.assign({}, selectedStartDate, { value: { ...selectedStartDate.value, moment: Constants.START } });
-    let { endDateOptions } = this.state;
+      Object.assign(
+        {}, selectedStartDate,
+        { value: { ...selectedStartDate.value, moment: Constants.START } },
+      );
+    const endDateOptions = this.filterEndDateOptions(startDate, this.state.endDateOptions);
     const { endDate } = this.state;
-    if (!startDate.past) {
-      endDateOptions = endDateOptions.filter(date => !date.past);
-    }
-    endDateOptions = endDateOptions.filter(date =>
-      date.granularity !== startDate.granularity ||
-      startDate.order <= date.order);
     this.setState({ endDateOptions, startDate });
     let state = {
       startDate: startDate.value,
@@ -70,15 +88,12 @@ export default class RelativeDateRange extends React.PureComponent {
 
   handleEndDateChange = (selectedEndDate) => {
     const endDate = selectedEndDate.value.moment ? selectedEndDate :
-      Object.assign({}, selectedEndDate, { value: { ...selectedEndDate.value, moment: Constants.END } });
-    let { startDateOptions } = this.state;
+      Object.assign(
+        {}, selectedEndDate,
+        { value: { ...selectedEndDate.value, moment: Constants.END } },
+      );
+    const startDateOptions = this.filterStartDateOptions(endDate, this.state.startDateOptions);
     const { startDate } = this.state;
-    if (endDate.past) {
-      startDateOptions = startDateOptions.filter(date => date.past);
-    }
-    startDateOptions.filter(date =>
-      date.granularity !== endDate.granularity ||
-      date.order <= endDate.order);
     this.setState({ startDateOptions, endDate });
     let state = {
       endDate: endDate.value,

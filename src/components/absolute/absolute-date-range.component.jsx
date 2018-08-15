@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-return-assign */
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';

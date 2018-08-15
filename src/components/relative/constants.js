@@ -1,14 +1,14 @@
 export default {
-  //unit
+  // unit
   DAY: 'DAY',
   WEEK: 'WEEK',
   MONTH: 'MONTH',
   YEAR: 'YEAR',
-  //timing
+  // timing
   PREVIOUS: 'PREVIOUS',
   CURRENT: 'CURRENT',
   NEXT: 'NEXT',
-  //moment
+  // moment
   START: 'START',
   END: 'END',
 };

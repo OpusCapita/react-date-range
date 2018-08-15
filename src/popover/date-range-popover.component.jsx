@@ -65,20 +65,18 @@ export default class DateRangePopover extends React.PureComponent {
       </Radio>))
   );
 
-  render = () => {
-    return (
-      <PopoverSection>
-        {this.props.isRelativeEnabled &&
-        <React.Fragment>
-          <FormGroup>
-            {this.renderOptions()}
-          </FormGroup>
-          <hr />
-        </React.Fragment>}
-        {this.renderRangeComponent()}
-      </PopoverSection>
-    );
-  }
+  render = () => (
+    <PopoverSection>
+      {this.props.isRelativeEnabled &&
+      <React.Fragment>
+        <FormGroup>
+          {this.renderOptions()}
+        </FormGroup>
+        <hr />
+      </React.Fragment>}
+      {this.renderRangeComponent()}
+    </PopoverSection>
+  );
 }
 
 DateRangePopover.propTypes = propTypes;

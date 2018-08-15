@@ -77,6 +77,15 @@ Also you need to configure sass loader, since all the styles are in sass format.
 
 - __relativeDateShape:__ 
 
+| Prop name   | Type              | Default  | Description                                        |
+| ----------- | ----------------- | -------- | -------------------------------------------------- |
+| label       | string or element | required | Label for relative date                            |
+| value       | realtiveDate      | required |                                                    |
+| granularity | enum              | required | 'DAY', 'WEEK', 'MONTH' or 'YEAR'                   |
+| past        | boolean           | false    | If true, past. Otherwise current or in the future. |
+
+- __relativeDate:__ 
+
 | Prop name | Type | Default  | Description                      |
 | --------- | ---- | -------- | -------------------------------- |
 | unit      | enum | required | 'DAY', 'WEEK', 'MONTH' or 'YEAR' |

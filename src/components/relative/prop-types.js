@@ -1,16 +1,24 @@
 import { PropTypes } from 'prop-types';
-import constants from './constants';
+import Constants from './constants';
+
+const granularities = [Constants.DAY, Constants.WEEK, Constants.MONTH, Constants.YEAR];
 
 const relativeDate = PropTypes.shape({
+  unit: PropTypes.oneOf(granularities),
+  timing: PropTypes.oneOf([Constants.PREVIOUS, Constants.CURRENT, Constants.NEXT]),
+  moment: PropTypes.oneOf([Constants.END, Constants.START]),
+});
+
+const relativeDateShape = PropTypes.shape({
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  value: PropTypes.string.isRequired,
-  granularity: PropTypes.oneOf(Object.keys(constants)).isRequired,
+  value: relativeDate.isRequired,
+  granularity: PropTypes.oneOf(granularities).isRequired,
   past: PropTypes.bool,
 });
 
 export default {
-  endDate: relativeDate,
+  endDate: relativeDateShape,
   onChange: PropTypes.func,
-  options: PropTypes.arrayOf(relativeDate),
-  startDate: relativeDate,
+  options: PropTypes.arrayOf(relativeDateShape),
+  startDate: relativeDateShape,
 };
