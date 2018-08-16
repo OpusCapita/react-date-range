@@ -133,6 +133,7 @@ export default class RelativeDateRange extends React.PureComponent {
           <label htmlFor="startDate">{this.props.translations.startDate}</label>
           <FloatingSelect
             {...this.props}
+            clearable={false}
             inputProps={{ name: 'startDate' }}
             onChange={this.handleStartDateChange}
             options={startDateOptions}
@@ -144,6 +145,7 @@ export default class RelativeDateRange extends React.PureComponent {
           <label htmlFor="endDate">{this.props.translations.endDate}</label>
           <FloatingSelect
             {...this.props}
+            clearable={false}
             inputProps={{ name: 'endDate' }}
             onChange={this.handleEndDateChange}
             options={endDateOptions}
