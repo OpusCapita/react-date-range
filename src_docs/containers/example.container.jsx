@@ -1,6 +1,6 @@
 import React from 'react';
 import { Panel, Grid, Row, Col } from 'react-bootstrap';
-import ExampleComponent from '../components/example.component';
+import DateRangeView from '../components/date-range.component';
 import GithubLogo from '../images/logo-github.svg';
 
 export default () => (
@@ -13,7 +13,7 @@ export default () => (
           </Col>
           <Col xs={2}>
             <a
-              href="https://github.com/OpusCapita/react-component-template"
+              href="https://github.com/OpusCapita/react-date-range"
               style={{ marginTop: '20px', display: 'block' }}
             >
               <GithubLogo />
@@ -21,7 +21,7 @@ export default () => (
           </Col>
         </Row>
         <Panel>
-          <ExampleComponent />
+          <DateRangeView />
         </Panel>
       </Col>
     </Row>
