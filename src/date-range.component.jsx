@@ -74,12 +74,8 @@ export default class DateRange extends React.PureComponent {
 
   handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
 
-  handleHide = (e) => {
-    if (e.target && e.target.className && e.target.className.includes('DayPicker')) {
-      e.preventDefault();
-    } else {
-      this.setState({ showOverlay: false });
-    }
+  handleHide = () => {
+    this.setState({ showOverlay: false });
   }
 
   render() {

@@ -43,7 +43,7 @@ export default {
       value: values.startOfCurrentWeek,
       order: 3,
       granularity: Constants.WEEK,
-      past: true, // today
+      past: true,
     },
     {
       label: 'End of the current week',
@@ -82,7 +82,7 @@ export default {
       value: values.startOfCurrentMonth,
       order: 3,
       granularity: Constants.MONTH,
-      past: true, // voi olla myös today
+      past: true,
     },
     {
       label: 'End of the current month',
@@ -121,7 +121,7 @@ export default {
       value: values.startOfCurrentYear,
       order: 3,
       granularity: Constants.YEAR,
-      past: true, // vai onko? sama kuin today
+      past: true,
     },
     {
       label: 'End of the current year',
