@@ -27,11 +27,18 @@ export default class AbsoluteDateRange extends React.PureComponent {
   constructor(props) {
     super(props);
     const { startDate, endDate } = this.props;
-    const disabledStartDays = moment(endDate).isValid() ? { after: new Date(endDate) } : null;
-    const disabledEndDays = moment(startDate).isValid() ? { before: new Date(startDate) } : null;
+    const utcStartDate = moment(startDate).isValid() ? moment.utc(startDate).startOf('day') : startDate;
+    let utcEndDate = moment(endDate).isValid() ? moment.utc(endDate).startOf('day') : endDate;
+    utcEndDate = moment(utcStartDate).isValid() && moment(utcEndDate).isValid() &&
+      moment(utcEndDate).isBefore(moment(utcStartDate)) ?
+      utcStartDate :
+      utcEndDate;
+    const disabledStartDays = moment(utcEndDate).isValid() ? { after: new Date(utcEndDate) } : null;
+    const disabledEndDays = moment(utcStartDate).isValid() ?
+      { before: new Date(utcStartDate) } : null;
     this.state = {
-      startDate,
-      endDate,
+      startDate: utcStartDate,
+      endDate: utcEndDate,
       disabledStartDays,
       disabledEndDays,
     };
@@ -147,6 +154,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             numberOfMonths={numberOfMonths}
             onChange={this.handleStartDateChange}
             onDayClick={() => this.to.input.focus()}
+            onCaptionClick={e => e.preventDefault()}
             selectedDays={[from, { from, to }]}
             showWeekNumbers={showWeekNumbers}
             toMonth={to}

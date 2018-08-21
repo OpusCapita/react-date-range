@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import moment from 'moment';
 import { FormControl, Overlay } from 'react-bootstrap';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
 import DateRangePopover from './popover/date-range-popover.component';
@@ -36,11 +37,38 @@ export default class DateRange extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    const value = this.initValue(props);
     this.state = {
       showOverlay: false,
-      value: undefined,
+      value,
       popoverProps: undefined,
     };
+  }
+
+  initValue = props => (
+    this.initAbsoluteRange(props) || this.initRelativeRange(props)
+  );
+
+  initAbsoluteRange = (props) => {
+    const { absoluteRange } = props.popoverProps || {};
+    const { endDate, startDate, dateFormat } = absoluteRange || {};
+    if (startDate && endDate) {
+      const from = moment.utc(startDate);
+      const to = moment.utc(endDate);
+      return (from.isValid() && to.isValid()) ?
+        `${from.format(dateFormat)} - ${to.format(dateFormat)}` : '';
+    }
+    return null;
+  }
+
+  initRelativeRange = (props) => {
+    const {
+      isRelativeEnabled,
+      relativeRange,
+    } = props.popoverProps || {};
+    const { endDate, startDate } = relativeRange || {};
+    return (isRelativeEnabled && endDate && startDate) ?
+      `${startDate.label} - ${endDate.label}` : '';
   }
 
   mergePopoverProps = (target = {}, source = {}) => (
@@ -74,9 +102,19 @@ export default class DateRange extends React.PureComponent {
 
   handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
 
-  handleHide = () => {
-    this.setState({ showOverlay: false });
-  }
+  /**
+   * This is dirty solution and c/should be fixed.
+   * Root cause: day-picker is rendered to root element, not inside popover eleemnt.
+   * Therefore click coming form day-picker are considers as outside click of popover
+   * and popover would be close without event preventDefault.
+   * One solution is passing at least tree callbacks for react-datetime: onWeekClick,
+   * onCaptionClick and custom onClick for custom caption of react-datetime.
+   */
+  handleHide = e => (
+    e.target && e.target.parentNode && e.target.parentNode.className && e.target.parentNode.className.includes('DayPicker') ?
+      e.preventDefault() :
+      this.setState({ showOverlay: false })
+  );
 
   render() {
     const {
