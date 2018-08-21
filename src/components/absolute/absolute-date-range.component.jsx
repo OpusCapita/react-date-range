@@ -154,7 +154,6 @@ export default class AbsoluteDateRange extends React.PureComponent {
             numberOfMonths={numberOfMonths}
             onChange={this.handleStartDateChange}
             onDayClick={() => this.to.input.focus()}
-            onCaptionClick={e => e.preventDefault()}
             selectedDays={[from, { from, to }]}
             showWeekNumbers={showWeekNumbers}
             toMonth={to}
