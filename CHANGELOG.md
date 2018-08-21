@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 1.0.1
 * Fixed: react-day-picker's click events don't close popover
 * Fixed: input field's default value rendering
 
