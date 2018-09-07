@@ -110,7 +110,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
         to = from;
       }
       state = {
-        startDate,
+        startDate: from.startOf('day').toISOString(),
         endDate: to.endOf('day').toISOString(),
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
         popoverProps: {
