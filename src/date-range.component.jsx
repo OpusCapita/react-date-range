@@ -45,6 +45,15 @@ export default class DateRange extends React.PureComponent {
     };
   }
 
+  componentDidUpdate = () => {
+    if (!this.state.value) {
+      const value = this.initValue(this.props);
+      if (value) {
+        this.setState({ value });
+      }
+    }
+  }
+
   initValue = props => (
     this.initAbsoluteRange(props) || this.initRelativeRange(props)
   );
