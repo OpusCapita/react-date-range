@@ -110,7 +110,7 @@
   "dependencies": {
     "@opuscapita/oc-cm-common-layouts": "0.2.0",
     "@opuscapita/oc-cm-common-styles": "2.1.0",
-    "@opuscapita/react-datetime": "3.2.1",
+    "@opuscapita/react-datetime": "3.2.4",
     "@opuscapita/react-floating-select": "2.0.1"
   },
   "repository": {

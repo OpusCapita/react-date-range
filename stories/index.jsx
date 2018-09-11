@@ -29,7 +29,7 @@ storiesOf('Date range', (module))
     const relativeEnabled = boolean('Relative range enabled', false);
     const selectedRangeType = select('Range type', ['absolute', 'relative'], 'absolute');
     const dateFormat = text('Date format', 'DD.MM.YYYY');
-    const numberOfMonths = number('Number of months', 2);
+    const numberOfMonths = number('Number of months', 1);
     const region = text('Region', 'en_GB');
     const showWeekNumbers = boolean('Show week numbers', true);
     const absoluteStartDate = text('Absolute start date', '2013-04-22');
@@ -68,7 +68,7 @@ storiesOf('Date range', (module))
     const relativeEnabled = boolean('Relative range enabled', true);
     const selectedRangeType = select('Range type', ['absolute', 'relative'], 'relative');
     const dateFormat = text('Date format', 'DD.MM.YYYY');
-    const numberOfMonths = number('Number of months', 2);
+    const numberOfMonths = number('Number of months', 1);
     const region = text('Region', 'en_GB');
     const showWeekNumbers = boolean('Show week numbers', true);
     const relativeStartDate = object(
