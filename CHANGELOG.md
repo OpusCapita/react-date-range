@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed changing month & year does not close overlay
 
 ## 1.0.2
 * Fixed startDate output format

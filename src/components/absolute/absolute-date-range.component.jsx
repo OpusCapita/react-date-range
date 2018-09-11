@@ -53,7 +53,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
       this.to.focus();
     }
   }
-  
+
   handleStartDayClick = () => {
     this.from = undefined;
   }
@@ -68,7 +68,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     const { endDate } = this.state;
     const absoluteRange = {
       startDate,
-      showOverlay: Overlays.start,    
+      showOverlay: Overlays.start,
     };
     let state;
     if (!endDate) {
