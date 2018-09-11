@@ -6,6 +6,7 @@ export default {
   numberOfMonths: PropTypes.number,
   onChange: PropTypes.func,
   region: PropTypes.string,
+  showOverlay: PropTypes.number,
   showWeekNumbers: PropTypes.bool,
   startDate: PropTypes.string,
 };

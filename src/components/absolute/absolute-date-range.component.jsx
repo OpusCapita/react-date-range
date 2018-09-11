@@ -10,6 +10,7 @@ import DateSection from '../date-section.components';
 import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
+import Overlays from './overlays';
 
 const AbsoluteRangeSection = styled.div`
   display: flex;
@@ -44,6 +45,19 @@ export default class AbsoluteDateRange extends React.PureComponent {
     };
   }
 
+  componentDidMount = () => {
+    const { showOverlay } = this.props;
+    if (this.from && showOverlay === 1) {
+      this.from.focus();
+    } else if (this.to && showOverlay === 2) {
+      this.to.focus();
+    }
+  }
+
+  handleStartDayClick = () => {
+    this.from = undefined;
+  }
+
   handleStartDateChange = (date) => {
     let startDate = date;
     let from = moment.utc(startDate);
@@ -52,14 +66,16 @@ export default class AbsoluteDateRange extends React.PureComponent {
     }
 
     const { endDate } = this.state;
+    const absoluteRange = {
+      startDate,
+      showOverlay: Overlays.start,
+    };
     let state;
     if (!endDate) {
       state = {
         startDate,
         popoverProps: {
-          absoluteRange: {
-            startDate,
-          },
+          absoluteRange,
         },
       };
     } else {
@@ -74,6 +90,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
         popoverProps: {
           absoluteRange: {
+            ...absoluteRange,
             startDate,
             endDate,
           },
@@ -85,6 +102,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
     this.props.onChange(state);
   }
 
+  handleEndDayClick = () => {
+    this.to = undefined;
+  }
+
   handleEndDateChange = (date) => {
     let endDate = date;
     let to = moment.utc(endDate);
@@ -93,14 +114,17 @@ export default class AbsoluteDateRange extends React.PureComponent {
     }
 
     const { startDate } = this.state;
+    const absoluteRange = {
+      endDate,
+      showOverlay: Overlays.end,
+    };
+
     let state;
     if (!startDate) {
       state = {
         endDate,
         popoverProps: {
-          absoluteRange: {
-            endDate,
-          },
+          absoluteRange,
         },
       };
     } else {
@@ -115,6 +139,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
         popoverProps: {
           absoluteRange: {
+            ...absoluteRange,
             endDate,
             startDate,
           },
@@ -153,6 +178,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             modifiers={modifiers}
             numberOfMonths={numberOfMonths}
             onChange={this.handleStartDateChange}
+            inputRef={el => (this.from = el)}
             selectedDays={[from, { from, to }]}
             showWeekNumbers={showWeekNumbers}
             toMonth={to}
@@ -171,7 +197,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             month={from}
             numberOfMonths={numberOfMonths}
             onChange={this.handleEndDateChange}
-            ref={el => (this.to = el)}
+            inputRef={el => (this.to = el)}
             selectedDays={[from, { from, to }]}
             showWeekNumbers={showWeekNumbers}
             value={endDate}
@@ -185,4 +211,3 @@ export default class AbsoluteDateRange extends React.PureComponent {
 AbsoluteDateRange.propTypes = propTypes;
 
 AbsoluteDateRange.defaultProps = defaultProps;
-
