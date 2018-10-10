@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import moment from 'moment';
 import { FormControl, Overlay } from 'react-bootstrap';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
@@ -45,8 +45,8 @@ export default class DateRange extends React.PureComponent {
     };
   }
 
-  componentDidUpdate = () => {
-    if (!this.state.value) {
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.popoverProps !== this.props.popoverProps) {
       const value = this.initValue(this.props);
       if (value) {
         this.setState({ value });
@@ -139,34 +139,36 @@ export default class DateRange extends React.PureComponent {
     `;
 
     return (
-      <DateRangeSection id={id} className={className}>
-        <ReadOnlyInput>
-          <FormControl
-            type="text"
-            inputRef={(el) => {
-              this.input = el;
-              inputRef(el);
-            }}
-            {...inputProps}
-            readOnly="readonly"
-            value={this.state.value}
-            onClick={this.handleClick}
-          />
-        </ReadOnlyInput>
-        {this.state.showOverlay &&
-        <Overlay
-          show={this.state.showOverlay}
-          onHide={this.handleHide}
-          placement="bottom"
-          container={this}
-          rootClose
-        >
-          <DateRangePopover
-            {...this.mergePopoverProps(this.props.popoverProps, this.state.popoverProps)}
-            onChange={this.handleChange}
-          />
-        </Overlay>}
-      </DateRangeSection>
+      <ThemeProvider theme={theme}>
+        <DateRangeSection id={id} className={className}>
+          <ReadOnlyInput>
+            <FormControl
+              type="text"
+              inputRef={(el) => {
+                this.input = el;
+                inputRef(el);
+              }}
+              {...inputProps}
+              readOnly="readonly"
+              value={this.state.value}
+              onClick={this.handleClick}
+            />
+          </ReadOnlyInput>
+          {this.state.showOverlay &&
+          <Overlay
+            show={this.state.showOverlay}
+            onHide={this.handleHide}
+            placement="bottom"
+            container={this}
+            rootClose
+          >
+            <DateRangePopover
+              {...this.mergePopoverProps(this.props.popoverProps, this.state.popoverProps)}
+              onChange={this.handleChange}
+            />
+          </Overlay>}
+        </DateRangeSection>
+      </ThemeProvider>
     );
   }
 }
