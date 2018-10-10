@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Allowed input value update
+* Updated versions of dependencies
 
 ## 1.0.3
 * Fixed changing month & year does not close overlay
