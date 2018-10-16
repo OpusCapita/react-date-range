@@ -8,6 +8,7 @@ import { theme } from '@opuscapita/oc-cm-common-layouts';
 import DateRangePopover from './popover/date-range-popover.component';
 import popoverPropTypes from './popover/prop-types';
 import popoverDefaultProps from './popover/default-props';
+import relativeOptions from './components/relative/relative-options';
 
 const ReadOnlyInput = styled.div`
   .form-control[readonly] {
@@ -76,8 +77,13 @@ export default class DateRange extends React.PureComponent {
       relativeRange,
     } = props.popoverProps || {};
     const { endDate, startDate } = relativeRange || {};
-    return (isRelativeEnabled && endDate && startDate) ?
-      `${startDate.label} - ${endDate.label}` : '';
+
+    const startDateOption = startDate
+      ? relativeOptions.find(option => (!option.value.moment || option.value.moment === startDate.moment) && option.value.unit === startDate.unit && option.value.timing === startDate.timing) : undefined;
+    const endDateOption = endDate
+      ? relativeOptions.find(option => (!option.value.moment || option.value.moment === endDate.moment) && option.value.unit === endDate.unit && option.value.timing === endDate.timing) : undefined;
+    return (isRelativeEnabled && endDateOption && startDateOption) ?
+      `${startDateOption.label} - ${endDateOption.label}` : '';
   }
 
   mergePopoverProps = (target = {}, source = {}) => (

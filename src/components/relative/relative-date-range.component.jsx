@@ -9,6 +9,7 @@ import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 import Constants from './constants';
+import relativeOptions from './relative-options';
 
 const RelativeRangeSection = styled.div`
   display: flex;
@@ -24,15 +25,19 @@ const RelativeRangeSection = styled.div`
 export default class RelativeDateRange extends React.PureComponent {
   constructor(props) {
     super(props);
+    // const startDate = props.startDate ? relativeOptions.find(option => (!option.value.moment || option.value.moment === props.startDate.moment) && option.value.unit === props.startDate.unit && option.value.timing === props.startDate.timing) : undefined;
+    // const endDate = props.endDate ? relativeOptions.find(option => (!option.value.moment || option.value.moment === props.endDate.moment) && option.value.unit === props.endDate.unit && option.value.timing === props.endDate.timing) : undefined;
+
+    const { endDate, options, startDate } = props;
     this.state = {
-      endDate: props.endDate,
-      endDateOptions: props.startDate ?
-        this.filterEndDateOptions(props.startDate, props.options) :
-        props.options,
-      startDate: props.startDate,
-      startDateOptions: props.endDate ?
-        this.filterStartDateOptions(props.endDate, props.options) :
-        props.options,
+      endDate,
+      endDateOptions: startDate ?
+        this.filterEndDateOptions(startDate, options) :
+        options,
+      startDate,
+      startDateOptions: endDate ?
+        this.filterStartDateOptions(endDate, options) :
+        options,
     };
   }
 
