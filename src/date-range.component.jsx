@@ -111,6 +111,13 @@ export default class DateRange extends React.PureComponent {
       const from = moment.utc(startDate);
       const to = moment.utc(endDate);
       return {
+        popoverProps: {
+          absoluteRange: {
+            endDate: to.endOf('day').toISOString(),
+            startDate: from.startOf('day').toISOString(),
+          },
+          selectedRangeType: 'absolute',
+        },
         value: (from.isValid() && to.isValid()) ?
           `${from.format(dateFormat)} - ${to.format(dateFormat)}` : '',
       };
@@ -133,6 +140,7 @@ export default class DateRange extends React.PureComponent {
           endDate: selectedEndDate,
           startDate: selectedStartDate,
         },
+        selectedRangeType: selectedEndDate && selectedStartDate ? 'relative' : undefined,
       },
       value: (isRelativeEnabled && selectedEndDate && selectedStartDate) ?
         `${selectedStartDate.label} - ${selectedEndDate.label}` : '',
@@ -167,7 +175,7 @@ export default class DateRange extends React.PureComponent {
       value: range ? range.value : '',
     });
     const { startDate, endDate } = range || {};
-    if (startDate || endDate) {
+    if (startDate && endDate) {
       onChange({ startDate, endDate });
     }
   }
@@ -181,7 +189,7 @@ export default class DateRange extends React.PureComponent {
     });
 
     const { startDate, endDate } = event;
-    if (startDate || endDate) {
+    if (startDate && endDate) {
       onChange({ startDate, endDate });
     }
   };

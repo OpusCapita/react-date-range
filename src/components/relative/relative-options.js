@@ -138,4 +138,4 @@ export default [
     order: 6,
     granularity: Constants.YEAR,
   },
-]
+];
