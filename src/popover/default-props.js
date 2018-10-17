@@ -6,6 +6,7 @@ export default {
   absoluteRange: absoluteRangeDefaultProps,
   isRelativeEnabled: false,
   onChange: () => {},
+  onRangeTypeChange: () => {},
   relativeRange: relativeRangeDefaultProps,
   selectedRangeType: Object.keys(RangeTypes)[0],
   translations: {

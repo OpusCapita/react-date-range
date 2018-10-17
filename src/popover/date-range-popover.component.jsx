@@ -33,7 +33,7 @@ export default class DateRangePopover extends React.PureComponent {
   handleChange = (e) => {
     const selectedRangeType = e.target.value;
     this.setState({ selectedRangeType });
-    this.props.onChange({
+    this.props.onRangeTypeChange({
       popoverProps: {
         selectedRangeType,
       },

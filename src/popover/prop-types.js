@@ -9,6 +9,7 @@ export default {
   isRelativeEnabled: PropTypes.bool,
   selectedRangeType: PropTypes.oneOf(Object.keys(RangeTypes)),
   onChange: PropTypes.func,
+  onRangeTypeChange: PropTypes.func,
   relativeRange: PropTypes.shape(relativeRangePropTypes),
   translations: PropTypes.shape({
     absolute: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
