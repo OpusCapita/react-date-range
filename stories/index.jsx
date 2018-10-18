@@ -74,17 +74,17 @@ storiesOf('Date range', (module))
     const relativeStartDate = object(
       'Relative start date',
       {
-        label: 'Today',
-        value: { unit: 'DAY', timing: 'CURRENT', moment: 'START' },
-        granularity: 'DAY',
+        unit: 'DAY',
+        timing: 'CURRENT',
+        moment: 'START',
       },
     );
     const relativeEndDate = object(
       'Relative end date',
       {
-        label: 'Tomorrow',
-        value: { unit: 'DAY', timing: 'NEXT', moment: 'END' },
-        granularity: 'DAY',
+        unit: 'DAY',
+        timing: 'NEXT',
+        moment: 'END',
       },
     );
     const popoverProps = {

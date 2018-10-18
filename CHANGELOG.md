@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Relative range initialization and labels
+* Major state handling changes
 
 ## 1.0.4
 * Allowed input value update

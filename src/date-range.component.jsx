@@ -5,9 +5,11 @@ import styled, { ThemeProvider } from 'styled-components';
 import moment from 'moment';
 import { FormControl, Overlay } from 'react-bootstrap';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
+import Constants from './components/relative/constants';
 import DateRangePopover from './popover/date-range-popover.component';
 import popoverPropTypes from './popover/prop-types';
 import popoverDefaultProps from './popover/default-props';
+import relativeOptions from './components/relative/relative-options';
 
 const ReadOnlyInput = styled.div`
   .form-control[readonly] {
@@ -37,24 +39,68 @@ export default class DateRange extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    const value = this.initValue(props);
+    const state = this.initState(props);
     this.state = {
-      showOverlay: false,
-      value,
       popoverProps: undefined,
+      ...state,
+      showOverlay: false,
     };
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.popoverProps !== this.props.popoverProps) {
-      const value = this.initValue(this.props);
-      if (value) {
-        this.setState({ value });
+      const state = this.initState(this.props);
+      if (state) {
+        this.setState(state);
       }
     }
   }
 
-  initValue = props => (
+  getAbsoluteRange = () => {
+    const { popoverProps } = this.state || {};
+    const { absoluteRange } = popoverProps || {};
+    const { endDate, startDate } = absoluteRange || {};
+    const { dateFormat } = this.props.popoverProps.absoluteRange;
+    if (startDate && endDate) {
+      const from = moment.utc(startDate);
+      const to = moment.utc(endDate);
+      if (from.isValid() && to.isValid()) {
+        return {
+          endDate: to.endOf('day').toISOString(),
+          startDate: from.startOf('day').toISOString(),
+          value: `${from.format(dateFormat)} - ${to.format(dateFormat)}`,
+        };
+      }
+    }
+    return null;
+  }
+
+  getRelativeOption = inputDate => (
+    inputDate
+      ? relativeOptions.find(option =>
+        (!option.value.moment || option.value.moment === inputDate.moment)
+        && option.value.unit === inputDate.unit
+        && option.value.timing === inputDate.timing)
+      : undefined
+  )
+
+  getRelativeRange = () => {
+    const { popoverProps } = this.state;
+    const {
+      relativeRange,
+    } = popoverProps || {};
+    const { endDate, startDate } = relativeRange || {};
+    if (endDate && startDate && endDate.value && startDate.value) {
+      return {
+        endDate: { ...endDate.value, moment: endDate.value.moment || Constants.END },
+        startDate: { ...startDate.value, moment: startDate.value.moment || Constants.START },
+        value: `${startDate.label} - ${endDate.label}`,
+      };
+    }
+    return null;
+  }
+
+  initState = props => (
     this.initAbsoluteRange(props) || this.initRelativeRange(props)
   );
 
@@ -64,8 +110,17 @@ export default class DateRange extends React.PureComponent {
     if (startDate && endDate) {
       const from = moment.utc(startDate);
       const to = moment.utc(endDate);
-      return (from.isValid() && to.isValid()) ?
-        `${from.format(dateFormat)} - ${to.format(dateFormat)}` : '';
+      return {
+        popoverProps: {
+          absoluteRange: {
+            endDate: to.endOf('day').toISOString(),
+            startDate: from.startOf('day').toISOString(),
+          },
+          selectedRangeType: 'absolute',
+        },
+        value: (from.isValid() && to.isValid()) ?
+          `${from.format(dateFormat)} - ${to.format(dateFormat)}` : '',
+      };
     }
     return null;
   }
@@ -76,8 +131,20 @@ export default class DateRange extends React.PureComponent {
       relativeRange,
     } = props.popoverProps || {};
     const { endDate, startDate } = relativeRange || {};
-    return (isRelativeEnabled && endDate && startDate) ?
-      `${startDate.label} - ${endDate.label}` : '';
+    const selectedStartDate = this.getRelativeOption(startDate);
+    const selectedEndDate = this.getRelativeOption(endDate);
+
+    return {
+      popoverProps: {
+        relativeRange: {
+          endDate: selectedEndDate,
+          startDate: selectedStartDate,
+        },
+        selectedRangeType: selectedEndDate && selectedStartDate ? 'relative' : undefined,
+      },
+      value: (isRelativeEnabled && selectedEndDate && selectedStartDate) ?
+        `${selectedStartDate.label} - ${selectedEndDate.label}` : '',
+    };
   }
 
   mergePopoverProps = (target = {}, source = {}) => (
@@ -97,15 +164,33 @@ export default class DateRange extends React.PureComponent {
       },
     ));
 
-  handleChange = (event) => {
+  handleRangeTypeChange = (event) => {
+    const { onChange } = this.props;
+    const { popoverProps } = this.state;
+    const range = event.popoverProps.selectedRangeType === 'absolute'
+      ? this.getAbsoluteRange()
+      : this.getRelativeRange();
     this.setState({
-      popoverProps: this.mergePopoverProps(this.state.popoverProps, event.popoverProps),
+      popoverProps: this.mergePopoverProps(popoverProps, event.popoverProps),
+      value: range ? range.value : '',
+    });
+    const { startDate, endDate } = range || {};
+    if (startDate && endDate) {
+      onChange({ startDate, endDate });
+    }
+  }
+
+  handleChange = (event) => {
+    const { onChange } = this.props;
+    const { popoverProps } = this.state;
+    this.setState({
+      popoverProps: this.mergePopoverProps(popoverProps, event.popoverProps),
       value: event.value,
     });
 
     const { startDate, endDate } = event;
-    if (startDate || endDate) {
-      this.props.onChange({ startDate, endDate });
+    if (startDate && endDate) {
+      onChange({ startDate, endDate });
     }
   };
 
@@ -164,6 +249,7 @@ export default class DateRange extends React.PureComponent {
           >
             <DateRangePopover
               {...this.mergePopoverProps(this.props.popoverProps, this.state.popoverProps)}
+              onRangeTypeChange={this.handleRangeTypeChange}
               onChange={this.handleChange}
             />
           </Overlay>}

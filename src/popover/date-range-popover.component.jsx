@@ -13,7 +13,7 @@ const PopoverSection = styled.div`
   display: flex;
   flex-direction: column;
   border: 0.1rem solid #ccc;
-  padding: 1rem;
+  padding: ${theme.gutterWidth};
   background-color: ${theme.contentBackgroundColor}
   hr {
     color: #CCC;
@@ -33,7 +33,7 @@ export default class DateRangePopover extends React.PureComponent {
   handleChange = (e) => {
     const selectedRangeType = e.target.value;
     this.setState({ selectedRangeType });
-    this.props.onChange({
+    this.props.onRangeTypeChange({
       popoverProps: {
         selectedRangeType,
       },

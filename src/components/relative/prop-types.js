@@ -17,8 +17,8 @@ const relativeDateShape = PropTypes.shape({
 });
 
 export default {
-  endDate: relativeDateShape,
+  endDate: relativeDate,
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(relativeDateShape),
-  startDate: relativeDateShape,
+  startDate: relativeDate,
 };
