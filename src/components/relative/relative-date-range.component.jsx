@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { FloatingSelect } from '@opuscapita/react-floating-select';
+import { Content } from '@opuscapita/oc-cm-common-layouts';
 
 import DateSection from '../date-section.components';
 import Hyphen from '../hyphen.component';
@@ -15,10 +16,7 @@ const RelativeRangeSection = styled.div`
   flex-direction: row;
   height: 100%;
   width: 100%;
-  padding: 1rem 0;
-  .Select-control {
-    border-radius: 0;
-  }
+  padding: 1rem 0 0 0;
 `;
 
 export default class RelativeDateRange extends React.PureComponent {
@@ -138,27 +136,35 @@ export default class RelativeDateRange extends React.PureComponent {
     return (
       <RelativeRangeSection>
         <DateSection>
-          <label htmlFor="startDate">{this.props.translations.startDate}</label>
-          <FloatingSelect
-            {...this.props}
-            clearable={false}
-            inputProps={{ name: 'startDate' }}
-            onChange={this.handleStartDateChange}
-            options={startDateOptions}
-            value={startDate}
-          />
+          <Content.InputColumn
+            className="relative-start-date"
+            id="relativeStartDate"
+            label={this.props.translations.startDate}
+          >
+            <FloatingSelect
+              {...this.props}
+              clearable={false}
+              onChange={this.handleStartDateChange}
+              options={startDateOptions}
+              value={startDate}
+            />
+          </Content.InputColumn>
         </DateSection>
         <Hyphen />
         <DateSection>
-          <label htmlFor="endDate">{this.props.translations.endDate}</label>
-          <FloatingSelect
-            {...this.props}
-            clearable={false}
-            inputProps={{ name: 'endDate' }}
-            onChange={this.handleEndDateChange}
-            options={endDateOptions}
-            value={endDate}
-          />
+          <Content.InputColumn
+            className="relative-end-date"
+            id="relativeEndDate"
+            label={this.props.translations.endDate}
+          >
+            <FloatingSelect
+              {...this.props}
+              clearable={false}
+              onChange={this.handleEndDateChange}
+              options={endDateOptions}
+              value={endDate}
+            />
+          </Content.InputColumn>
         </DateSection>
       </RelativeRangeSection>
     );

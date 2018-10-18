@@ -106,7 +106,7 @@
     "write-file-webpack-plugin": "4.3.2"
   },
   "dependencies": {
-    "@opuscapita/oc-cm-common-layouts": "2.3.0",
+    "@opuscapita/oc-cm-common-layouts": "2.4.0",
     "@opuscapita/oc-cm-common-styles": "2.2.0",
     "@opuscapita/react-datetime": "3.2.4",
     "@opuscapita/react-floating-select": "3.0.0"
