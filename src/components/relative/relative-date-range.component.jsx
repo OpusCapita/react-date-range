@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { FloatingSelect } from '@opuscapita/react-floating-select';
-import { Content } from '@opuscapita/oc-cm-common-layouts';
+import { Content, theme } from '@opuscapita/oc-cm-common-layouts';
 
 import DateSection from '../date-section.components';
 import Hyphen from '../hyphen.component';
@@ -16,7 +16,7 @@ const RelativeRangeSection = styled.div`
   flex-direction: row;
   height: 100%;
   width: 100%;
-  padding: 1rem 0 0 0;
+  padding: ${theme.gutterWidth} 0 0 0;
 `;
 
 export default class RelativeDateRange extends React.PureComponent {
