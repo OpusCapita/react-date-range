@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Updated @opuscapita/react-datetime version
 
 ## 1.1.0
 * Relative range initialization and labels
