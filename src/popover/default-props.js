@@ -4,6 +4,7 @@ import RangeTypes from './range-types';
 
 export default {
   absoluteRange: absoluteRangeDefaultProps,
+  isPeriodEnabled: false,
   isRelativeEnabled: false,
   onChange: () => {},
   onRangeTypeChange: () => {},
@@ -11,8 +12,23 @@ export default {
   selectedRangeType: Object.keys(RangeTypes)[0],
   translations: {
     absolute: 'Absolute',
+    day: {
+      plural: 'days',
+      singular: 'day',
+    },
     endDate: 'Last day',
+    from: 'From',
+    month: {
+      plural: 'months',
+      singular: 'month',
+    },
+    period: 'Period',
     relative: 'Relative',
     startDate: 'First day',
+    to: 'To',
+    week: {
+      plural: 'weeks',
+      singular: 'week',
+    },
   },
 };
