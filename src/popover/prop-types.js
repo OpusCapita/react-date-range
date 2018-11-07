@@ -7,8 +7,11 @@ import relativeRangePropTypes from '../components/relative/prop-types';
 
 export default {
   absoluteRange: PropTypes.shape(absoluteRangePropTypes),
-  isPeriodEnabled: PropTypes.bool,
-  isRelativeEnabled: PropTypes.bool,
+  enabled: PropTypes.shape({
+    absolute: PropTypes.bool,
+    period: PropTypes.bool,
+    relative: PropTypes.bool,
+  }),
   selectedRangeType: PropTypes.oneOf(Object.keys(RangeTypes)),
   onChange: PropTypes.func,
   onRangeTypeChange: PropTypes.func,
