@@ -9,16 +9,15 @@ export const relativeDate = PropTypes.shape({
   moment: PropTypes.oneOf([Constants.END, Constants.START]),
 });
 
-export const relativeDateShape = PropTypes.shape({
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  value: relativeDate.isRequired,
-  granularity: PropTypes.oneOf(granularities).isRequired,
-  past: PropTypes.bool,
-});
+// export const relativeDateShape = PropTypes.shape({
+//   label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
+//   value: relativeDate.isRequired,
+//   granularity: PropTypes.oneOf(granularities).isRequired,
+//   past: PropTypes.bool,
+// });
 
 export default {
   endDate: relativeDate,
   onChange: PropTypes.func,
-  options: PropTypes.arrayOf(relativeDateShape),
   startDate: relativeDate,
 };

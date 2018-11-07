@@ -1,5 +1,4 @@
 import { PropTypes } from 'prop-types';
-import Constants from './constants';
 import RelativeConstants from '../relative/constants';
 import { relativeDate } from '../relative/prop-types';
 
@@ -10,10 +9,10 @@ export const granularities = [
 ];
 
 export const periodShape = PropTypes.shape({
-  periodic: PropTypes.bool.isRequired,
-  timing: PropTypes.number.isRequired,
-  unit: PropTypes.oneOf(granularities).isRequired,
-  moment: PropTypes.oneOf([Constants.END, Constants.START]),
+  periodic: PropTypes.bool,
+  timing: PropTypes.number,
+  unit: PropTypes.oneOf(granularities),
+  moment: PropTypes.oneOf([RelativeConstants.END, RelativeConstants.START]),
 });
 
 export default {

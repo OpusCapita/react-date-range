@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { FloatingSelect } from '@opuscapita/react-floating-select';
 import { Content, Primitive, theme } from '@opuscapita/oc-cm-common-layouts';
 
-import Constants from './constants';
-import RelativeConstants from '../relative/constants';
-import relativeDateOptions from '../relative/relative-options';
 import DateSection from '../date-section.components';
+import defaultProps from './default-props';
+import formatLabel from './period-label.formatter';
 import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
-import defaultProps from './default-props';
+import RelativeConstants from '../relative/constants';
+import relativeDateOptions from '../relative/relative-options';
 
 const PeriodSection = styled.div`
   display: flex;
@@ -60,55 +60,26 @@ export default class Period extends React.PureComponent {
     ];
   };
 
-  getNounsForm = (timing) => {
-    switch (Math.abs(timing)) {
-      case 1: {
-        return Constants.SINGULAR;
-      }
-      default: {
-        return Constants.PLURAL;
-      }
-    }
-  }
-
-  getUnit = (unit) => {
-    const { translations } = this.props;
-    switch (unit) {
-      case RelativeConstants.MONTH: {
-        return translations.month;
-      }
-      case RelativeConstants.WEEK: {
-        return translations.week;
-      }
-      default: {
-        return translations.day;
-      }
-    }
-  }
-
   getSelectedGranularity = (granularities, value) => (
     granularities.find(granularity => granularity.value === value) || granularities[0]
   );
 
-  formatLabel = (endDate) => {
-    const { timing, unit } = endDate;
-    const count = timing > 0 ? `+${timing}` : timing;
-    return `(${count}) ${this.getUnit(unit)[this.getNounsForm(timing)]}`;
-  }
-
   handleStartDateChange = (selectedStartDate) => {
-    const startDate = selectedStartDate.value.moment ? selectedStartDate :
-      Object.assign(
-        {}, selectedStartDate,
-        { value: { ...selectedStartDate.value, moment: RelativeConstants.START } },
-      );
+    const { translations } = this.props;
     const { endDate } = this.state;
+    const startDate = {
+      ...selectedStartDate,
+      value: {
+        ...selectedStartDate.value,
+        moment: endDate.timing < 0 ? RelativeConstants.END : RelativeConstants.START,
+      },
+    };
     this.setState({ startDate });
     const state = {
       startDate: startDate.value,
-      value: `${startDate.label} - ${this.formatLabel(endDate)}`,
+      value: formatLabel(startDate, endDate, translations),
       popoverProps: {
-        relativeRange: {
+        period: {
           startDate,
           endDate,
         },
@@ -117,38 +88,58 @@ export default class Period extends React.PureComponent {
     this.props.onChange(state);
   }
 
-  handleEndDateChange = (timing = 0) => {
-    const { endDate, startDate } = this.state;
-    const selectedEndDate = {
-      ...startDate,
-      timing,
-    };
-    this.setState({ endDate: selectedEndDate });
+  handleEndDateChange = (endDate) => {
+    const { translations } = this.props;
+    const { startDate } = this.state;
+    this.setState({ endDate });
     let state = {
-      endDate: selectedEndDate,
+      endDate,
       popoverProps: {
-        relativeRange: {
-          endDate: selectedEndDate,
+        period: {
+          endDate,
         },
       },
     };
     if (startDate) {
-      const startDateValue = startDate.value && !startDate.value.moment
-        ? { ...startDate.value, moment: RelativeConstants.START }
+      const startDateValue = startDate.value
+        ? {
+          ...startDate.value,
+          moment: endDate.timing < 0 ? RelativeConstants.END : RelativeConstants.START,
+        }
         : startDate.value;
       state = {
         ...state,
-        value: `${startDate.label || ''} - ${this.formatLabel(endDate)}`,
+        value: formatLabel(startDate, endDate, translations),
         startDate: startDateValue,
         popoverProps: {
-          relativeRange: {
-            ...state.popoverProps.relativeRange,
+          period: {
+            ...state.popoverProps.period,
             startDate,
           },
         },
       };
     }
     this.props.onChange(state);
+  }
+
+  handleTimingChange = (event) => {
+    const timing = Number.isNaN(event.target.value) ? 0 : Number(event.target.value);
+    const { endDate } = this.state;
+    const selectedEndDate = {
+      ...endDate,
+      timing,
+      moment: timing < 0 ? RelativeConstants.START : RelativeConstants.END,
+    };
+    this.handleEndDateChange(selectedEndDate);
+  }
+
+  handleGranularityChange = (unit) => {
+    const { endDate } = this.state;
+    const selectedEndDate = {
+      ...endDate,
+      unit: unit.value,
+    };
+    this.handleEndDateChange(selectedEndDate);
   }
 
   render() {
@@ -180,7 +171,7 @@ export default class Period extends React.PureComponent {
           id="periodEndDate"
           label={translations.to}
         >
-          <Primitive.Input value={endDate.timing} type="number" onChange={this.handleEndDateChange} />
+          <Primitive.Input value={endDate.timing} type="number" onChange={this.handleTimingChange} />
         </CountSection>
         <GranularitySection
           className="period-granularity"

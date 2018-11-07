@@ -7,9 +7,12 @@ import { FormControl, Overlay } from 'react-bootstrap';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
 import Constants from './components/relative/constants';
 import DateRangePopover from './popover/date-range-popover.component';
-import popoverPropTypes from './popover/prop-types';
+import formatPeriodLabel from './components/period/period-label.formatter';
+import { getRelativeOption } from './components/relative/relative-options';
 import popoverDefaultProps from './popover/default-props';
-import relativeOptions from './components/relative/relative-options';
+import popoverPropTypes from './popover/prop-types';
+import translationsDefaultProps from './translations/default-props';
+import translationsPropTypes from './translations/prop-types';
 
 const ReadOnlyInput = styled.div`
   .form-control[readonly] {
@@ -25,6 +28,7 @@ export default class DateRange extends React.PureComponent {
     inputRef: PropTypes.func,
     onChange: PropTypes.func,
     popoverProps: PropTypes.shape(popoverPropTypes),
+    translations: PropTypes.shape(translationsPropTypes),
     width: PropTypes.string,
   };
 
@@ -34,7 +38,8 @@ export default class DateRange extends React.PureComponent {
     inputRef: () => {},
     onChange: () => {},
     popoverProps: popoverDefaultProps,
-    width: '200px',
+    translations: translationsDefaultProps,
+    width: '300px',
   };
 
   constructor(props) {
@@ -75,14 +80,14 @@ export default class DateRange extends React.PureComponent {
     return null;
   }
 
-  getRelativeOption = inputDate => (
-    inputDate
-      ? relativeOptions(this.props.popoverProps.translations.dates).find(option =>
-        (!option.value.moment || option.value.moment === inputDate.moment)
-        && option.value.unit === inputDate.unit
-        && option.value.timing === inputDate.timing)
-      : undefined
-  )
+  // getRelativeOption = inputDate => (
+  //   inputDate
+  //     ? relativeOptions(this.props.popoverProps.translations.dates).find(option =>
+  //       (!option.value.moment || option.value.moment === inputDate.moment)
+  //       && option.value.unit === inputDate.unit
+  //       && option.value.timing === inputDate.timing)
+  //     : undefined
+  // )
 
   getRelativeRange = () => {
     const { popoverProps } = this.state;
@@ -125,14 +130,31 @@ export default class DateRange extends React.PureComponent {
     return null;
   }
 
+  initPeriod = (props) => {
+    const { enabled, period } = props.popoverProps || {};
+    const { translations } = props;
+    const { endDate, startDate } = period || {};
+    const selectedStartDate = getRelativeOption(startDate, translations.dates);
+
+    return {
+      popoverProps: {
+        period: {
+          endDate,
+          startDate: selectedStartDate,
+        },
+        selectedRangeType: endDate && selectedStartDate ? 'period' : undefined,
+      },
+      value: (enabled.period && endDate && selectedStartDate) ?
+        formatPeriodLabel(selectedStartDate, endDate, translations) : '',
+    };
+  }
+
   initRelativeRange = (props) => {
-    const {
-      isRelativeEnabled,
-      relativeRange,
-    } = props.popoverProps || {};
+    const { enabled, relativeRange } = props.popoverProps || {};
+    const { translations } = props;
     const { endDate, startDate } = relativeRange || {};
-    const selectedStartDate = this.getRelativeOption(startDate);
-    const selectedEndDate = this.getRelativeOption(endDate);
+    const selectedStartDate = getRelativeOption(startDate, translations.dates);
+    const selectedEndDate = getRelativeOption(endDate, translations.dates);
 
     return {
       popoverProps: {
@@ -142,7 +164,7 @@ export default class DateRange extends React.PureComponent {
         },
         selectedRangeType: selectedEndDate && selectedStartDate ? 'relative' : undefined,
       },
-      value: (isRelativeEnabled && selectedEndDate && selectedStartDate) ?
+      value: (enabled.relative && selectedEndDate && selectedStartDate) ?
         `${selectedStartDate.label} - ${selectedEndDate.label}` : '',
     };
   }
@@ -216,6 +238,7 @@ export default class DateRange extends React.PureComponent {
       id,
       inputRef,
       inputProps,
+      translations,
       width,
     } = this.props;
 
@@ -251,6 +274,7 @@ export default class DateRange extends React.PureComponent {
               {...this.mergePopoverProps(this.props.popoverProps, this.state.popoverProps)}
               onRangeTypeChange={this.handleRangeTypeChange}
               onChange={this.handleChange}
+              translations={translations}
             />
           </Overlay>}
         </DateRangeSection>
