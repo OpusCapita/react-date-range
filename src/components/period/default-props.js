@@ -1,5 +1,4 @@
 import RelativeConstants from '../relative/constants';
-import relativeDateOptions from '../relative/relative-options';
 
 export default {
   endDate: {
@@ -8,7 +7,6 @@ export default {
     unit: RelativeConstants.DAY,
   },
   onChange: () => {},
-  relativeDateOptions,
   startDate: {
     timing: RelativeConstants.CURRENT,
     unit: RelativeConstants.DAY,

@@ -7,6 +7,7 @@ import { Content, Primitive, theme } from '@opuscapita/oc-cm-common-layouts';
 
 import Constants from './constants';
 import RelativeConstants from '../relative/constants';
+import relativeDateOptions from '../relative/relative-options';
 import DateSection from '../date-section.components';
 import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
@@ -151,7 +152,8 @@ export default class Period extends React.PureComponent {
   }
 
   render() {
-    const { relativeDateOptions } = this.props;
+    const { translations } = this.props;
+    const startDateOptions = relativeDateOptions(translations.dates);
     const { endDate, startDate } = this.state;
     const granularities = this.getGranularityOptions();
 
@@ -161,13 +163,13 @@ export default class Period extends React.PureComponent {
           <Content.InputColumn
             className="period-start-date"
             id="periodStartDate"
-            label={this.props.translations.from}
+            label={translations.from}
           >
             <FloatingSelect
               {...this.props}
               clearable={false}
               onChange={this.handleStartDateChange}
-              options={relativeDateOptions}
+              options={startDateOptions}
               value={startDate}
             />
           </Content.InputColumn>
@@ -176,7 +178,7 @@ export default class Period extends React.PureComponent {
         <CountSection
           className="period-end-date"
           id="periodEndDate"
-          label={this.props.translations.to}
+          label={translations.to}
         >
           <Primitive.Input value={endDate.timing} type="number" onChange={this.handleEndDateChange} />
         </CountSection>

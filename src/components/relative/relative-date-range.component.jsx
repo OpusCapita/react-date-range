@@ -10,6 +10,7 @@ import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 import Constants from './constants';
+import relativeOptions from './relative-options';
 
 const RelativeRangeSection = styled.div`
   display: flex;
@@ -23,7 +24,8 @@ export default class RelativeDateRange extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { endDate, options, startDate } = props;
+    const { endDate, startDate, translations } = props;
+    const options = relativeOptions(translations.dates);
     this.state = {
       endDate,
       endDateOptions: startDate ?

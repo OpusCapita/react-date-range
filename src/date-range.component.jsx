@@ -77,7 +77,7 @@ export default class DateRange extends React.PureComponent {
 
   getRelativeOption = inputDate => (
     inputDate
-      ? relativeOptions.find(option =>
+      ? relativeOptions(this.props.popoverProps.translations.dates).find(option =>
         (!option.value.moment || option.value.moment === inputDate.moment)
         && option.value.unit === inputDate.unit
         && option.value.timing === inputDate.timing)

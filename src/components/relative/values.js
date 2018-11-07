@@ -13,92 +13,92 @@ export default {
     unit: Constants.DAY,
     timing: Constants.NEXT,
   },
-  startOfPreviousWeek: {
+  startOfThePreviousWeek: {
     unit: Constants.WEEK,
     timing: Constants.PREVIOUS,
     moment: Constants.START,
   },
-  endOfPreviousWeek: {
+  endOfThePreviousWeek: {
     unit: Constants.WEEK,
     timing: Constants.PREVIOUS,
     moment: Constants.END,
   },
-  startOfCurrentWeek: {
+  startOfTheCurrentWeek: {
     unit: Constants.WEEK,
     timing: Constants.CURRENT,
     moment: Constants.START,
   },
-  endOfCurrentWeek: {
+  endOfTheCurrentWeek: {
     unit: Constants.WEEK,
     timing: Constants.CURRENT,
     moment: Constants.END,
   },
-  startOfNextWeek: {
+  startOfTheNextWeek: {
     unit: Constants.WEEK,
     timing: Constants.NEXT,
     moment: Constants.START,
   },
-  endOfNextWeek: {
+  endOfTheNextWeek: {
     unit: Constants.WEEK,
     timing: Constants.NEXT,
     moment: Constants.END,
   },
-  startOfPreviousMonth: {
+  startOfThePreviousMonth: {
     unit: Constants.MONTH,
     timing: Constants.PREVIOUS,
     moment: Constants.START,
   },
-  endOfPreviousMonth: {
+  endOfThePreviousMonth: {
     unit: Constants.MONTH,
     timing: Constants.PREVIOUS,
     moment: Constants.END,
   },
-  startOfCurrentMonth: {
+  startOfTheCurrentMonth: {
     unit: Constants.MONTH,
     timing: Constants.CURRENT,
     moment: Constants.START,
   },
-  endOfCurrentMonth: {
+  endOfTheCurrentMonth: {
     unit: Constants.MONTH,
     timing: Constants.CURRENT,
     moment: Constants.END,
   },
-  startOfNextMonth: {
+  startOfTheNextMonth: {
     unit: Constants.MONTH,
     timing: Constants.NEXT,
     moment: Constants.START,
   },
-  endOfNextMonth: {
+  endOfTheNextMonth: {
     unit: Constants.MONTH,
     timing: Constants.NEXT,
     moment: Constants.END,
   },
-  startOfPreviousYear: {
+  startOfThePreviousYear: {
     unit: Constants.YEAR,
     timing: Constants.PREVIOUS,
     moment: Constants.START,
   },
-  endOfPreviousYear: {
+  endOfThePreviousYear: {
     unit: Constants.YEAR,
     timing: Constants.PREVIOUS,
     moment: Constants.END,
   },
-  startOfCurrentYear: {
+  startOfTheCurrentYear: {
     unit: Constants.YEAR,
     timing: Constants.CURRENT,
     moment: Constants.START,
   },
-  endOfCurrentYear: {
+  endOfTheCurrentYear: {
     unit: Constants.YEAR,
     timing: Constants.CURRENT,
     moment: Constants.END,
   },
-  startOfNextYear: {
+  startOfTheNextYear: {
     unit: Constants.YEAR,
     timing: Constants.NEXT,
     moment: Constants.START,
   },
-  endOfNextYear: {
+  endOfTheNextYear: {
     unit: Constants.YEAR,
     timing: Constants.NEXT,
     moment: Constants.END,
