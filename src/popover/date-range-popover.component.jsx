@@ -7,6 +7,7 @@ import { theme } from '@opuscapita/oc-cm-common-layouts';
 import RangeTypes from './range-types';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
+import translate from '../translations/translate';
 
 const PopoverSection = styled.div`
   position: absolute;
@@ -68,7 +69,7 @@ export default class DateRangePopover extends React.PureComponent {
           checked={selectedRangeType === type}
           inline
         >
-          {translations[type]}
+          {translate(translations, type)}
         </Radio>))
       : undefined;
   };

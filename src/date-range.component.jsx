@@ -15,6 +15,7 @@ import periodDefaultProps from './components/period/default-props';
 import { periodShape } from './components/period/prop-types';
 import relativeRangeDefaultProps from './components/relative/default-props';
 import { relativeDateValueShape } from './components/relative/prop-types';
+import translate from './translations/translate';
 import translationsDefaultProps from './translations/default-props';
 import translationsPropTypes from './translations/prop-types';
 
@@ -159,7 +160,7 @@ export default class DateRange extends React.PureComponent {
   initPeriod = (props) => {
     const { enabled, period, translations } = props;
     const { endDate, startDate } = period || {};
-    const selectedStartDate = getRelativeOption(startDate, translations.dates);
+    const selectedStartDate = getRelativeOption(startDate, translate(translations, 'dates'));
 
     return {
       period: {
@@ -177,8 +178,8 @@ export default class DateRange extends React.PureComponent {
     const { endDate, startDate } = relativeRange || {};
 
     if (endDate && startDate) {
-      const selectedStartDate = getRelativeOption(startDate, translations.dates);
-      const selectedEndDate = getRelativeOption(endDate, translations.dates);
+      const selectedStartDate = getRelativeOption(startDate, translate(translations, 'dates'));
+      const selectedEndDate = getRelativeOption(endDate, translate(translations, 'dates'));
 
       return {
         relativeRange: {

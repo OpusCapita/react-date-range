@@ -11,6 +11,7 @@ import propTypes from './prop-types';
 import defaultProps from './default-props';
 import Constants from './constants';
 import relativeOptions from './relative-options';
+import translate from '../../translations/translate';
 
 const RelativeRangeSection = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ export default class RelativeDateRange extends React.PureComponent {
     super(props);
 
     const { endDate, startDate, translations } = props;
-    const options = relativeOptions(translations.dates);
+    const options = relativeOptions(translate(translations, 'dates'));
     this.state = {
       endDate,
       endDateOptions: startDate ?
@@ -126,6 +127,7 @@ export default class RelativeDateRange extends React.PureComponent {
       startDate,
       endDate,
     } = this.state;
+    const { translations } = this.props;
 
     return (
       <RelativeRangeSection>
@@ -133,7 +135,7 @@ export default class RelativeDateRange extends React.PureComponent {
           <Content.InputColumn
             className="relative-start-date"
             id="relativeStartDate"
-            label={this.props.translations.startDate}
+            label={translate(translations, 'startDate')}
           >
             <FloatingSelect
               {...this.props}
@@ -149,7 +151,7 @@ export default class RelativeDateRange extends React.PureComponent {
           <Content.InputColumn
             className="relative-end-date"
             id="relativeEndDate"
-            label={this.props.translations.endDate}
+            label={translate(translations, 'endDate')}
           >
             <FloatingSelect
               {...this.props}

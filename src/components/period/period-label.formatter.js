@@ -1,5 +1,6 @@
 import Constants from './constants';
 import RelativeConstants from '../relative/constants';
+import translate from '../../translations/translate';
 
 const getNounsForm = (timing) => {
   switch (Math.abs(timing)) {
@@ -12,16 +13,16 @@ const getNounsForm = (timing) => {
   }
 };
 
-const getUnit = (unit, translations) => {
+const getLabel = (unit, timing, translations) => {
   switch (unit) {
     case RelativeConstants.MONTH: {
-      return translations.month;
+      return translate(translations, 'month', getNounsForm(timing));
     }
     case RelativeConstants.WEEK: {
-      return translations.week;
+      return translate(translations, 'week', getNounsForm(timing));
     }
     default: {
-      return translations.day;
+      return translate(translations, 'day', getNounsForm(timing));
     }
   }
 };
@@ -29,7 +30,7 @@ const getUnit = (unit, translations) => {
 const formatLabel = (endDate, translations) => {
   const { timing, unit } = endDate;
   const count = timing > 0 ? `+${timing}` : timing;
-  return ` (${count}) ${getUnit(unit, translations)[getNounsForm(timing)]}`;
+  return ` (${count}) ${getLabel(unit, timing, translations)}`;
 };
 
 export default (startDate, endDate, translations) => (

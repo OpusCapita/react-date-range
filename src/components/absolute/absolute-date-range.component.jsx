@@ -12,6 +12,7 @@ import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 import Overlays from './overlays';
+import translate from '../../translations/translate';
 
 const AbsoluteRangeSection = styled.div`
   display: flex;
@@ -150,6 +151,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
       dateFormat,
       numberOfMonths,
       showWeekNumbers,
+      translations,
     } = this.props;
     const {
       disabledEndDays,
@@ -166,7 +168,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
           <Content.InputColumn
             className="absolute-start-date"
             id="absoluteStartDate"
-            label={this.props.translations.startDate}
+            label={translate(translations, 'startDate')}
           >
             <DateInput
               dateFormat={dateFormat}
@@ -188,7 +190,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
           <Content.InputColumn
             className="absolute-end-date"
             id="absoluteEndDate"
-            label={this.props.translations.endDate}
+            label={translate(translations, 'endDate')}
           >
             <DateInput
               dateFormat={dateFormat}

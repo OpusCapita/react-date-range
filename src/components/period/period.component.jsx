@@ -12,6 +12,7 @@ import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import RelativeConstants from '../relative/constants';
 import relativeDateOptions from '../relative/relative-options';
+import translate from '../../translations/translate';
 
 const PeriodSection = styled.div`
   display: flex;
@@ -46,15 +47,15 @@ export default class Period extends React.PureComponent {
     const { translations } = this.props;
     return [
       {
-        label: translations.day.plural,
+        label: translate(translations, 'day', 'plural'),
         value: RelativeConstants.DAY,
       },
       {
-        label: translations.week.plural,
+        label: translate(translations, 'week', 'plural'),
         value: RelativeConstants.WEEK,
       },
       {
-        label: translations.month.plural,
+        label: translate(translations, 'month', 'plural'),
         value: RelativeConstants.MONTH,
       },
     ];
@@ -98,7 +99,7 @@ export default class Period extends React.PureComponent {
     };
     if (startDate) {
       const date = {
-        startDate,
+        ...startDate,
         value: {
           ...startDate.value,
           moment: endDate.timing < 0 ? RelativeConstants.END : RelativeConstants.START,
@@ -139,7 +140,7 @@ export default class Period extends React.PureComponent {
 
   render() {
     const { translations } = this.props;
-    const startDateOptions = relativeDateOptions(translations.dates);
+    const startDateOptions = relativeDateOptions(translate(translations, 'dates'));
     const { endDate, startDate } = this.state;
     const granularities = this.getGranularityOptions();
 
@@ -149,7 +150,7 @@ export default class Period extends React.PureComponent {
           <Content.InputColumn
             className="period-start-date"
             id="periodStartDate"
-            label={translations.from}
+            label={translate(translations, 'from')}
           >
             <FloatingSelect
               {...this.props}
@@ -164,7 +165,7 @@ export default class Period extends React.PureComponent {
         <CountSection
           className="period-end-date"
           id="periodEndDate"
-          label={translations.to}
+          label={translate(translations, 'to')}
         >
           <Primitive.Input value={endDate.timing} type="number" onChange={this.handleTimingChange} />
         </CountSection>

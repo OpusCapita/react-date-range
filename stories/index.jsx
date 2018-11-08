@@ -18,7 +18,7 @@ import './stories.scss';
 addDecorator(withKnobs);
 
 storiesOf('Date range', (module))
-  .add('default', () => {
+  .add('absolute (default)', () => {
     const width = text('Width', '200px');
     const translations = {
       startDate: text('Start date label', 'First day'),
@@ -26,34 +26,37 @@ storiesOf('Date range', (module))
       absolute: text('Absolute label', 'Absolute'),
       relative: text('Relative label', 'Relative'),
     };
+    const absoluteEnabled = boolean('Absolute range enabled', true);
+    const periodEnabled = boolean('Period enabled', false);
     const relativeEnabled = boolean('Relative range enabled', false);
-    const selectedRangeType = select('Range type', ['absolute', 'relative'], 'absolute');
     const dateFormat = text('Date format', 'DD.MM.YYYY');
     const numberOfMonths = number('Number of months', 1);
     const region = text('Region', 'en_GB');
     const showWeekNumbers = boolean('Show week numbers', true);
     const absoluteStartDate = text('Absolute start date', '2013-04-22');
     const absoluteEndDate = text('Absolute end date', '2013-04-22');
-    const popoverProps = {
-      isRelativeEnabled: relativeEnabled,
-      selectedRangeType,
-      translations,
-      absoluteRange: {
-        dateFormat,
-        numberOfMonths,
-        region,
-        showWeekNumbers,
-        endDate: absoluteEndDate,
-        startDate: absoluteStartDate,
-      },
+    const absoluteRange = {
+      dateFormat,
+      numberOfMonths,
+      region,
+      showWeekNumbers,
+      endDate: absoluteEndDate,
+      startDate: absoluteStartDate,
+    };
+    const enabled = {
+      absolute: absoluteEnabled,
+      period: periodEnabled,
+      relative: relativeEnabled,
     };
 
     return (
       <DateRange
         id="default"
-        width={width}
-        popoverProps={popoverProps}
+        absoluteRange={absoluteRange}
+        enabled={enabled}
         onChange={action('handleChange')}
+        translations={translations}
+        width={width}
       />
     );
   })
@@ -65,8 +68,9 @@ storiesOf('Date range', (module))
       absolute: text('Absolute label', 'Absolute'),
       relative: text('Relative label', 'Relative'),
     };
+    const absoluteEnabled = boolean('Absolute range enabled', true);
+    const periodEnabled = boolean('Period enabled', false);
     const relativeEnabled = boolean('Relative range enabled', true);
-    const selectedRangeType = select('Range type', ['absolute', 'relative'], 'relative');
     const dateFormat = text('Date format', 'DD.MM.YYYY');
     const numberOfMonths = number('Number of months', 1);
     const region = text('Region', 'en_GB');
@@ -87,28 +91,89 @@ storiesOf('Date range', (module))
         moment: 'END',
       },
     );
-    const popoverProps = {
-      isRelativeEnabled: relativeEnabled,
-      selectedRangeType,
-      translations,
-      absoluteRange: {
-        dateFormat,
-        numberOfMonths,
-        region,
-        showWeekNumbers,
-      },
-      relativeRange: {
-        endDate: relativeEndDate,
-        startDate: relativeStartDate,
-      },
+    const enabled = {
+      absolute: absoluteEnabled,
+      period: periodEnabled,
+      relative: relativeEnabled,
+    };
+    const absoluteRange = {
+      dateFormat,
+      numberOfMonths,
+      region,
+      showWeekNumbers,
+    };
+    const relativeRange = {
+      endDate: relativeEndDate,
+      startDate: relativeStartDate,
     };
 
     return (
       <DateRange
         id="default"
-        width={width}
-        popoverProps={popoverProps}
+        absoluteRange={absoluteRange}
+        enabled={enabled}
         onChange={action('handleChange')}
+        relativeRange={relativeRange}
+        translations={translations}
+        width={width}
+      />
+    );
+  })
+  .add('period', () => {
+    const width = text('Width', '200px');
+    const translations = {
+      startDate: text('Start date label', 'First day'),
+      endDate: text('End date label', 'Last day'),
+      absolute: text('Absolute label', 'Absolute'),
+      relative: text('Relative label', 'Relative'),
+    };
+    const absoluteEnabled = boolean('Absolute range enabled', true);
+    const periodEnabled = boolean('Period enabled', true);
+    const relativeEnabled = boolean('Relative range enabled', true);
+    const dateFormat = text('Date format', 'DD.MM.YYYY');
+    const numberOfMonths = number('Number of months', 1);
+    const region = text('Region', 'en_GB');
+    const showWeekNumbers = boolean('Show week numbers', true);
+    const periodStartDate = object(
+      'Period start date',
+      {
+        unit: 'DAY',
+        timing: 'CURRENT',
+      },
+    );
+    const periodEndDate = object(
+      'Period end date',
+      {
+        unit: 'DAY',
+        timing: 5,
+        periodic: true,
+      },
+    );
+    const enabled = {
+      absolute: absoluteEnabled,
+      period: periodEnabled,
+      relative: relativeEnabled,
+    };
+    const absoluteRange = {
+      dateFormat,
+      numberOfMonths,
+      region,
+      showWeekNumbers,
+    };
+    const period = {
+      endDate: periodEndDate,
+      startDate: periodStartDate,
+    };
+
+    return (
+      <DateRange
+        id="default"
+        absoluteRange={absoluteRange}
+        enabled={enabled}
+        onChange={action('handleChange')}
+        period={period}
+        translations={translations}
+        width={width}
       />
     );
   });
