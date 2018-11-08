@@ -75,9 +75,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     if (!endDate) {
       state = {
         startDate,
-        popoverProps: {
-          absoluteRange,
-        },
+        absoluteRange,
       };
     } else {
       const to = moment.utc(endDate);
@@ -89,12 +87,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
         startDate,
         endDate: to.endOf('day').toISOString(),
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
-        popoverProps: {
-          absoluteRange: {
-            ...absoluteRange,
-            startDate,
-            endDate,
-          },
+        absoluteRange: {
+          ...absoluteRange,
+          startDate,
+          endDate,
         },
       };
     }
@@ -124,9 +120,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     if (!startDate) {
       state = {
         endDate,
-        popoverProps: {
-          absoluteRange,
-        },
+        absoluteRange,
       };
     } else {
       const from = moment.utc(startDate);
@@ -138,12 +132,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
         startDate: from.startOf('day').toISOString(),
         endDate: to.endOf('day').toISOString(),
         value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
-        popoverProps: {
-          absoluteRange: {
-            ...absoluteRange,
-            endDate,
-            startDate,
-          },
+        absoluteRange: {
+          ...absoluteRange,
+          endDate,
+          startDate,
         },
       };
     }

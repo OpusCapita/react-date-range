@@ -36,27 +36,27 @@ export default class DateRangePopover extends React.PureComponent {
 
   handleChange = (e) => {
     const selectedRangeType = e.target.value;
+    const { onRangeTypeChange } = this.props;
     this.setState({ selectedRangeType });
-    this.props.onRangeTypeChange({
-      popoverProps: {
-        selectedRangeType,
-      },
-    });
+    onRangeTypeChange({ selectedRangeType });
   }
 
   renderRangeComponent = () => {
-    const selectedRange = RangeTypes[this.state.selectedRangeType];
+    const { onChange, translations } = this.props;
+    const { selectedRangeType } = this.state;
+    const selectedRange = RangeTypes[selectedRangeType];
     return (
       <selectedRange.component
         {...this.props[selectedRange.propsKey]}
-        onChange={this.props.onChange}
-        translations={this.props.translations}
+        onChange={onChange}
+        translations={translations}
       />
     );
   }
 
   renderOptions = () => {
-    const { enabled } = this.props;
+    const { enabled, translations } = this.props;
+    const { selectedRangeType } = this.state;
     const enabledOptions = Object.keys(RangeTypes).filter(key => enabled[key]);
     return enabledOptions.length > 1
       ? enabledOptions.map(type => (
@@ -65,10 +65,10 @@ export default class DateRangePopover extends React.PureComponent {
           name="rangeType"
           value={type}
           onChange={this.handleChange}
-          checked={this.state.selectedRangeType === type}
+          checked={selectedRangeType === type}
           inline
         >
-          {this.props.translations[type]}
+          {translations[type]}
         </Radio>))
       : undefined;
   };

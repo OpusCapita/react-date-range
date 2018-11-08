@@ -14,11 +14,11 @@ export default class DateRangeView extends React.PureComponent {
           <h4>Absolute period (default)</h4>
           <DateRange id="example1" />
           <h4>Absolute or relative</h4>
-          <DateRange id="example2" popoverProps={{ enabled: { absolute: true, relative: true } }} />
+          <DateRange id="example2" enabled={{ absolute: true, relative: true }} />
           <h4>Absolute, relative or period</h4>
           <DateRange
             id="example3"
-            popoverProps={{ enabled: { absolute: true, relative: true, period: true } }}
+            enabled={{ absolute: true, relative: true, period: true }}
           />
         </div>
       </React.Fragment>

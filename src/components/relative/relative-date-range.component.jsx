@@ -66,10 +66,8 @@ export default class RelativeDateRange extends React.PureComponent {
     this.setState({ endDateOptions, startDate });
     let state = {
       startDate: startDate.value,
-      popoverProps: {
-        relativeRange: {
-          startDate,
-        },
+      relativeRange: {
+        startDate,
       },
     };
     if (endDate) {
@@ -80,11 +78,9 @@ export default class RelativeDateRange extends React.PureComponent {
         ...state,
         value: `${startDate.label} - ${endDate.label || ''}`,
         endDate: endDateValue,
-        popoverProps: {
-          relativeRange: {
-            ...state.popoverProps.relativeRange,
-            endDate,
-          },
+        relativeRange: {
+          ...state.relativeRange,
+          endDate,
         },
       };
     }
@@ -102,10 +98,8 @@ export default class RelativeDateRange extends React.PureComponent {
     this.setState({ startDateOptions, endDate });
     let state = {
       endDate: endDate.value,
-      popoverProps: {
-        relativeRange: {
-          endDate,
-        },
+      relativeRange: {
+        endDate,
       },
     };
     if (startDate) {
@@ -116,11 +110,9 @@ export default class RelativeDateRange extends React.PureComponent {
         ...state,
         value: `${startDate.label || ''} - ${endDate.label}`,
         startDate: startDateValue,
-        popoverProps: {
-          relativeRange: {
-            ...state.popoverProps.relativeRange,
-            startDate,
-          },
+        relativeRange: {
+          ...state.relativeRange,
+          startDate,
         },
       };
     }

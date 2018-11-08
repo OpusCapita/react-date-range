@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 
-export default PropTypes.shape({
+export default {
   absolute: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   dates: PropTypes.shape({
     endOfTheCurrentMonth: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
@@ -43,5 +43,4 @@ export default PropTypes.shape({
     plural: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     singular: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   }),
-});
-
+};

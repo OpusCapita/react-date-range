@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import RelativeConstants from '../relative/constants';
-import { relativeDate } from '../relative/prop-types';
+import { relativeDateShape } from '../relative/prop-types';
 
 export const granularities = [
   RelativeConstants.DAY,
@@ -18,5 +18,5 @@ export const periodShape = PropTypes.shape({
 export default {
   endDate: periodShape,
   onChange: PropTypes.func,
-  startDate: relativeDate,
+  startDate: relativeDateShape,
 };

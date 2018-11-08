@@ -78,11 +78,9 @@ export default class Period extends React.PureComponent {
     const state = {
       startDate: startDate.value,
       value: formatLabel(startDate, endDate, translations),
-      popoverProps: {
-        period: {
-          startDate,
-          endDate,
-        },
+      period: {
+        startDate,
+        endDate,
       },
     };
     this.props.onChange(state);
@@ -94,28 +92,25 @@ export default class Period extends React.PureComponent {
     this.setState({ endDate });
     let state = {
       endDate,
-      popoverProps: {
-        period: {
-          endDate,
-        },
+      period: {
+        endDate,
       },
     };
     if (startDate) {
-      const startDateValue = startDate.value
-        ? {
+      const date = {
+        startDate,
+        value: {
           ...startDate.value,
           moment: endDate.timing < 0 ? RelativeConstants.END : RelativeConstants.START,
-        }
-        : startDate.value;
+        },
+      };
       state = {
-        ...state,
+        endDate,
         value: formatLabel(startDate, endDate, translations),
-        startDate: startDateValue,
-        popoverProps: {
-          period: {
-            ...state.popoverProps.period,
-            startDate,
-          },
+        startDate: date.value,
+        period: {
+          endDate,
+          startDate: date,
         },
       };
     }
