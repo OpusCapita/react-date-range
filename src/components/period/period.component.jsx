@@ -76,12 +76,18 @@ export default class Period extends React.PureComponent {
       },
     };
     this.setState({ startDate });
+    const date = endDate.moment ? endDate :
+      {
+        ...endDate,
+        moment: endDate.timing < 0 ? RelativeConstants.START : RelativeConstants.END,
+      };
     const state = {
+      endDate: date,
       startDate: startDate.value,
       value: formatLabel(startDate, endDate, translations),
       period: {
         startDate,
-        endDate,
+        endDate: date,
       },
     };
     this.props.onChange(state);
