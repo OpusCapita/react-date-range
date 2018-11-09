@@ -141,11 +141,14 @@ export default class DateRange extends React.PureComponent {
   initAbsoluteRange = (props) => {
     const { absoluteRange } = props;
     const { endDate, startDate, dateFormat } = absoluteRange || {};
+    const { showOverlay } = (this.state || {}).absoluteRange || {};
+
     if (startDate && endDate) {
       const from = moment.utc(startDate);
       const to = moment.utc(endDate);
       return {
         absoluteRange: {
+          showOverlay,
           endDate: to.endOf('day').toISOString(),
           startDate: from.startOf('day').toISOString(),
         },

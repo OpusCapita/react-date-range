@@ -49,9 +49,9 @@ export default class AbsoluteDateRange extends React.PureComponent {
 
   componentDidMount = () => {
     const { showOverlay } = this.props;
-    if (this.from && showOverlay === 1) {
+    if (this.from && showOverlay === Overlays.START) {
       this.from.focus();
-    } else if (this.to && showOverlay === 2) {
+    } else if (this.to && showOverlay === Overlays.END) {
       this.to.focus();
     }
   }
@@ -70,7 +70,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     const { endDate } = this.state;
     const absoluteRange = {
       startDate,
-      showOverlay: Overlays.start,
+      showOverlay: Overlays.START,
     };
     let state;
     if (!endDate) {
@@ -114,7 +114,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     const { startDate } = this.state;
     const absoluteRange = {
       endDate,
-      showOverlay: Overlays.end,
+      showOverlay: Overlays.END,
     };
 
     let state;

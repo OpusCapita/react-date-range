@@ -1,4 +1,4 @@
 export default {
-  start: 1,
-  end: 2,
+  START: 1,
+  END: 2,
 };
