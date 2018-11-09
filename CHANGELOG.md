@@ -3,6 +3,9 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added period type
+* Enhanced localization
+* Better state handling
 
 ## 1.1.1
 * Updated @opuscapita/react-datetime version

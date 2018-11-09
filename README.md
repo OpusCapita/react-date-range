@@ -1,7 +1,7 @@
 # react-date-range
 
 ### Description
-Date range component is a component that can be useful for selecting date ranges. 
+Date range component is a component that can be useful for selecting date ranges.
 
 ### Installation
 ```
@@ -22,30 +22,21 @@ Also you need to configure sass loader, since all the styles are in sass format.
 
 ### API
 
-| Prop name    | Type              | Default  | Description                              |
-| ------------ | ----------------- | -------- | ---------------------------------------- |
-| id           | string            | required | ID for the DOM element                   |
-| className    | string            | ''       | Class for the DOM element                |
-| inputProps   | object            | {}       | Custom props for the input field         |
-| inputRef     | function          |          | Input component ref function             |
-| onChange     | function          |          | onChange callback returns new date range |
-| popoverProps | popoverPropsShape |          | Properties for popover                   |
-| width        | string            | '200px'  | Width of the date range input field      |
+| Prop name     | Type               | Default  | Description                              |
+| ------------- | ------------------ | -------- | ---------------------------------------- |
+| id            | string             | required | ID for the DOM element                   |
+| absoluteRange | absoluteRangeShape |          | Properties for absolute range            |
+| className     | string             | ''       | Class for the DOM element                |
+| enabled       | enabledShape       | ''       | Properties for enabling range types      |
+| inputProps    | object             | {}       | Custom props for the input field         |
+| inputRef      | function           |          | Input component ref function             |
+| onChange      | function           |          | onChange callback returns new date range |
+| period        | periodShape        |          | Properties for period                    |
+| relativeRange | relativeRangeShape |          | Properties for relative range            |
+| translations  | translationsShape  |          | Translations                             |
+| width         | string             | '200px'  | Width of the date range input field      |
 
-###### Types
-
-- __popoverPropsShape:__ 
-
-| Prop name         | Type               | Default    | Description                                                               |
-| ----------------- | ------------------ | ---------- | ------------------------------------------------------------------------- |
-| absoluteRange     | absoluteRangeShape |            | Properties for absolute range                                             |
-| isRelativeEnabled | boolean            | false      | If true, relative range is enabled. otherwise relative range is disabled. |
-| selectedRangeType | enum               | 'absolute' |                                                                           |
-| onChange          | function           |            | onChange callback                                                         |
-| relativeRange     | relativeRangeShape |            | Properties for relative range                                             |
-| translations      | translationsShape  |            | Translations                                                              |
-
-- __absoluteRangeShape:__ 
+- __absoluteRangeShape:__
 
 | Prop name      | Type     | Default    | Description                                                                                           |
 | -------------- | -------- | ---------- | ----------------------------------------------------------------------------------------------------- |
@@ -54,43 +45,113 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | numberOfMonths | number   | 2          | The number of months to render [format](https://react-day-picker.js.org/api/DayPicker#numberOfMonths) |
 | onChange       | function |            | onChange callback                                                                                     |
 | region         | string   | 'en_GB'    | Language region                                                                                       |
+| showOverlay    | number   | 0          | 0: no calender, 1: first day calendar, 2: last day calendar open by default                           |
 | showWeekNumber | boolean  | true       | Show week number in calendar                                                                          |
 | startDate      | string   | ''         | Start date                                                                                            |
 
-- __relativeRangeShape:__ 
+- __enabledShape:__
 
-| Prop name | Type                       | Default | Description       |
-| --------- | -------------------------- | ------- | ----------------- |
-| endDate   | relativeDateShape          |         | End date          |
-| onChange  | function                   |         | onChange callback |
-| options   | array of relativeDateShape |         |                   |
-| startDate | relativeDateShape          |         |                   |
+| Prop name | Type | Default | Description                         |
+| --------- | ---- | ------- | ----------------------------------- |
+| absolute  | bool | true    | True, if absolute range is enabled. |
+| period    | bool | false   | True, if period is enabled.         |
+| relative  | bool | false   | True, if relative range is enabled. |
 
-- __translationsShape:__ 
+- __periodShape:__
 
-| Prop name | Type              | Default     | Description              |
-| --------- | ----------------- | ----------- | ------------------------ |
-| absolute  | string or element | 'Absolute'  | Label for absolute range |
-| endDate   | string or element | 'Last day'  | Label for end date       |
-| relative  | string or element | 'Relative'  | Label for relative range |
-| startDate | string or element | 'First day' | Label for start date     |
+| Prop name | Type              | Default | Description       |
+| --------- | ----------------- | ------- | ----------------- |
+| endDate   | periodDateShape   |         | End date          |
+| onChange  | function          |         | onChange callback |
+| startDate | relativeDateShape |         | Start date        |
 
-- __relativeDateShape:__ 
+- __periodDateShape:__
 
-| Prop name   | Type              | Default  | Description                                        |
-| ----------- | ----------------- | -------- | -------------------------------------------------- |
-| label       | string or element | required | Label for relative date                            |
-| value       | realtiveDate      | required |                                                    |
-| granularity | enum              | required | 'DAY', 'WEEK', 'MONTH' or 'YEAR'                   |
-| past        | boolean           | false    | If true, past. Otherwise current or in the future. |
+| Prop name | Type   | Default  | Description                                                         |
+| --------- | ------ | -------- | ------------------------------------------------------------------- |
+| unit      | enum   | required | 'DAY', 'WEEK' or 'MONTH'                                            |
+| timing    | number | required | Negative or positive integer                                        |
+| moment    | enum   | required | 'END' if timing is positive, 'START' if timing is negative integer. |
+| periodic  | bool   | true     | True, if date is periodic.                                          |
 
-- __relativeDate:__ 
+- __relativeDateShape:__
 
 | Prop name | Type | Default  | Description                      |
 | --------- | ---- | -------- | -------------------------------- |
 | unit      | enum | required | 'DAY', 'WEEK', 'MONTH' or 'YEAR' |
 | timing    | enum | required | 'PREVIOUS', 'CURRENT' or 'NEXT'  |
 | moment    | enum | required | 'END' or 'START'                 |
+
+- __relativeRangeShape:__
+
+| Prop name | Type              | Default | Description       |
+| --------- | ----------------- | ------- | ----------------- |
+| endDate   | relativeDateShape |         | End date          |
+| onChange  | function          |         | onChange callback |
+| startDate | relativeDateShape |         | Start date        |
+
+- __translationsShape:__
+
+| Prop name | Type                   | Default     | Description          |
+| --------- | ---------------------- | ----------- | -------------------- |
+| absolute  | string or node         | 'Absolute'  | Absolute range label |
+| dates     | datesTranslationsShape |             |                      |
+| day       | dayTranslationShape    |             |                      |
+| endDate   | string or node         | 'Last day'  | Last date label      |
+| from      | string or node         | 'From'      | From date label      |
+| month     | monthTranslationShape  |             |                      |
+| period    | string or node         | 'Period'    | Period label         |
+| relative  | string or node         | 'Relative'  | Relative range label |
+| startDate | string or node         | 'First day' | First date label     |
+| to        | string or node         | 'To'        | To label             |
+| week      | weekTranslationShape   |             |                      |
+
+- __datesTranslationsShape:__
+
+| Prop name               | Type           | Default                       | Description |
+| ----------------------- | -------------- | ----------------------------- | ----------- |
+| endOfTheCurrentMonth    | string or node | 'End of the current month'    |             |
+| endOfTheCurrentWeek     | string or node | 'End of the current week'     |             |
+| endOfTheCurrentYear     | string or node | 'End of the current year'     |             |
+| endOfTheNextMonth       | string or node | 'End of the next month'       |             |
+| endOfTheNextWeek        | string or node | 'End of the next week'        |             |
+| endOfTheNextYear        | string or node | 'End of the next year'        |             |
+| endOfThePreviousMonth   | string or node | 'End of the previous month'   |             |
+| endOfThePreviousWeek    | string or node | 'End of the previous week'    |             |
+| endOfThePreviousYear    | string or node | 'End of the previous year'    |             |
+| startOfTheCurrentMonth  | string or node | 'Start of the current month'  |             |
+| startOfTheCurrentWeek   | string or node | 'Start of the current week'   |             |
+| startOfTheCurrentYear   | string or node | 'Start of the current year'   |             |
+| startOfTheNextMonth     | string or node | 'Start of the next month'     |             |
+| startOfTheNextWeek      | string or node | 'Start of the next week'      |             |
+| startOfTheNextYear      | string or node | 'Start of the next year'      |             |
+| startOfThePreviousMonth | string or node | 'Start of the previous month' |             |
+| startOfThePreviousWeek  | string or node | 'Start of the previous week'  |             |
+| startOfThePreviousYear  | string or node | 'Start of the previous year'  |             |
+| today                   | string or node | 'Today'                       |             |
+| tomorrow                | string or node | 'Tomorrow'                    |             |
+| yesterday               | string or node | 'Yesterday'                   |             |
+
+- __dayTranslationShape:__
+
+| Prop name | Type           | Default | Description             |
+| --------- | -------------- | ------- | ----------------------- |
+| plural    | string or node | 'days'  | Label for plural of day |
+| singular  | string or node | 'day'   | Label for single day    |
+
+- __monthTranslationShape:__
+
+| Prop name | Type           | Default  | Description               |
+| --------- | -------------- | -------- | ------------------------- |
+| plural    | string or node | 'months' | Label for plural of month |
+| singular  | string or node | 'month'  | Label for single month    |
+
+- __weekTranslationShape:__
+
+| Prop name | Type           | Default | Description              |
+| --------- | -------------- | ------- | ------------------------ |
+| plural    | string or node | 'weeks' | Label for plural of week |
+| singular  | string or node | 'week'  | Lable for single week    |
 
 ### Code example
 ```jsx
