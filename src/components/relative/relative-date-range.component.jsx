@@ -10,6 +10,8 @@ import Hyphen from '../hyphen.component';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 import Constants from './constants';
+import relativeOptions from './relative-options';
+import translate from '../../translations/translate';
 
 const RelativeRangeSection = styled.div`
   display: flex;
@@ -23,7 +25,8 @@ export default class RelativeDateRange extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { endDate, options, startDate } = props;
+    const { endDate, startDate, translations } = props;
+    const options = relativeOptions(translate(translations, 'dates'));
     this.state = {
       endDate,
       endDateOptions: startDate ?
@@ -64,10 +67,8 @@ export default class RelativeDateRange extends React.PureComponent {
     this.setState({ endDateOptions, startDate });
     let state = {
       startDate: startDate.value,
-      popoverProps: {
-        relativeRange: {
-          startDate,
-        },
+      relativeRange: {
+        startDate,
       },
     };
     if (endDate) {
@@ -78,11 +79,9 @@ export default class RelativeDateRange extends React.PureComponent {
         ...state,
         value: `${startDate.label} - ${endDate.label || ''}`,
         endDate: endDateValue,
-        popoverProps: {
-          relativeRange: {
-            ...state.popoverProps.relativeRange,
-            endDate,
-          },
+        relativeRange: {
+          ...state.relativeRange,
+          endDate,
         },
       };
     }
@@ -100,10 +99,8 @@ export default class RelativeDateRange extends React.PureComponent {
     this.setState({ startDateOptions, endDate });
     let state = {
       endDate: endDate.value,
-      popoverProps: {
-        relativeRange: {
-          endDate,
-        },
+      relativeRange: {
+        endDate,
       },
     };
     if (startDate) {
@@ -114,11 +111,9 @@ export default class RelativeDateRange extends React.PureComponent {
         ...state,
         value: `${startDate.label || ''} - ${endDate.label}`,
         startDate: startDateValue,
-        popoverProps: {
-          relativeRange: {
-            ...state.popoverProps.relativeRange,
-            startDate,
-          },
+        relativeRange: {
+          ...state.relativeRange,
+          startDate,
         },
       };
     }
@@ -132,6 +127,7 @@ export default class RelativeDateRange extends React.PureComponent {
       startDate,
       endDate,
     } = this.state;
+    const { translations } = this.props;
 
     return (
       <RelativeRangeSection>
@@ -139,7 +135,7 @@ export default class RelativeDateRange extends React.PureComponent {
           <Content.InputColumn
             className="relative-start-date"
             id="relativeStartDate"
-            label={this.props.translations.startDate}
+            label={translate(translations, 'startDate')}
           >
             <FloatingSelect
               {...this.props}
@@ -155,7 +151,7 @@ export default class RelativeDateRange extends React.PureComponent {
           <Content.InputColumn
             className="relative-end-date"
             id="relativeEndDate"
-            label={this.props.translations.endDate}
+            label={translate(translations, 'endDate')}
           >
             <FloatingSelect
               {...this.props}

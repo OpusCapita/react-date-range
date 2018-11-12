@@ -1,141 +1,153 @@
 import Constants from './constants';
 import values from './values';
 
-export default [
+const relativeOptions = dates => [
   {
-    label: 'Yesterday',
+    label: dates.yesterday,
     value: values.yesterday,
     order: 1,
     granularity: Constants.DAY,
     past: true,
   },
   {
-    label: 'Today',
+    label: dates.today,
     value: values.today,
     order: 2,
     granularity: Constants.DAY,
   },
   {
-    label: 'Tomorrow',
+    label: dates.tomorrow,
     value: values.tomorrow,
     order: 3,
     granularity: Constants.DAY,
   },
   {
-    label: 'Start of the previous week',
-    value: values.startOfPreviousWeek,
+    label: dates.startOfThePreviousWeek,
+    value: values.startOfThePreviousWeek,
     order: 1,
     granularity: Constants.WEEK,
     past: true,
   },
   {
-    label: 'End of the previous week',
-    value: values.endOfPreviousWeek,
+    label: dates.endOfThePreviousWeek,
+    value: values.endOfThePreviousWeek,
     order: 2,
     granularity: Constants.WEEK,
     past: true,
   },
   {
-    label: 'Start of the current week',
-    value: values.startOfCurrentWeek,
+    label: dates.startOfTheCurrentWeek,
+    value: values.startOfTheCurrentWeek,
     order: 3,
     granularity: Constants.WEEK,
     past: true,
   },
   {
-    label: 'End of the current week',
-    value: values.endOfCurrentWeek,
+    label: dates.endOfTheCurrentWeek,
+    value: values.endOfTheCurrentWeek,
     order: 4,
     granularity: Constants.WEEK,
   },
   {
-    label: 'Start of the next week',
-    value: values.startOfNextWeek,
+    label: dates.startOfTheNextWeek,
+    value: values.startOfTheNextWeek,
     order: 5,
     granularity: Constants.WEEK,
   },
   {
-    label: 'End of the next week',
-    value: values.endOfNextWeek,
+    label: dates.endOfTheNextWeek,
+    value: values.endOfTheNextWeek,
     order: 6,
     granularity: Constants.WEEK,
   },
   {
-    label: 'Start of the previous month',
-    value: values.startOfPreviousMonth,
+    label: dates.startOfThePreviousMonth,
+    value: values.startOfThePreviousMonth,
     order: 1,
     granularity: Constants.MONTH,
     past: true,
   },
   {
-    label: 'End of the previous month',
-    value: values.endOfPreviousMonth,
+    label: dates.endOfThePreviousMonth,
+    value: values.endOfThePreviousMonth,
     order: 2,
     granularity: Constants.MONTH,
     past: true,
   },
   {
-    label: 'Start of the current month',
-    value: values.startOfCurrentMonth,
+    label: dates.startOfTheCurrentMonth,
+    value: values.startOfTheCurrentMonth,
     order: 3,
     granularity: Constants.MONTH,
     past: true,
   },
   {
-    label: 'End of the current month',
-    value: values.endOfCurrentMonth,
+    label: dates.endOfTheCurrentMonth,
+    value: values.endOfTheCurrentMonth,
     order: 4,
     granularity: Constants.MONTH,
   },
   {
-    label: 'Start of the next month',
-    value: values.startOfNextMonth,
+    label: dates.startOfTheNextMonth,
+    value: values.startOfTheNextMonth,
     order: 5,
     granularity: Constants.MONTH,
   },
   {
-    label: 'End of the next month',
-    value: values.endOfNextMonth,
+    label: dates.endOfTheNextMonth,
+    value: values.endOfTheNextMonth,
     order: 6,
     granularity: Constants.MONTH,
   },
   {
-    label: 'Start of the previous year',
-    value: values.startOfPreviousYear,
+    label: dates.startOfThePreviousYear,
+    value: values.startOfThePreviousYear,
     order: 1,
     granularity: Constants.YEAR,
     past: true,
   },
   {
-    label: 'End of the previous year',
-    value: values.endOfPreviousYear,
+    label: dates.endOfThePreviousYear,
+    value: values.endOfThePreviousYear,
     order: 2,
     granularity: Constants.YEAR,
     past: true,
   },
   {
-    label: 'Start of the current year',
-    value: values.startOfCurrentYear,
+    label: dates.startOfTheCurrentYear,
+    value: values.startOfTheCurrentYear,
     order: 3,
     granularity: Constants.YEAR,
     past: true,
   },
   {
-    label: 'End of the current year',
-    value: values.endOfCurrentYear,
+    label: dates.endOfTheCurrentYear,
+    value: values.endOfTheCurrentYear,
     order: 4,
     granularity: Constants.YEAR,
   },
   {
-    label: 'Start of the next year',
-    value: values.startOfNextYear,
+    label: dates.startOfTheNextYear,
+    value: values.startOfTheNextYear,
     order: 5,
     granularity: Constants.YEAR,
   },
   {
-    label: 'End of the next year',
-    value: values.endOfNextYear,
+    label: dates.endOfTheNextYear,
+    value: values.endOfTheNextYear,
     order: 6,
     granularity: Constants.YEAR,
   },
 ];
+
+const getRelativeOption = (inputDate, dates) => (
+  inputDate
+    ? relativeOptions(dates).find(option =>
+      (!option.value.moment || option.value.moment === inputDate.moment)
+      && option.value.unit === inputDate.unit
+      && option.value.timing === inputDate.timing)
+    : undefined
+);
+
+export default relativeOptions;
+export { getRelativeOption };

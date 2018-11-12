@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
 
 const HyphenSpan = styled.span`
-  padding: 0 0.3rem 8px 0.3rem;
+  padding: 0 ${theme.gutterWidth} 8px ${theme.gutterWidth};
   align-self: flex-end;
   margin-bottom: calc(2 * ${theme.gutterWidth});
 `;

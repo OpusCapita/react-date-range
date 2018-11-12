@@ -7,6 +7,7 @@ import { theme } from '@opuscapita/oc-cm-common-layouts';
 import RangeTypes from './range-types';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
+import translate from '../translations/translate';
 
 const PopoverSection = styled.div`
   position: absolute;
@@ -25,55 +26,71 @@ const PopoverSection = styled.div`
 export default class DateRangePopover extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { enabled } = props;
+    const selectedRangeType = enabled[props.selectedRangeType]
+      ? props.selectedRangeType
+      : Object.keys(enabled).find(key => enabled[key]);
     this.state = {
-      selectedRangeType: props.selectedRangeType,
+      selectedRangeType,
     };
   }
 
   handleChange = (e) => {
     const selectedRangeType = e.target.value;
+    const { onRangeTypeChange } = this.props;
     this.setState({ selectedRangeType });
-    this.props.onRangeTypeChange({
-      popoverProps: {
-        selectedRangeType,
-      },
-    });
+    onRangeTypeChange({ selectedRangeType });
   }
 
   renderRangeComponent = () => {
-    const selectedRange = RangeTypes[this.state.selectedRangeType];
+    const { onChange, translations } = this.props;
+    const { selectedRangeType } = this.state;
+    const selectedRange = RangeTypes[selectedRangeType];
     return (
       <selectedRange.component
         {...this.props[selectedRange.propsKey]}
-        onChange={this.props.onChange}
-        translations={this.props.translations}
+        onChange={onChange}
+        translations={translations}
       />
     );
   }
 
-  renderOptions = () => (
-    Object.keys(RangeTypes).map(type => (
-      <Radio
-        key={type}
-        name="rangeType"
-        value={type}
-        onChange={this.handleChange}
-        checked={this.state.selectedRangeType === type}
-        inline
-      >
-        {this.props.translations[type]}
-      </Radio>))
-  );
+  renderOptions = () => {
+    const { enabled, translations } = this.props;
+    const { selectedRangeType } = this.state;
+    const enabledOptions = Object.keys(RangeTypes).filter(key => enabled[key]);
+    return enabledOptions.length > 1
+      ? enabledOptions.map(type => (
+        <Radio
+          key={type}
+          name="rangeType"
+          value={type}
+          onChange={this.handleChange}
+          checked={selectedRangeType === type}
+          inline
+        >
+          {translate(translations, type)}
+        </Radio>))
+      : undefined;
+  };
+
+  renderRangeOptions = () => {
+    const options = this.renderOptions();
+    return (
+      options ?
+        <React.Fragment>
+          <FormGroup>
+            {options}
+          </FormGroup>
+          <hr />
+        </React.Fragment>
+        : undefined
+    );
+  }
 
   render = () => (
     <PopoverSection>
-      {this.props.isRelativeEnabled &&
-      <React.Fragment>
-        <FormGroup>
-          {this.renderOptions()}
-        </FormGroup>
-        <hr />
-      </React.Fragment>}
+      {this.renderRangeOptions()}
       {this.renderRangeComponent()}
     </PopoverSection>
   );

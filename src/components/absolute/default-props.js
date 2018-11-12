@@ -3,7 +3,7 @@ export default {
   endDate: '',
   numberOfMonths: 1,
   onChange: () => {},
-  region: 'en_GB',
+  region: 'en-GB',
   showOverlay: 0,
   showWeekNumbers: true,
   startDate: '',
