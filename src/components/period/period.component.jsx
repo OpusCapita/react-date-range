@@ -70,10 +70,7 @@ export default class Period extends React.PureComponent {
     const { endDate } = this.state;
     const startDate = {
       ...selectedStartDate,
-      value: {
-        ...selectedStartDate.value,
-        moment: endDate.timing < 0 ? RelativeConstants.END : RelativeConstants.START,
-      },
+      value: selectedStartDate.value,
     };
     this.setState({ startDate });
     const date = endDate.moment ? endDate :
@@ -104,20 +101,13 @@ export default class Period extends React.PureComponent {
       },
     };
     if (startDate) {
-      const date = {
-        ...startDate,
-        value: {
-          ...startDate.value,
-          moment: endDate.timing < 0 ? RelativeConstants.END : RelativeConstants.START,
-        },
-      };
       state = {
         endDate,
         value: formatLabel(startDate, endDate, translations),
-        startDate: date.value,
+        startDate: startDate.value,
         period: {
           endDate,
-          startDate: date,
+          startDate,
         },
       };
     }

@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed: period start date moment
 
 ## 2.0.0
 * Added period type
