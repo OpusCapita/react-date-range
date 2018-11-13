@@ -68,10 +68,15 @@ export default class Period extends React.PureComponent {
   handleStartDateChange = (selectedStartDate) => {
     const { translations } = this.props;
     const { endDate } = this.state;
-    const startDate = {
-      ...selectedStartDate,
-      value: selectedStartDate.value,
-    };
+
+    const startDate = selectedStartDate.value.moment ? selectedStartDate :
+      {
+        ...selectedStartDate,
+        value: {
+          ...selectedStartDate.value,
+          moment: RelativeConstants.START,
+        },
+      };
     this.setState({ startDate });
     const date = endDate.moment ? endDate :
       {
