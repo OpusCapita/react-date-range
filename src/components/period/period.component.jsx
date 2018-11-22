@@ -65,24 +65,32 @@ export default class Period extends React.PureComponent {
     granularities.find(granularity => granularity.value === value) || granularities[0]
   );
 
+  initEndDate = endDate => (
+    endDate.moment ? endDate :
+      {
+        ...endDate,
+        moment: endDate.timing < 0 ? RelativeConstants.START : RelativeConstants.END,
+      }
+  );
+
+  initStartDate = startDate => (
+    startDate.value && startDate.value.moment ? startDate :
+      {
+        ...startDate,
+        value: {
+          ...startDate.value,
+          moment: RelativeConstants.START,
+        },
+      }
+  );
+
   handleStartDateChange = (selectedStartDate) => {
     const { translations } = this.props;
     const { endDate } = this.state;
 
-    const startDate = selectedStartDate.value.moment ? selectedStartDate :
-      {
-        ...selectedStartDate,
-        value: {
-          ...selectedStartDate.value,
-          moment: RelativeConstants.START,
-        },
-      };
+    const startDate = this.initStartDate(selectedStartDate);
+    const date = this.initEndDate(endDate);
     this.setState({ startDate });
-    const date = endDate.moment ? endDate :
-      {
-        ...endDate,
-        moment: endDate.timing < 0 ? RelativeConstants.START : RelativeConstants.END,
-      };
     const state = {
       endDate: date,
       startDate: startDate.value,
@@ -95,9 +103,11 @@ export default class Period extends React.PureComponent {
     this.props.onChange(state);
   }
 
-  handleEndDateChange = (endDate) => {
+  handleEndDateChange = (selectedEndDate) => {
     const { translations } = this.props;
     const { startDate } = this.state;
+    const date = this.initStartDate(startDate);
+    const endDate = this.initEndDate(selectedEndDate);
     this.setState({ endDate });
     let state = {
       endDate,
@@ -109,7 +119,7 @@ export default class Period extends React.PureComponent {
       state = {
         endDate,
         value: formatLabel(startDate, endDate, translations),
-        startDate: startDate.value,
+        startDate: date.value,
         period: {
           endDate,
           startDate,
