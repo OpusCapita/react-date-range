@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed period so that moment is always set
 
 ## 2.0.2
 * Fixed: period moment of startDate set only if undefined
