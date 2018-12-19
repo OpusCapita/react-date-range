@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Updated npm packages
 
 ## 2.0.3
 * Fixed period so that moment is always set
