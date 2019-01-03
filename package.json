@@ -39,7 +39,7 @@
     "prop-types": "15",
     "react": "16",
     "react-dom": "16",
-    "styled-components": "3"
+    "styled-components": "4"
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.4.8",
@@ -113,8 +113,7 @@
     "@opuscapita/oc-cm-common-layouts": "2.5.3",
     "@opuscapita/oc-cm-common-styles": "3.0.0",
     "@opuscapita/react-datetime": "3.2.7",
-    "@opuscapita/react-floating-select": "3.2.1",
-    "react-icons": "2.2.7"
+    "@opuscapita/react-floating-select": "3.2.1"
   },
   "repository": {
     "type": "git",
