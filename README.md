@@ -40,6 +40,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 
 | Prop name      | Type     | Default    | Description                                                                                           |
 | -------------- | -------- | ---------- | ----------------------------------------------------------------------------------------------------- |
+| className      | string   | ''         | The class attribute of the element                                                                    |
 | dateFormat     | string   | 'M/D/YYYY' | Date format as MomentJS [format](https://momentjs.com/docs/#/displaying/format)                       |
 | endDate        | string   | ''         | End date                                                                                              |
 | numberOfMonths | number   | 2          | The number of months to render [format](https://react-day-picker.js.org/api/DayPicker#numberOfMonths) |

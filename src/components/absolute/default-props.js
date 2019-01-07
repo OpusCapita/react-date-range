@@ -1,4 +1,5 @@
 export default {
+  className: '',
   dateFormat: 'L',
   endDate: '',
   numberOfMonths: 1,
