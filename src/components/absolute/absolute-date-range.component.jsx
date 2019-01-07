@@ -147,6 +147,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
 
   render() {
     const {
+      className,
       region,
       dateFormat,
       numberOfMonths,
@@ -171,6 +172,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             label={translate(translations, 'startDate')}
           >
             <DateInput
+              className={`${className} start-date`}
               dateFormat={dateFormat}
               disabledDays={disabledStartDays}
               locale={region}
@@ -193,6 +195,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
             label={translate(translations, 'endDate')}
           >
             <DateInput
+              className={`${className} end-date`}
               dateFormat={dateFormat}
               disabledDays={disabledEndDays}
               fromMonth={from}

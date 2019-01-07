@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 
 export default {
+  className: PropTypes.string,
   dateFormat: PropTypes.string,
   endDate: PropTypes.string,
   numberOfMonths: PropTypes.number,

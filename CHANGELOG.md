@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added classname prop for absolute range
 
 ## 2.0.5
 * Fixed peer dependency styled-components
