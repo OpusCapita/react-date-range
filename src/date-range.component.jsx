@@ -248,7 +248,6 @@ export default class DateRange extends React.PureComponent {
       width,
     } = this.props;
     const {
-      // absoluteRange,
       period,
       relativeRange,
       selectedRangeType,
