@@ -20,16 +20,19 @@ const PeriodSection = styled.div`
   height: 100%;
   width: 100%;
   padding: ${theme.gutterWidth} 0 0 0;
+  margin-bottom: 0;
 `;
 
 const CountSection = styled(Content.InputColumn)`
   width: 80px;
+  margin-bottom: 0;
 `;
 
 const GranularitySection = styled(Content.InputColumn)`
   align-self: flex-end;
   width: 140px;
   margin-left: ${theme.halfGutterWidth};
+  margin-bottom: ${theme.halfGutterWidth};
 `;
 
 export default class Period extends React.PureComponent {

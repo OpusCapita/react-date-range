@@ -248,13 +248,16 @@ export default class DateRange extends React.PureComponent {
       width,
     } = this.props;
     const {
-      absoluteRange,
       period,
       relativeRange,
       selectedRangeType,
       showOverlay,
       value,
     } = this.state;
+    const absoluteRange = {
+      ...this.props.absoluteRange,
+      ...this.state.absoluteRange,
+    };
 
     const DateRangeSection = styled.div`
       width: ${width};

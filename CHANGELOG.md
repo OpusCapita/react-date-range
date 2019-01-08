@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed absolute prop handling and period view rendering in IE
 
 ## 2.0.6
 * Added classname prop for absolute range
