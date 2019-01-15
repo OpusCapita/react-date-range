@@ -140,7 +140,12 @@ export default class Period extends React.PureComponent {
       timing,
       moment: timing < 0 ? RelativeConstants.START : RelativeConstants.END,
     };
-    this.handleEndDateChange(selectedEndDate);
+    this.setState({ endDate: selectedEndDate });
+  }
+
+  handleTimingBlur = () => {
+    const { endDate } = this.state;
+    this.handleEndDateChange(endDate);
   }
 
   handleGranularityChange = (unit) => {
@@ -181,7 +186,12 @@ export default class Period extends React.PureComponent {
           id="periodEndDate"
           label={translate(translations, 'to')}
         >
-          <Primitive.Input value={endDate.timing} type="number" onChange={this.handleTimingChange} />
+          <Primitive.Input
+            value={endDate.timing}
+            type="number"
+            onBlur={this.handleTimingBlur}
+            onChange={this.handleTimingChange}
+          />
         </CountSection>
         <GranularitySection
           className="period-granularity"
