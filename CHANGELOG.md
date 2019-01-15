@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 2.0.8
+* Fixed period selection: date is updated on blur, not on each input change
+
 ## 2.0.7
 * Fixed absolute prop handling and period view rendering in IE
 
