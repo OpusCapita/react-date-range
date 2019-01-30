@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Updated npm packages
 
 ## 2.0.8
 * Fixed period selection: date is updated on blur, not on each input change
