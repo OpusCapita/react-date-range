@@ -60,12 +60,18 @@ export default class AbsoluteDateRange extends React.PureComponent {
     this.from = undefined;
   }
 
+  isYearAutoFixed = (selector, startDate) => {
+    const inputValue = document.querySelector(selector).value;
+    const year = startDate.year();
+    const epoch = moment.unix(0).year();
+    return year < epoch || !inputValue.includes(year);
+  }
+
   handleStartDateChange = (date) => {
     let startDate = date;
     let from = moment.utc(startDate);
-    if (!from.isValid()) {
-      return;
-    }
+    if (!from.isValid()) return;
+    if (this.isYearAutoFixed('.absolute-start-date input', from)) return;
 
     const { endDate } = this.state;
     const absoluteRange = {
@@ -107,9 +113,8 @@ export default class AbsoluteDateRange extends React.PureComponent {
   handleEndDateChange = (date) => {
     let endDate = date;
     let to = moment.utc(endDate);
-    if (!to.isValid()) {
-      return;
-    }
+    if (!to.isValid()) return;
+    if (this.isYearAutoFixed('.absolute-end-date input', to)) return;
 
     const { startDate } = this.state;
     const absoluteRange = {
@@ -151,6 +156,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
       region,
       dateFormat,
       numberOfMonths,
+      showOverlay,
       showWeekNumbers,
       translations,
     } = this.props;
@@ -181,6 +187,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
               onChange={this.handleStartDateChange}
               inputRef={el => (this.from = el)}
               selectedDays={[from, { from, to }]}
+              showOverlay={showOverlay === Overlays.START}
               showWeekNumbers={showWeekNumbers}
               toMonth={to}
               value={startDate}
@@ -206,6 +213,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
               onChange={this.handleEndDateChange}
               inputRef={el => (this.to = el)}
               selectedDays={[from, { from, to }]}
+              showOverlay={showOverlay === Overlays.END}
               showWeekNumbers={showWeekNumbers}
               value={endDate}
             />
