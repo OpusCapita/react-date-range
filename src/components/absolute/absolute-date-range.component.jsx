@@ -3,6 +3,7 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import uuidv4 from 'uuid/v4';
 
 import { DateInput } from '@opuscapita/react-datetime';
 import { Content } from '@opuscapita/oc-cm-common-layouts';
@@ -41,7 +42,9 @@ export default class AbsoluteDateRange extends React.PureComponent {
       { before: new Date(utcStartDate) } : null;
     this.state = {
       startDate: utcStartDate,
+      startDateId: `start-date-${uuidv4()}`,
       endDate: utcEndDate,
+      endDateId: `end-date-${uuidv4()}`,
       disabledStartDays,
       disabledEndDays,
     };
@@ -71,7 +74,8 @@ export default class AbsoluteDateRange extends React.PureComponent {
     let startDate = date;
     let from = moment.utc(startDate);
     if (!from.isValid()) return;
-    if (this.isYearAutoFixed('.absolute-start-date input', from)) return;
+    const { startDateId } = this.state;
+    if (this.isYearAutoFixed(`.absolute-start-date #${startDateId}`, from)) return;
 
     const { endDate } = this.state;
     const absoluteRange = {
@@ -114,7 +118,8 @@ export default class AbsoluteDateRange extends React.PureComponent {
     let endDate = date;
     let to = moment.utc(endDate);
     if (!to.isValid()) return;
-    if (this.isYearAutoFixed('.absolute-end-date input', to)) return;
+    const { endDateId } = this.state;
+    if (this.isYearAutoFixed(`.absolute-end-date #${endDateId}`, to)) return;
 
     const { startDate } = this.state;
     const absoluteRange = {
@@ -164,7 +169,9 @@ export default class AbsoluteDateRange extends React.PureComponent {
       disabledEndDays,
       disabledStartDays,
       startDate,
+      startDateId,
       endDate,
+      endDateId,
     } = this.state;
     const from = new Date(startDate);
     const to = new Date(endDate);
@@ -185,6 +192,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
               modifiers={modifiers}
               numberOfMonths={numberOfMonths}
               onChange={this.handleStartDateChange}
+              inputProps={{ id: startDateId }}
               inputRef={el => (this.from = el)}
               selectedDays={[from, { from, to }]}
               showOverlay={showOverlay === Overlays.START}
@@ -211,6 +219,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
               month={from}
               numberOfMonths={numberOfMonths}
               onChange={this.handleEndDateChange}
+              inputProps={{ id: endDateId }}
               inputRef={el => (this.to = el)}
               selectedDays={[from, { from, to }]}
               showOverlay={showOverlay === Overlays.END}
