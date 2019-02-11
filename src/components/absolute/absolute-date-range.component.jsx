@@ -3,6 +3,7 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import uuidv4 from 'uuid/v4';
 
 import { DateInput } from '@opuscapita/react-datetime';
 import { Content } from '@opuscapita/oc-cm-common-layouts';
@@ -41,7 +42,9 @@ export default class AbsoluteDateRange extends React.PureComponent {
       { before: new Date(utcStartDate) } : null;
     this.state = {
       startDate: utcStartDate,
+      startDateId: `start-date-${uuidv4()}`,
       endDate: utcEndDate,
+      endDateId: `end-date-${uuidv4()}`,
       disabledStartDays,
       disabledEndDays,
     };
@@ -60,12 +63,19 @@ export default class AbsoluteDateRange extends React.PureComponent {
     this.from = undefined;
   }
 
+  isYearAutoFixed = (selector, startDate) => {
+    const inputValue = document.querySelector(selector).value;
+    const year = startDate.year();
+    const epoch = moment.unix(0).year();
+    return year < epoch || !inputValue.includes(year);
+  }
+
   handleStartDateChange = (date) => {
     let startDate = date;
     let from = moment.utc(startDate);
-    if (!from.isValid()) {
-      return;
-    }
+    if (!from.isValid()) return;
+    const { startDateId } = this.state;
+    if (this.isYearAutoFixed(`.absolute-start-date #${startDateId}`, from)) return;
 
     const { endDate } = this.state;
     const absoluteRange = {
@@ -107,9 +117,9 @@ export default class AbsoluteDateRange extends React.PureComponent {
   handleEndDateChange = (date) => {
     let endDate = date;
     let to = moment.utc(endDate);
-    if (!to.isValid()) {
-      return;
-    }
+    if (!to.isValid()) return;
+    const { endDateId } = this.state;
+    if (this.isYearAutoFixed(`.absolute-end-date #${endDateId}`, to)) return;
 
     const { startDate } = this.state;
     const absoluteRange = {
@@ -151,6 +161,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
       region,
       dateFormat,
       numberOfMonths,
+      showOverlay,
       showWeekNumbers,
       translations,
     } = this.props;
@@ -158,7 +169,9 @@ export default class AbsoluteDateRange extends React.PureComponent {
       disabledEndDays,
       disabledStartDays,
       startDate,
+      startDateId,
       endDate,
+      endDateId,
     } = this.state;
     const from = new Date(startDate);
     const to = new Date(endDate);
@@ -179,8 +192,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
               modifiers={modifiers}
               numberOfMonths={numberOfMonths}
               onChange={this.handleStartDateChange}
+              inputProps={{ id: startDateId }}
               inputRef={el => (this.from = el)}
               selectedDays={[from, { from, to }]}
+              showOverlay={showOverlay === Overlays.START}
               showWeekNumbers={showWeekNumbers}
               toMonth={to}
               value={startDate}
@@ -204,8 +219,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
               month={from}
               numberOfMonths={numberOfMonths}
               onChange={this.handleEndDateChange}
+              inputProps={{ id: endDateId }}
               inputRef={el => (this.to = el)}
               selectedDays={[from, { from, to }]}
+              showOverlay={showOverlay === Overlays.END}
               showWeekNumbers={showWeekNumbers}
               value={endDate}
             />

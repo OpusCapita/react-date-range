@@ -23,6 +23,14 @@ const PopoverSection = styled.div`
   }
 `;
 
+const RadioButton = styled(Radio)`
+  input[type="radio"] {
+    height: 100%;
+    line-height: 100%;
+    margin: auto;
+  }
+`;
+
 export default class DateRangePopover extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -61,7 +69,7 @@ export default class DateRangePopover extends React.PureComponent {
     const enabledOptions = Object.keys(RangeTypes).filter(key => enabled[key]);
     return enabledOptions.length > 1
       ? enabledOptions.map(type => (
-        <Radio
+        <RadioButton
           key={type}
           name="rangeType"
           value={type}
@@ -70,7 +78,7 @@ export default class DateRangePopover extends React.PureComponent {
           inline
         >
           {translate(translations, type)}
-        </Radio>))
+        </RadioButton>))
       : undefined;
   };
 

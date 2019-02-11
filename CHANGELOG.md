@@ -3,6 +3,9 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* It is not possible to enter valid date manually by entering numbers in First day / Last day fields. Autocorrect functionality messes up the date always
+* Alignment errors (radiobuttons are not centered horizontally and in period selection fields below To-title are not aligned correctly
+* Changes translations prop types, only strings allowed
 
 ## 2.0.9
 * Updated npm packages

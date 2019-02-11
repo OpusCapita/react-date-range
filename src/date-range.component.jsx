@@ -279,7 +279,6 @@ export default class DateRange extends React.PureComponent {
               onClick={this.handleClick}
             />
           </ReadOnlyInput>
-          {showOverlay &&
           <Overlay
             show={showOverlay}
             onHide={this.handleHide}
@@ -297,7 +296,7 @@ export default class DateRange extends React.PureComponent {
               relativeRange={relativeRange}
               translations={translations}
             />
-          </Overlay>}
+          </Overlay>
         </DateRangeSection>
       </ThemeProvider>
     );
