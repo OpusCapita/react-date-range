@@ -95,64 +95,64 @@ Also you need to configure sass loader, since all the styles are in sass format.
 
 | Prop name | Type                   | Default     | Description          |
 | --------- | ---------------------- | ----------- | -------------------- |
-| absolute  | string or node         | 'Absolute'  | Absolute range label |
+| absolute  | string                 | 'Absolute'  | Absolute range label |
 | dates     | datesTranslationsShape |             |                      |
 | day       | dayTranslationShape    |             |                      |
-| endDate   | string or node         | 'Last day'  | Last date label      |
-| from      | string or node         | 'From'      | From date label      |
+| endDate   | string                 | 'Last day'  | Last date label      |
+| from      | string                 | 'From'      | From date label      |
 | month     | monthTranslationShape  |             |                      |
-| period    | string or node         | 'Period'    | Period label         |
-| relative  | string or node         | 'Relative'  | Relative range label |
-| startDate | string or node         | 'First day' | First date label     |
-| to        | string or node         | 'To'        | To label             |
+| period    | string                 | 'Period'    | Period label         |
+| relative  | string                 | 'Relative'  | Relative range label |
+| startDate | string                 | 'First day' | First date label     |
+| to        | string                 | 'To'        | To label             |
 | week      | weekTranslationShape   |             |                      |
 
 - __datesTranslationsShape:__
 
-| Prop name               | Type           | Default                       | Description |
-| ----------------------- | -------------- | ----------------------------- | ----------- |
-| endOfTheCurrentMonth    | string or node | 'End of the current month'    |             |
-| endOfTheCurrentWeek     | string or node | 'End of the current week'     |             |
-| endOfTheCurrentYear     | string or node | 'End of the current year'     |             |
-| endOfTheNextMonth       | string or node | 'End of the next month'       |             |
-| endOfTheNextWeek        | string or node | 'End of the next week'        |             |
-| endOfTheNextYear        | string or node | 'End of the next year'        |             |
-| endOfThePreviousMonth   | string or node | 'End of the previous month'   |             |
-| endOfThePreviousWeek    | string or node | 'End of the previous week'    |             |
-| endOfThePreviousYear    | string or node | 'End of the previous year'    |             |
-| startOfTheCurrentMonth  | string or node | 'Start of the current month'  |             |
-| startOfTheCurrentWeek   | string or node | 'Start of the current week'   |             |
-| startOfTheCurrentYear   | string or node | 'Start of the current year'   |             |
-| startOfTheNextMonth     | string or node | 'Start of the next month'     |             |
-| startOfTheNextWeek      | string or node | 'Start of the next week'      |             |
-| startOfTheNextYear      | string or node | 'Start of the next year'      |             |
-| startOfThePreviousMonth | string or node | 'Start of the previous month' |             |
-| startOfThePreviousWeek  | string or node | 'Start of the previous week'  |             |
-| startOfThePreviousYear  | string or node | 'Start of the previous year'  |             |
-| today                   | string or node | 'Today'                       |             |
-| tomorrow                | string or node | 'Tomorrow'                    |             |
-| yesterday               | string or node | 'Yesterday'                   |             |
+| Prop name               | Type   | Default                       | Description |
+| ----------------------- | ------ | ----------------------------- | ----------- |
+| endOfTheCurrentMonth    | string | 'End of the current month'    |             |
+| endOfTheCurrentWeek     | string | 'End of the current week'     |             |
+| endOfTheCurrentYear     | string | 'End of the current year'     |             |
+| endOfTheNextMonth       | string | 'End of the next month'       |             |
+| endOfTheNextWeek        | string | 'End of the next week'        |             |
+| endOfTheNextYear        | string | 'End of the next year'        |             |
+| endOfThePreviousMonth   | string | 'End of the previous month'   |             |
+| endOfThePreviousWeek    | string | 'End of the previous week'    |             |
+| endOfThePreviousYear    | string | 'End of the previous year'    |             |
+| startOfTheCurrentMonth  | string | 'Start of the current month'  |             |
+| startOfTheCurrentWeek   | string | 'Start of the current week'   |             |
+| startOfTheCurrentYear   | string | 'Start of the current year'   |             |
+| startOfTheNextMonth     | string | 'Start of the next month'     |             |
+| startOfTheNextWeek      | string | 'Start of the next week'      |             |
+| startOfTheNextYear      | string | 'Start of the next year'      |             |
+| startOfThePreviousMonth | string | 'Start of the previous month' |             |
+| startOfThePreviousWeek  | string | 'Start of the previous week'  |             |
+| startOfThePreviousYear  | string | 'Start of the previous year'  |             |
+| today                   | string | 'Today'                       |             |
+| tomorrow                | string | 'Tomorrow'                    |             |
+| yesterday               | string | 'Yesterday'                   |             |
 
 - __dayTranslationShape:__
 
-| Prop name | Type           | Default | Description             |
-| --------- | -------------- | ------- | ----------------------- |
-| plural    | string or node | 'days'  | Label for plural of day |
-| singular  | string or node | 'day'   | Label for single day    |
+| Prop name | Type   | Default | Description             |
+| --------- | ------ | ------- | ----------------------- |
+| plural    | string | 'days'  | Label for plural of day |
+| singular  | string | 'day'   | Label for single day    |
 
 - __monthTranslationShape:__
 
-| Prop name | Type           | Default  | Description               |
-| --------- | -------------- | -------- | ------------------------- |
-| plural    | string or node | 'months' | Label for plural of month |
-| singular  | string or node | 'month'  | Label for single month    |
+| Prop name | Type   | Default  | Description               |
+| --------- | ------ | -------- | ------------------------- |
+| plural    | string | 'months' | Label for plural of month |
+| singular  | string | 'month'  | Label for single month    |
 
 - __weekTranslationShape:__
 
-| Prop name | Type           | Default | Description              |
-| --------- | -------------- | ------- | ------------------------ |
-| plural    | string or node | 'weeks' | Label for plural of week |
-| singular  | string or node | 'week'  | Lable for single week    |
+| Prop name | Type   | Default | Description              |
+| --------- | ------ | ------- | ------------------------ |
+| plural    | string | 'weeks' | Label for plural of week |
+| singular  | string | 'week'  | Lable for single week    |
 
 ### Code example
 ```jsx
