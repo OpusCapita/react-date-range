@@ -93,19 +93,21 @@ Also you need to configure sass loader, since all the styles are in sass format.
 
 - __translationsShape:__
 
-| Prop name | Type                   | Default     | Description          |
-| --------- | ---------------------- | ----------- | -------------------- |
-| absolute  | string                 | 'Absolute'  | Absolute range label |
-| dates     | datesTranslationsShape |             |                      |
-| day       | dayTranslationShape    |             |                      |
-| endDate   | string                 | 'Last day'  | Last date label      |
-| from      | string                 | 'From'      | From date label      |
-| month     | monthTranslationShape  |             |                      |
-| period    | string                 | 'Period'    | Period label         |
-| relative  | string                 | 'Relative'  | Relative range label |
-| startDate | string                 | 'First day' | First date label     |
-| to        | string                 | 'To'        | To label             |
-| week      | weekTranslationShape   |             |                      |
+| Prop name            | Type                   | Default     | Description                     |
+| -------------------- | ---------------------- | ----------- | ------------------------------- |
+| absolute             | string                 | 'Absolute'  | Absolute range label            |
+| dates                | datesTranslationsShape |             |                                 |
+| day                  | dayTranslationShape    |             |                                 |
+| endDate              | string                 | 'Last day'  | Last date label                 |
+| endDatePlaceholder   | string                 | 'Select...' | Placeholder of select component |
+| from                 | string                 | 'From'      | From date label                 |
+| month                | monthTranslationShape  |             |                                 |
+| period               | string                 | 'Period'    | Period label                    |
+| relative             | string                 | 'Relative'  | Relative range label            |
+| startDate            | string                 | 'First day' | First date label                |
+| startDatePlaceholder | string                 | 'Select...' | Placeholder of select component |
+| to                   | string                 | 'To'        | To label                        |
+| week                 | weekTranslationShape   |             |                                 |
 
 - __datesTranslationsShape:__
 

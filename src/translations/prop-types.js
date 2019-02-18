@@ -30,6 +30,7 @@ export default {
     singular: PropTypes.string,
   }),
   endDate: PropTypes.string,
+  endDatePlaceholder: PropTypes.string,
   from: PropTypes.string,
   month: PropTypes.shape({
     plural: PropTypes.string,
@@ -38,6 +39,7 @@ export default {
   period: PropTypes.string,
   relative: PropTypes.string,
   startDate: PropTypes.string,
+  startDatePlaceholder: PropTypes.string,
   to: PropTypes.string,
   week: PropTypes.shape({
     plural: PropTypes.string,

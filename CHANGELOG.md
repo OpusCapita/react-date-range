@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added translation for select placeholder
 
 ## 2.1.1
 * Fixed typing minus sign

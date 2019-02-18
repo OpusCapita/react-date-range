@@ -28,6 +28,7 @@ export default {
     singular: 'day',
   },
   endDate: 'Last day',
+  endDatePlaceholder: 'Select...',
   from: 'From',
   month: {
     plural: 'months',
@@ -36,6 +37,7 @@ export default {
   period: 'Period',
   relative: 'Relative',
   startDate: 'First day',
+  startDatePlaceholder: 'Select...',
   to: 'To',
   week: {
     plural: 'weeks',

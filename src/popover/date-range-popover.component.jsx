@@ -27,7 +27,7 @@ const RadioButton = styled(Radio)`
   input[type="radio"] {
     height: 100%;
     line-height: 100%;
-    margin: auto;
+    margin: 0 0 0 -20px;
   }
 `;
 
