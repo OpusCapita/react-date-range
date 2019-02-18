@@ -34,6 +34,7 @@ export default {
     singular: 'month',
   },
   period: 'Period',
+  placeholder: 'Select...',
   relative: 'Relative',
   startDate: 'First day',
   to: 'To',

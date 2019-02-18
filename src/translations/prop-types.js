@@ -36,6 +36,7 @@ export default {
     singular: PropTypes.string,
   }),
   period: PropTypes.string,
+  placeholder: PropTypes.string,
   relative: PropTypes.string,
   startDate: PropTypes.string,
   to: PropTypes.string,
