@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed typing minus sign
 
 ## 2.1.0
 * It is not possible to enter valid date manually by entering numbers in First day / Last day fields. Autocorrect functionality messes up the date always
