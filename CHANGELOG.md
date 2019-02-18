@@ -3,7 +3,10 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 2.1.2
 * Added translation for select placeholder
+* Fixed radio button left margin
 
 ## 2.1.1
 * Fixed typing minus sign
