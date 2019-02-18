@@ -176,7 +176,6 @@ export default class Period extends React.PureComponent {
               clearable={false}
               onChange={this.handleStartDateChange}
               options={startDateOptions}
-              placeholder={translations.placeholder}
               value={startDate}
             />
           </Content.InputColumn>
@@ -203,7 +202,6 @@ export default class Period extends React.PureComponent {
             clearable={false}
             onChange={this.handleGranularityChange}
             options={granularities}
-            placeholder={translations.placeholder}
             value={this.getSelectedGranularity(granularities, endDate.unit)}
           />
         </GranularitySection>
