@@ -133,7 +133,7 @@ export default class Period extends React.PureComponent {
   }
 
   handleTimingChange = (event) => {
-    const timing = Number.isNaN(event.target.value) ? 0 : Number(event.target.value);
+    const timing = event.target.value;
     const { endDate } = this.state;
     const selectedEndDate = {
       ...endDate,
