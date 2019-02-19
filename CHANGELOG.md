@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 2.1.3
 * Fixed timing is converted to number before passing it to callback function
 
 ## 2.1.2
