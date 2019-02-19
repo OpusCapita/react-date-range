@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed timing is converted to number before passing it to callback function
 
 ## 2.1.2
 * Added translation for select placeholder
