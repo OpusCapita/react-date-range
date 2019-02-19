@@ -145,7 +145,8 @@ export default class Period extends React.PureComponent {
 
   handleTimingBlur = () => {
     const { endDate } = this.state;
-    this.handleEndDateChange(endDate);
+    const timing = Number.isNaN(endDate.timing) ? 0 : Number(endDate.timing);
+    this.handleEndDateChange({ ...endDate, timing });
   }
 
   handleGranularityChange = (unit) => {
