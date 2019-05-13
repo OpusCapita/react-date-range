@@ -13,11 +13,12 @@ const PopoverSection = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  border: 0.1rem solid #ccc;
+  border: 0.1rem solid ${theme.colors.grey3};
   padding: ${theme.gutterWidth};
-  background-color: ${theme.contentBackgroundColor}
+  background-color: ${theme.contentBackgroundColor};
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   hr {
-    color: #CCC;
+    color: ${theme.colors.grey3};
     size: 0.1rem;
     margin: 0;
   }

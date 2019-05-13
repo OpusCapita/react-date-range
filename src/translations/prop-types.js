@@ -12,6 +12,8 @@ export default {
     endOfThePreviousMonth: PropTypes.string,
     endOfThePreviousWeek: PropTypes.string,
     endOfThePreviousYear: PropTypes.string,
+    followingWeekday: PropTypes.string,
+    previousWeekday: PropTypes.string,
     startOfTheCurrentMonth: PropTypes.string,
     startOfTheCurrentWeek: PropTypes.string,
     startOfTheCurrentYear: PropTypes.string,
@@ -42,6 +44,10 @@ export default {
   startDatePlaceholder: PropTypes.string,
   to: PropTypes.string,
   week: PropTypes.shape({
+    plural: PropTypes.string,
+    singular: PropTypes.string,
+  }),
+  weekday: PropTypes.shape({
     plural: PropTypes.string,
     singular: PropTypes.string,
   }),

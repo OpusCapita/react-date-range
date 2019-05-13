@@ -1,6 +1,7 @@
 export default {
   // unit
   DAY: 'DAY',
+  WEEKDAY: 'WEEKDAY',
   WEEK: 'WEEK',
   MONTH: 'MONTH',
   YEAR: 'YEAR',

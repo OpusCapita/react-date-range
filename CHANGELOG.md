@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Select relative days and time period length as the number of weekdays
+* Updated dependencies
 
 ## 2.1.3
 * Fixed timing is converted to number before passing it to callback function

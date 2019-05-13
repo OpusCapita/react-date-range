@@ -54,6 +54,10 @@ export default class Period extends React.PureComponent {
         value: RelativeConstants.DAY,
       },
       {
+        label: translate(translations, 'weekday', 'plural'),
+        value: RelativeConstants.WEEKDAY,
+      },
+      {
         label: translate(translations, 'week', 'plural'),
         value: RelativeConstants.WEEK,
       },
