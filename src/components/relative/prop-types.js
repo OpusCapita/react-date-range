@@ -1,7 +1,13 @@
 import { PropTypes } from 'prop-types';
 import Constants from './constants';
 
-const granularities = [Constants.DAY, Constants.WEEK, Constants.MONTH, Constants.YEAR];
+const granularities = [
+  Constants.DAY,
+  Constants.WEEKDAY,
+  Constants.WEEK,
+  Constants.MONTH,
+  Constants.YEAR,
+];
 
 export const relativeDateValueShape = PropTypes.shape({
   unit: PropTypes.oneOf(granularities),
