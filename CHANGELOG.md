@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added caret icon
+* Fixed date input typing
 * Select relative days and time period length as the number of weekdays
 * Updated dependencies
 
