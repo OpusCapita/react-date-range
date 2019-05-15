@@ -1,14 +1,19 @@
-import { configure } from '@storybook/react';
-import { setOptions } from '@storybook/addon-options'
+/* Storybook configuration file */
+import { configure, addDecorator } from '@storybook/react';
+import { withOptions } from '@storybook/addon-options';
+import { withKnobs } from '@storybook/addon-knobs';
 
-function loadStories() {
-  require('../stories/index.jsx');
-  // You can require as many stories as you need.
-}
+withOptions({
+  name: "React Component Template",
+  addonPanelInRight: true,
+  hierarchySeparator: /\//,
+  hierarchyRootSeparator: /\|/,
+});
+
+// Add withKnobs decorator globally in every Component story
+addDecorator(withKnobs);
+
+// Load Component Stories
+function loadStories() { require('../stories/index.story.jsx'); }
 
 configure(loadStories, module);
-
-setOptions({
-  name: 'OC React Date Range Storybook',
-  addonPanelInRight: true,
-});

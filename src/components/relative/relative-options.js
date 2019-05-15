@@ -10,6 +10,12 @@ const relativeOptions = dates => [
     past: true,
   },
   {
+    label: dates.previousWeekday,
+    value: values.previousWeekday,
+    order: 1,
+    granularity: Constants.WEEKDAY,
+  },
+  {
     label: dates.today,
     value: values.today,
     order: 2,
@@ -20,6 +26,12 @@ const relativeOptions = dates => [
     value: values.tomorrow,
     order: 3,
     granularity: Constants.DAY,
+  },
+  {
+    label: dates.followingWeekday,
+    value: values.followingWeekday,
+    order: 2,
+    granularity: Constants.WEEKDAY,
   },
   {
     label: dates.startOfThePreviousWeek,

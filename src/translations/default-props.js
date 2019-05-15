@@ -10,6 +10,8 @@ export default {
     endOfThePreviousMonth: 'End of the previous month',
     endOfThePreviousWeek: 'End of the previous week',
     endOfThePreviousYear: 'End of the previous year',
+    followingWeekday: 'Following weekday',
+    previousWeekday: 'Previous weekday',
     startOfTheCurrentMonth: 'Start of the current month',
     startOfTheCurrentWeek: 'Start of the current week',
     startOfTheCurrentYear: 'Start of the current year',
@@ -42,5 +44,9 @@ export default {
   week: {
     plural: 'weeks',
     singular: 'week',
+  },
+  weekday: {
+    plural: 'weekdays',
+    singular: 'weekday',
   },
 };

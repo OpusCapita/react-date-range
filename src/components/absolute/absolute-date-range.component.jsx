@@ -110,6 +110,22 @@ export default class AbsoluteDateRange extends React.PureComponent {
     this.props.onChange(state);
   }
 
+  handleInputChange = (inputDate, handleChange) => {
+    const { dateFormat } = this.props;
+    const utcDate = moment.utc(inputDate, dateFormat, true);
+    if (utcDate.isValid()) {
+      handleChange(utcDate.toISOString());
+    }
+  }
+
+  handleInputBlur = (e, currentValue, handleChange) => {
+    if (!e) return;
+    const { dateFormat } = this.props;
+    const { value } = e.target;
+    const utcDate = value ? moment.utc(value, dateFormat).toISOString() : value;
+    if (utcDate !== currentValue) handleChange(utcDate);
+  }
+
   handleEndDayClick = () => {
     this.to = undefined;
   }
@@ -173,6 +189,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
       endDate,
       endDateId,
     } = this.state;
+    const {
+      handleEndDateChange,
+      handleStartDateChange,
+    } = this;
     const from = new Date(startDate);
     const to = new Date(endDate);
     const modifiers = { start: from, end: to };
@@ -192,9 +212,14 @@ export default class AbsoluteDateRange extends React.PureComponent {
               modifiers={modifiers}
               numberOfMonths={numberOfMonths}
               onChange={this.handleStartDateChange}
-              inputProps={{ id: startDateId }}
+              inputProps={{
+                id: startDateId,
+                onChange: inputDate => this.handleInputChange(inputDate, handleStartDateChange),
+                onBlur: e => this.handleInputBlur(e, startDate, handleStartDateChange),
+              }}
               inputRef={el => (this.from = el)}
               selectedDays={[from, { from, to }]}
+              showClearValue={false}
               showOverlay={showOverlay === Overlays.START}
               showWeekNumbers={showWeekNumbers}
               toMonth={to}
@@ -219,9 +244,14 @@ export default class AbsoluteDateRange extends React.PureComponent {
               month={from}
               numberOfMonths={numberOfMonths}
               onChange={this.handleEndDateChange}
-              inputProps={{ id: endDateId }}
+              inputProps={{
+                id: endDateId,
+                onChange: inputDate => this.handleInputChange(inputDate, handleEndDateChange),
+                onBlur: e => this.handleInputBlur(e, endDate, handleEndDateChange),
+              }}
               inputRef={el => (this.to = el)}
               selectedDays={[from, { from, to }]}
+              showClearValue={false}
               showOverlay={showOverlay === Overlays.END}
               showWeekNumbers={showWeekNumbers}
               value={endDate}

@@ -5,12 +5,20 @@ export default {
     unit: Constants.DAY,
     timing: Constants.PREVIOUS,
   },
+  previousWeekday: {
+    unit: Constants.WEEKDAY,
+    timing: Constants.PREVIOUS,
+  },
   today: {
     unit: Constants.DAY,
     timing: Constants.CURRENT,
   },
   tomorrow: {
     unit: Constants.DAY,
+    timing: Constants.NEXT,
+  },
+  followingWeekday: {
+    unit: Constants.WEEKDAY,
     timing: Constants.NEXT,
   },
   startOfThePreviousWeek: {

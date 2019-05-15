@@ -21,6 +21,9 @@ const getLabel = (unit, timing, translations) => {
     case RelativeConstants.WEEK: {
       return translate(translations, 'week', getNounsForm(timing));
     }
+    case RelativeConstants.WEEKDAY: {
+      return translate(translations, 'weekday', getNounsForm(timing));
+    }
     default: {
       return translate(translations, 'day', getNounsForm(timing));
     }

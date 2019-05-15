@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import moment from 'moment';
 import { FormControl, Overlay } from 'react-bootstrap';
+import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
 import absoluteRangeDefaultProps from './components/absolute/default-props';
 import absoluteRangePropTypes from './components/absolute/prop-types';
@@ -22,6 +23,16 @@ import translationsPropTypes from './translations/prop-types';
 const ReadOnlyInput = styled.div`
   .form-control[readonly] {
     background-color: ${theme.contentBackgroundColor};
+    padding-right: 32px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  display: flex;
+  svg {
+    margin: 9px 8px 9px -24px;
+    color: ${props => (props.showOverlay ? `${theme.colors.grey9}` : `${theme.colors.grey3}`)};
   }
 `;
 
@@ -237,6 +248,13 @@ export default class DateRange extends React.PureComponent {
       this.setState({ showOverlay: false })
   );
 
+  renderCaret = () => {
+    const { showOverlay } = this.state;
+    return showOverlay
+      ? <FaCaretUp onClick={this.handleClick} />
+      : <FaCaretDown onClick={this.handleClick} />;
+  }
+
   render() {
     const {
       className,
@@ -266,7 +284,7 @@ export default class DateRange extends React.PureComponent {
     return (
       <ThemeProvider theme={theme}>
         <DateRangeSection id={id} className={className}>
-          <ReadOnlyInput>
+          <ReadOnlyInput showOverlay={showOverlay}>
             <FormControl
               type="text"
               inputRef={(el) => {
@@ -278,6 +296,7 @@ export default class DateRange extends React.PureComponent {
               value={value}
               onClick={this.handleClick}
             />
+            {this.renderCaret()}
           </ReadOnlyInput>
           <Overlay
             show={showOverlay}
