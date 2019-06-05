@@ -26,6 +26,9 @@ const PeriodSection = styled.div`
 const CountSection = styled(Content.InputColumn)`
   width: 80px;
   margin-bottom: 0;
+  input {
+    border-color: ${theme.colors.grey3};
+  }
 `;
 
 const GranularitySection = styled(Content.InputColumn)`
