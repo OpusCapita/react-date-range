@@ -32,7 +32,7 @@ const ReadOnlyInput = styled.div`
   display: flex;
   svg {
     margin: 9px 8px 9px -24px;
-    color: ${props => (props.showOverlay ? `${theme.colors.grey9}` : `${theme.colors.grey3}`)};
+    color: ${theme.colors.grey9};
   }
 `;
 
