@@ -254,15 +254,15 @@ export default class DateRange extends React.PureComponent {
 
   handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
 
-  /**
-   * This is dirty solution and c/should be fixed.
-   * Root cause: day-picker is rendered to root element, not inside popover eleemnt.
-   * Therefore click coming form day-picker are considers as outside click of popover
-   * and popover would be close without event preventDefault.
-   * One solution is passing at least tree callbacks for react-datetime: onWeekClick,
-   * onCaptionClick and custom onClick for custom caption of react-datetime.
-   */
   handleHide = (e) => {
+    /**
+     * This if is dirty solution and c/should be fixed.
+     * Root cause: day-picker is rendered to root element, not inside popover eleemnt.
+     * Therefore click coming form day-picker are considers as outside click of popover
+     * and popover would be close without event preventDefault.
+     * One solution is passing at least tree callbacks for react-datetime: onWeekClick,
+     * onCaptionClick and custom onClick for custom caption of react-datetime.
+     */
     if (e.target && e.target.parentNode
       && e.target.parentNode.className
       && e.target.parentNode.className.includes('DayPicker')) {
