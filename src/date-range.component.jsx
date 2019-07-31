@@ -267,6 +267,7 @@ export default class DateRange extends React.PureComponent {
       && e.target.parentNode.className
       && e.target.parentNode.className.includes('DayPicker')) {
       e.preventDefault();
+      return;
     }
     const { value, lastValidRange } = this.state;
     const state = !value && lastValidRange
