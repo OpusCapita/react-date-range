@@ -209,7 +209,8 @@ export default class DateRange extends React.PureComponent {
     if (endDate && startDate) {
       const selectedStartDate = getRelativeOption(startDate, translate(translations, 'dates'));
       const selectedEndDate = getRelativeOption(endDate, translate(translations, 'dates'));
-      const selectedRangeType = selectedEndDate && selectedStartDate ? Constants.RELATIVE : undefined;
+      const selectedRangeType = selectedEndDate && selectedStartDate
+        ? Constants.RELATIVE : undefined;
 
       return {
         relativeRange: {
