@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 2.2.2
 * If popup is closed when date range change is not completed, last valid/used range is updated to input field value
 
 ## 2.2.1
