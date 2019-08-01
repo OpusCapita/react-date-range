@@ -8,7 +8,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
 import absoluteRangeDefaultProps from './components/absolute/default-props';
 import absoluteRangePropTypes from './components/absolute/prop-types';
-import Constants from './components/relative/constants';
+import RelativeConstants from './components/relative/constants';
 import DateRangePopover from './popover/date-range-popover.component';
 import formatPeriodLabel from './components/period/period-label.formatter';
 import { getRelativeOption } from './components/relative/relative-options';
@@ -35,6 +35,12 @@ const ReadOnlyInput = styled.div`
     color: ${theme.colors.grey9};
   }
 `;
+
+const Constants = Object.freeze({
+  ABSOLUTE: 'absolute',
+  PERIOD: 'period',
+  RELATIVE: 'relative',
+});
 
 export default class DateRange extends React.PureComponent {
   static propTypes = {
@@ -124,8 +130,11 @@ export default class DateRange extends React.PureComponent {
     const { endDate, startDate } = period || {};
     if (endDate && startDate && startDate.value) {
       return {
-        endDate: { ...endDate, moment: endDate.moment || Constants.END },
-        startDate: { ...startDate.value, moment: startDate.value.moment || Constants.START },
+        endDate: { ...endDate, moment: endDate.moment || RelativeConstants.END },
+        startDate: {
+          ...startDate.value,
+          moment: startDate.value.moment || RelativeConstants.START,
+        },
         value: formatPeriodLabel(startDate, endDate, translations),
       };
     }
@@ -137,8 +146,11 @@ export default class DateRange extends React.PureComponent {
     const { endDate, startDate } = relativeRange || {};
     if (endDate && startDate && endDate.value && startDate.value) {
       return {
-        endDate: { ...endDate.value, moment: endDate.value.moment || Constants.END },
-        startDate: { ...startDate.value, moment: startDate.value.moment || Constants.START },
+        endDate: { ...endDate.value, moment: endDate.value.moment || RelativeConstants.END },
+        startDate: {
+          ...startDate.value,
+          moment: startDate.value.moment || RelativeConstants.START,
+        },
         value: `${startDate.label} - ${endDate.label}`,
       };
     }
@@ -163,9 +175,10 @@ export default class DateRange extends React.PureComponent {
           endDate: to.endOf('day').toISOString(),
           startDate: from.startOf('day').toISOString(),
         },
-        selectedRangeType: 'absolute',
+        selectedRangeType: Constants.ABSOLUTE,
         value: (from.isValid() && to.isValid()) ?
           `${from.format(dateFormat)} - ${to.format(dateFormat)}` : '',
+        lastValidRange: Constants.ABSOLUTE,
       };
     }
     return null;
@@ -175,15 +188,17 @@ export default class DateRange extends React.PureComponent {
     const { enabled, period, translations } = props;
     const { endDate, startDate } = period || {};
     const selectedStartDate = getRelativeOption(startDate, translate(translations, 'dates'));
+    const selectedRangeType = endDate && selectedStartDate ? Constants.PERIOD : undefined;
 
     return {
       period: {
         endDate,
         startDate: selectedStartDate,
       },
-      selectedRangeType: endDate && selectedStartDate ? 'period' : undefined,
+      selectedRangeType,
       value: (enabled.period && endDate && selectedStartDate) ?
         formatPeriodLabel(selectedStartDate, endDate, translations) : '',
+      lastValidRange: selectedRangeType,
     };
   }
 
@@ -194,15 +209,18 @@ export default class DateRange extends React.PureComponent {
     if (endDate && startDate) {
       const selectedStartDate = getRelativeOption(startDate, translate(translations, 'dates'));
       const selectedEndDate = getRelativeOption(endDate, translate(translations, 'dates'));
+      const selectedRangeType = selectedEndDate && selectedStartDate
+        ? Constants.RELATIVE : undefined;
 
       return {
         relativeRange: {
           endDate: selectedEndDate,
           startDate: selectedStartDate,
         },
-        selectedRangeType: selectedEndDate && selectedStartDate ? 'relative' : undefined,
+        selectedRangeType,
         value: (enabled.relative && selectedEndDate && selectedStartDate) ?
           `${selectedStartDate.label} - ${selectedEndDate.label}` : '',
+        lastValidRange: selectedRangeType,
       };
     }
     return null;
@@ -219,34 +237,51 @@ export default class DateRange extends React.PureComponent {
     const { startDate, endDate } = state;
     if (startDate && endDate) {
       onChange({ startDate, endDate });
+      this.setState({ lastValidRange: selectedRangeType });
     }
   }
 
   handleChange = (event) => {
     const { onChange } = this.props;
+    const { selectedRangeType: lastValidRange } = this.state;
     this.setState(event);
 
     const { startDate, endDate } = event;
     if (startDate && endDate) {
       onChange({ startDate, endDate });
+      this.setState({ lastValidRange });
     }
   };
 
   handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
 
-  /**
-   * This is dirty solution and c/should be fixed.
-   * Root cause: day-picker is rendered to root element, not inside popover eleemnt.
-   * Therefore click coming form day-picker are considers as outside click of popover
-   * and popover would be close without event preventDefault.
-   * One solution is passing at least tree callbacks for react-datetime: onWeekClick,
-   * onCaptionClick and custom onClick for custom caption of react-datetime.
-   */
-  handleHide = e => (
-    e.target && e.target.parentNode && e.target.parentNode.className && e.target.parentNode.className.includes('DayPicker') ?
-      e.preventDefault() :
-      this.setState({ showOverlay: false })
-  );
+  handleHide = (e) => {
+    /**
+     * This if is dirty solution and c/should be fixed.
+     * Root cause: day-picker is rendered to root element, not inside popover eleemnt.
+     * Therefore click coming form day-picker are considers as outside click of popover
+     * and popover would be close without event preventDefault.
+     * One solution is passing at least tree callbacks for react-datetime: onWeekClick,
+     * onCaptionClick and custom onClick for custom caption of react-datetime.
+     */
+    if (e.target && e.target.parentNode
+      && e.target.parentNode.className
+      && e.target.parentNode.className.includes('DayPicker')) {
+      e.preventDefault();
+      return;
+    }
+    const { value, lastValidRange } = this.state;
+    const state = !value && lastValidRange
+      ? {
+        ...this[`get${lastValidRange.replace(/\w/, c => c.toUpperCase())}State`](),
+        selectedRangeType: lastValidRange,
+        showOverlay: false,
+      }
+      : {
+        showOverlay: false,
+      };
+    this.setState(state);
+  };
 
   renderCaret = () => {
     const { showOverlay } = this.state;
