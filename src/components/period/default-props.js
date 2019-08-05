@@ -7,8 +7,5 @@ export default {
     unit: RelativeConstants.DAY,
   },
   onChange: () => {},
-  startDate: {
-    timing: RelativeConstants.CURRENT,
-    unit: RelativeConstants.DAY,
-  },
+  startDate: undefined,
 };
