@@ -21,6 +21,17 @@ export default class DateRangeView extends React.PureComponent {
             enabled={{ absolute: true, relative: true, period: true }}
             absoluteRange={{ className: 'test', dateFormat: 'L', numberOfMonths: 2 }}
           />
+          <h4>Range field</h4>
+          <DateRange
+            id="example4"
+            enabled={{ absolute: true, relative: true, period: true }}
+            absoluteRange={{ className: 'test', dateFormat: 'L', numberOfMonths: 2 }}
+            rangeField={{
+              options: [{ label: 'option 1', value: '1' }, { label: 'option 2', value: '2' }],
+              onChange: (value) => { this.setState({ value }); },
+              value: this.state.value,
+            }}
+          />
         </div>
       </React.Fragment>
     );

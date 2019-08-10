@@ -2,23 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import { FormGroup, Radio } from 'react-bootstrap';
 
-import { theme } from '@opuscapita/oc-cm-common-layouts';
-
 import RangeTypes from './range-types';
 import propTypes from './prop-types';
 import defaultProps from './default-props';
 import translate from '../translations/translate';
 
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  .form-group {
+    white-space: nowrap;
+    margin: 0 ${props => props.theme.gutterWidth} 0 0;
+  }
+  margin-bottom: ${props => props.theme.gutterWidth};
+`;
+
 const PopoverSection = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  border: 0.1rem solid ${theme.colors.grey3};
-  padding: ${theme.gutterWidth};
-  background-color: ${theme.contentBackgroundColor};
+  border: 0.1rem solid ${props => props.theme.colors.grey3};
+  padding: ${props => props.theme.gutterWidth};
+  background-color: ${props => props.theme.contentBackgroundColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   hr {
-    color: ${theme.colors.grey3};
+    color: ${props => props.theme.colors.grey3};
     size: 0.1rem;
     margin: 0;
   }
@@ -83,23 +91,27 @@ export default class DateRangePopover extends React.PureComponent {
       : undefined;
   };
 
-  renderRangeOptions = () => {
+  renderRangeOptions = options => (options ? <FormGroup>{options}</FormGroup> : undefined);
+
+  renderHeader = () => {
+    const { children } = this.props;
     const options = this.renderOptions();
     return (
-      options ?
+      children || options ?
         <React.Fragment>
-          <FormGroup>
-            {options}
-          </FormGroup>
+          <Header>
+            {this.renderRangeOptions(options)}
+            {children}
+          </Header>
           <hr />
         </React.Fragment>
         : undefined
     );
-  }
+  };
 
   render = () => (
     <PopoverSection>
-      {this.renderRangeOptions()}
+      {this.renderHeader()}
       {this.renderRangeComponent()}
     </PopoverSection>
   );

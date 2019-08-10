@@ -6,6 +6,7 @@ import moment from 'moment';
 import { FormControl, Overlay } from 'react-bootstrap';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
+import { FloatingSelect } from '@opuscapita/react-floating-select';
 import absoluteRangeDefaultProps from './components/absolute/default-props';
 import absoluteRangePropTypes from './components/absolute/prop-types';
 import RelativeConstants from './components/relative/constants';
@@ -14,6 +15,7 @@ import formatPeriodLabel from './components/period/period-label.formatter';
 import { getRelativeOption } from './components/relative/relative-options';
 import periodDefaultProps from './components/period/default-props';
 import { periodShape } from './components/period/prop-types';
+import rangeFieldShape from './components/range-field/prop-types';
 import relativeRangeDefaultProps from './components/relative/default-props';
 import { relativeDateValueShape } from './components/relative/prop-types';
 import translate from './translations/translate';
@@ -60,6 +62,7 @@ export default class DateRange extends React.PureComponent {
       onChange: PropTypes.func,
       startDate: relativeDateValueShape,
     }),
+    rangeField: PropTypes.shape(rangeFieldShape),
     relativeRange: PropTypes.shape({
       endDate: relativeDateValueShape,
       onChange: PropTypes.func,
@@ -81,6 +84,7 @@ export default class DateRange extends React.PureComponent {
     inputRef: () => {},
     onChange: () => {},
     period: periodDefaultProps,
+    rangeField: undefined,
     relativeRange: relativeRangeDefaultProps,
     translations: translationsDefaultProps,
     width: '300px',
@@ -297,6 +301,7 @@ export default class DateRange extends React.PureComponent {
       id,
       inputRef,
       inputProps,
+      rangeField,
       translations,
       width,
     } = this.props;
@@ -349,7 +354,9 @@ export default class DateRange extends React.PureComponent {
               selectedRangeType={selectedRangeType}
               relativeRange={relativeRange}
               translations={translations}
-            />
+            >
+              {rangeField && <FloatingSelect {...rangeField} clearable={false} />}
+            </DateRangePopover>
           </Overlay>
         </DateRangeSection>
       </ThemeProvider>
