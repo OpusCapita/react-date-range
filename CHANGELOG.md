@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added range field selector
 
 ## 2.2.3
 * Fixed periodic default first date

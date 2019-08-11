@@ -32,6 +32,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | inputRef      | function           |          | Input component ref function             |
 | onChange      | function           |          | onChange callback returns new date range |
 | period        | periodShape        |          | Properties for period                    |
+| rangeField    | rangeFieldShape    |          | Properties for range field  selector     |
 | relativeRange | relativeRangeShape |          | Properties for relative range            |
 | translations  | translationsShape  |          | Translations                             |
 | width         | string             | '200px'  | Width of the date range input field      |
@@ -74,6 +75,21 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | timing    | number | required | Negative or positive integer                                        |
 | moment    | enum   | required | 'END' if timing is positive, 'START' if timing is negative integer. |
 | periodic  | bool   | true     | True, if date is periodic.                                          |
+
+- __rangeFieldShape:__
+
+| Prop name | Type                            | Default  | Description                 |
+| --------- | ------------------------------- | -------- | --------------------------- |
+| onChange  | function                        | required | Range field change callback |
+| options   | array of rangeFieldOptionShapes | required | Range field options         |
+| value     | rangeFieldOptionShape           |          | Selected range field option |
+
+- __rangeFieldOptionShape:__
+
+| Prop name | Type              | Default  | Description              |
+| --------- | ----------------- | -------- | ------------------------ |
+| label     | string or element | required | Range field option label |
+| value     | string            | required | Range field option value |
 
 - __relativeDateShape:__
 
