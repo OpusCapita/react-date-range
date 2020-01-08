@@ -9,7 +9,7 @@ export default class DateRangeView extends React.PureComponent {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <div style={{ padding: '20px' }}>
           <h4>Absolute period (default)</h4>
           <DateRange id="example1" />
@@ -22,7 +22,7 @@ export default class DateRangeView extends React.PureComponent {
             absoluteRange={{ className: 'test', dateFormat: 'L', numberOfMonths: 2 }}
           />
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

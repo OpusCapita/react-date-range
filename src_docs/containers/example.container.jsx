@@ -1,5 +1,7 @@
 import React from 'react';
-import { Panel, Grid, Row, Col } from 'react-bootstrap';
+import {
+  Panel, Grid, Row, Col,
+} from 'react-bootstrap';
 import DateRangeView from '../components/date-range.component';
 import GithubLogo from '../images/logo-github.svg';
 

@@ -3,6 +3,10 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Upgrade to `react-bootstrap@0.33.1`, add target ref to Overlay
+* Upgrade packages
+* Fix lint errors
+* Fix hot loader
 
 ## 2.3.0
 * Upgraded react and `@opuscapita/react-floating-select` versions

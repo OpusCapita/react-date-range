@@ -72,30 +72,28 @@ export default class Period extends React.PureComponent {
   };
 
   getSelectedGranularity = (granularities, value) => (
-    granularities.find(granularity => granularity.value === value) || granularities[0]
+    granularities.find((granularity) => granularity.value === value) || granularities[0]
   );
 
-  initEndDate = endDate => (
-    endDate.moment ? endDate :
-      {
-        ...endDate,
-        moment: endDate.timing < 0 ? RelativeConstants.START : RelativeConstants.END,
-      }
+  initEndDate = (endDate) => (
+    endDate.moment ? endDate : {
+      ...endDate,
+      moment: endDate.timing < 0 ? RelativeConstants.START : RelativeConstants.END,
+    }
   );
 
-  initStartDate = startDate => (
-    startDate.value && startDate.value.moment ? startDate :
-      {
-        ...startDate,
-        value: {
-          ...startDate.value,
-          moment: RelativeConstants.START,
-        },
-      }
+  initStartDate = (startDate) => (
+    startDate.value && startDate.value.moment ? startDate : {
+      ...startDate,
+      value: {
+        ...startDate.value,
+        moment: RelativeConstants.START,
+      },
+    }
   );
 
   handleStartDateChange = (selectedStartDate) => {
-    const { translations } = this.props;
+    const { translations, onChange } = this.props;
     const { endDate } = this.state;
 
     const startDate = this.initStartDate(selectedStartDate);
@@ -110,11 +108,11 @@ export default class Period extends React.PureComponent {
         endDate: date,
       },
     };
-    this.props.onChange(state);
+    onChange(state);
   }
 
   handleEndDateChange = (selectedEndDate) => {
-    const { translations } = this.props;
+    const { translations, onChange } = this.props;
     const { startDate } = this.state;
     const date = this.initStartDate(startDate);
     const endDate = this.initEndDate(selectedEndDate);
@@ -136,7 +134,7 @@ export default class Period extends React.PureComponent {
         },
       };
     }
-    this.props.onChange(state);
+    onChange(state);
   }
 
   handleTimingChange = (event) => {
