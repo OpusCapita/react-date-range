@@ -1,7 +1,7 @@
 import Constants from './constants';
 import values from './values';
 
-const relativeOptions = dates => [
+const relativeOptions = (dates) => [
   {
     label: dates.yesterday,
     value: values.yesterday,
@@ -154,11 +154,11 @@ const relativeOptions = dates => [
 
 const getRelativeOption = (inputDate, dates) => (
   inputDate
-    ? relativeOptions(dates).find(option =>
+    ? relativeOptions(dates).find((option) => (
       (!option.value.moment || option.value.moment === inputDate.moment)
       && option.value.unit === inputDate.unit
-      && option.value.timing === inputDate.timing)
-    : undefined
+      && option.value.timing === inputDate.timing
+    )) : undefined
 );
 
 export default relativeOptions;

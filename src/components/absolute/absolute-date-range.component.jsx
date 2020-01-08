@@ -31,15 +31,13 @@ export default class AbsoluteDateRange extends React.PureComponent {
   constructor(props) {
     super(props);
     const { startDate, endDate } = this.props;
+    /* eslint-disable max-len */
     const utcStartDate = moment(startDate).isValid() ? moment.utc(startDate).startOf('day').toISOString() : startDate;
     let utcEndDate = moment(endDate).isValid() ? moment.utc(endDate).startOf('day').toISOString() : endDate;
-    utcEndDate = moment(utcStartDate).isValid() && moment(utcEndDate).isValid() &&
-      moment(utcEndDate).isBefore(moment(utcStartDate)) ?
-      utcStartDate :
-      utcEndDate;
+    utcEndDate = moment(utcStartDate).isValid() && moment(utcEndDate).isValid() && moment(utcEndDate).isBefore(moment(utcStartDate)) ? utcStartDate : utcEndDate;
     const disabledStartDays = moment(utcEndDate).isValid() ? { after: new Date(utcEndDate) } : null;
-    const disabledEndDays = moment(utcStartDate).isValid() ?
-      { before: new Date(utcStartDate) } : null;
+    const disabledEndDays = moment(utcStartDate).isValid() ? { before: new Date(utcStartDate) } : null;
+    /* eslint-enable max-len */
     this.state = {
       startDate: utcStartDate,
       startDateId: `start-date-${uuidv4()}`,
@@ -71,6 +69,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
   }
 
   handleStartDateChange = (date) => {
+    const { dateFormat, onChange } = this.props;
     let startDate = date;
     let from = moment.utc(startDate);
     if (!from.isValid()) return;
@@ -97,7 +96,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
       state = {
         startDate,
         endDate: to.endOf('day').toISOString(),
-        value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
+        value: `${from.format(dateFormat)} - ${to.format(dateFormat)}`,
         absoluteRange: {
           ...absoluteRange,
           startDate,
@@ -107,7 +106,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     }
     const disabledEndDays = { before: new Date(startDate) };
     this.setState({ startDate, disabledEndDays });
-    this.props.onChange(state);
+    onChange(state);
   }
 
   handleInputChange = (inputDate, handleChange) => {
@@ -131,6 +130,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
   }
 
   handleEndDateChange = (date) => {
+    const { dateFormat, onChange } = this.props;
     let endDate = date;
     let to = moment.utc(endDate);
     if (!to.isValid()) return;
@@ -158,7 +158,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
       state = {
         startDate: from.startOf('day').toISOString(),
         endDate: to.endOf('day').toISOString(),
-        value: `${from.format(this.props.dateFormat)} - ${to.format(this.props.dateFormat)}`,
+        value: `${from.format(dateFormat)} - ${to.format(dateFormat)}`,
         absoluteRange: {
           ...absoluteRange,
           endDate,
@@ -168,7 +168,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     }
     const disabledStartDays = { after: new Date(endDate) };
     this.setState({ endDate, disabledStartDays });
-    this.props.onChange(state);
+    onChange(state);
   }
 
   render() {
@@ -214,10 +214,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
               onChange={this.handleStartDateChange}
               inputProps={{
                 id: startDateId,
-                onChange: inputDate => this.handleInputChange(inputDate, handleStartDateChange),
-                onBlur: e => this.handleInputBlur(e, startDate, handleStartDateChange),
+                onChange: (inputDate) => this.handleInputChange(inputDate, handleStartDateChange),
+                onBlur: (e) => this.handleInputBlur(e, startDate, handleStartDateChange),
               }}
-              inputRef={el => (this.from = el)}
+              inputRef={(el) => (this.from = el)}
               selectedDays={[from, { from, to }]}
               showClearValue={false}
               showOverlay={showOverlay === Overlays.START}
@@ -246,10 +246,10 @@ export default class AbsoluteDateRange extends React.PureComponent {
               onChange={this.handleEndDateChange}
               inputProps={{
                 id: endDateId,
-                onChange: inputDate => this.handleInputChange(inputDate, handleEndDateChange),
-                onBlur: e => this.handleInputBlur(e, endDate, handleEndDateChange),
+                onChange: (inputDate) => this.handleInputChange(inputDate, handleEndDateChange),
+                onBlur: (e) => this.handleInputBlur(e, endDate, handleEndDateChange),
               }}
-              inputRef={el => (this.to = el)}
+              inputRef={(el) => (this.to = el)}
               selectedDays={[from, { from, to }]}
               showClearValue={false}
               showOverlay={showOverlay === Overlays.END}

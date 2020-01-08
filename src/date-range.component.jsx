@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import moment from 'moment';
@@ -34,6 +35,11 @@ const ReadOnlyInput = styled.div`
     margin: 9px 8px 9px -24px;
     color: ${theme.colors.grey9};
   }
+`;
+
+const DateRangeSection = styled.div`
+  width: ${(props) => props.width};
+  position: relative;
 `;
 
 const Constants = Object.freeze({
@@ -96,9 +102,10 @@ export default class DateRange extends React.PureComponent {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.absoluteRange !== this.props.absoluteRange ||
-        prevProps.relativeRange !== this.props.relativeRange ||
-        prevProps.period !== this.props.period) {
+    const { absoluteRange, relativeRange, period } = this.props;
+    if (prevProps.absoluteRange !== absoluteRange
+        || prevProps.relativeRange !== relativeRange
+        || prevProps.period !== period) {
       const state = this.initState(this.props);
       if (state) {
         this.setState(state);
@@ -107,9 +114,9 @@ export default class DateRange extends React.PureComponent {
   }
 
   getAbsoluteState = () => {
+    const { absoluteRange: { dateFormat } } = this.props;
     const { absoluteRange } = this.state;
     const { endDate, startDate } = absoluteRange || {};
-    const { dateFormat } = this.props.absoluteRange;
     if (startDate && endDate) {
       const from = moment.utc(startDate);
       const to = moment.utc(endDate);
@@ -157,7 +164,7 @@ export default class DateRange extends React.PureComponent {
     return { value: '' };
   }
 
-  initState = props => (
+  initState = (props) => (
     this.initAbsoluteRange(props) || this.initRelativeRange(props) || this.initPeriod(props)
   );
 
@@ -176,8 +183,8 @@ export default class DateRange extends React.PureComponent {
           startDate: from.startOf('day').toISOString(),
         },
         selectedRangeType: Constants.ABSOLUTE,
-        value: (from.isValid() && to.isValid()) ?
-          `${from.format(dateFormat)} - ${to.format(dateFormat)}` : '',
+        value: (from.isValid() && to.isValid())
+          ? `${from.format(dateFormat)} - ${to.format(dateFormat)}` : '',
         lastValidRange: Constants.ABSOLUTE,
       };
     }
@@ -196,8 +203,8 @@ export default class DateRange extends React.PureComponent {
         startDate: selectedStartDate,
       },
       selectedRangeType,
-      value: (enabled.period && endDate && selectedStartDate) ?
-        formatPeriodLabel(selectedStartDate, endDate, translations) : '',
+      value: (enabled.period && endDate && selectedStartDate)
+        ? formatPeriodLabel(selectedStartDate, endDate, translations) : '',
       lastValidRange: selectedRangeType,
     };
   }
@@ -218,8 +225,8 @@ export default class DateRange extends React.PureComponent {
           startDate: selectedStartDate,
         },
         selectedRangeType,
-        value: (enabled.relative && selectedEndDate && selectedStartDate) ?
-          `${selectedStartDate.label} - ${selectedEndDate.label}` : '',
+        value: (enabled.relative && selectedEndDate && selectedStartDate)
+          ? `${selectedStartDate.label} - ${selectedEndDate.label}` : '',
         lastValidRange: selectedRangeType,
       };
     }
@@ -229,7 +236,7 @@ export default class DateRange extends React.PureComponent {
   handleRangeTypeChange = (event) => {
     const { onChange } = this.props;
     const { selectedRangeType } = event;
-    const state = this[`get${selectedRangeType.replace(/\w/, c => c.toUpperCase())}State`]();
+    const state = this[`get${selectedRangeType.replace(/\w/, (c) => c.toUpperCase())}State`]();
     this.setState({
       ...state,
       selectedRangeType,
@@ -253,7 +260,7 @@ export default class DateRange extends React.PureComponent {
     }
   };
 
-  handleClick = () => this.setState({ showOverlay: !this.state.showOverlay });
+  handleClick = () => this.setState((prevState) => ({ showOverlay: !prevState.showOverlay }));
 
   handleHide = (e) => {
     /**
@@ -266,14 +273,19 @@ export default class DateRange extends React.PureComponent {
      */
     if (e.target && e.target.parentNode
       && e.target.parentNode.className
-      && e.target.parentNode.className.includes('DayPicker')) {
+      && e.target.parentNode.className.includes
+      && (
+        e.target.parentNode.className.includes('DayPicker')
+        || e.target.parentNode.className.includes('daterange-select')
+      )
+    ) {
       e.preventDefault();
       return;
     }
     const { value, lastValidRange } = this.state;
     const state = !value && lastValidRange
       ? {
-        ...this[`get${lastValidRange.replace(/\w/, c => c.toUpperCase())}State`](),
+        ...this[`get${lastValidRange.replace(/\w/, (c) => c.toUpperCase())}State`](),
         selectedRangeType: lastValidRange,
         showOverlay: false,
       }
@@ -290,15 +302,26 @@ export default class DateRange extends React.PureComponent {
       : <FaCaretDown onClick={this.handleClick} />;
   }
 
+  handleInputRef = (el) => {
+    const { inputRef } = this.props;
+    this.input = el;
+    inputRef(el);
+  }
+
+  handleOverlayTargetRef = (el) => {
+    this.overlayTarget = el;
+  }
+
+  handleOverlayTarget = () => ReactDOM.findDOMNode(this.overlayTarget); // eslint-disable-line
+
   render() {
     const {
       className,
       enabled,
       id,
-      inputRef,
       inputProps,
       translations,
-      width,
+      absoluteRange: absoluteRangeProp,
     } = this.props;
     const {
       period,
@@ -306,26 +329,24 @@ export default class DateRange extends React.PureComponent {
       selectedRangeType,
       showOverlay,
       value,
+      absoluteRange: absoluteRangeState,
     } = this.state;
     const absoluteRange = {
-      ...this.props.absoluteRange,
-      ...this.state.absoluteRange,
+      ...absoluteRangeProp,
+      ...absoluteRangeState,
     };
-
-    const DateRangeSection = styled.div`
-      width: ${width};
-    `;
 
     return (
       <ThemeProvider theme={theme}>
-        <DateRangeSection id={id} className={className}>
+        <DateRangeSection
+          id={id}
+          className={className}
+          ref={this.handleOverlayTargetRef}
+        >
           <ReadOnlyInput showOverlay={showOverlay}>
             <FormControl
               type="text"
-              inputRef={(el) => {
-                this.input = el;
-                inputRef(el);
-              }}
+              inputRef={this.handleInputRef}
               {...inputProps}
               readOnly="readonly"
               value={value}
@@ -339,6 +360,7 @@ export default class DateRange extends React.PureComponent {
             placement="bottom"
             container={this}
             rootClose
+            target={this.handleOverlayTarget}
           >
             <DateRangePopover
               absoluteRange={absoluteRange}

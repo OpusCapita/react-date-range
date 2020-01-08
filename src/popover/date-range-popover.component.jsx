@@ -17,6 +17,7 @@ const PopoverSection = styled.div`
   padding: ${theme.gutterWidth};
   background-color: ${theme.contentBackgroundColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  z-index: 1;
   hr {
     color: ${theme.colors.grey3};
     size: 0.1rem;
@@ -38,7 +39,7 @@ export default class DateRangePopover extends React.PureComponent {
     const { enabled } = props;
     const selectedRangeType = enabled[props.selectedRangeType]
       ? props.selectedRangeType
-      : Object.keys(enabled).find(key => enabled[key]);
+      : Object.keys(enabled).find((key) => enabled[key]);
     this.state = {
       selectedRangeType,
     };
@@ -57,7 +58,7 @@ export default class DateRangePopover extends React.PureComponent {
     const selectedRange = RangeTypes[selectedRangeType];
     return (
       <selectedRange.component
-        {...this.props[selectedRange.propsKey]}
+        {...this.props[selectedRange.propsKey]} // eslint-disable-line
         onChange={onChange}
         translations={translations}
       />
@@ -67,9 +68,9 @@ export default class DateRangePopover extends React.PureComponent {
   renderOptions = () => {
     const { enabled, translations } = this.props;
     const { selectedRangeType } = this.state;
-    const enabledOptions = Object.keys(RangeTypes).filter(key => enabled[key]);
+    const enabledOptions = Object.keys(RangeTypes).filter((key) => enabled[key]);
     return enabledOptions.length > 1
-      ? enabledOptions.map(type => (
+      ? enabledOptions.map((type) => (
         <RadioButton
           key={type}
           name="rangeType"
@@ -79,20 +80,23 @@ export default class DateRangePopover extends React.PureComponent {
           inline
         >
           {translate(translations, type)}
-        </RadioButton>))
+        </RadioButton>
+      ))
       : undefined;
   };
 
   renderRangeOptions = () => {
     const options = this.renderOptions();
     return (
-      options ?
-        <React.Fragment>
-          <FormGroup>
-            {options}
-          </FormGroup>
-          <hr />
-        </React.Fragment>
+      options
+        ? (
+          <>
+            <FormGroup>
+              {options}
+            </FormGroup>
+            <hr />
+          </>
+        )
         : undefined
     );
   }
