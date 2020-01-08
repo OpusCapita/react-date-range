@@ -17,7 +17,7 @@ const PopoverSection = styled.div`
   padding: ${theme.gutterWidth};
   background-color: ${theme.contentBackgroundColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  z-index: 5;
+  z-index: 1;
   hr {
     color: ${theme.colors.grey3};
     size: 0.1rem;

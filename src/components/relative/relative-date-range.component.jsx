@@ -146,6 +146,7 @@ export default class RelativeDateRange extends React.PureComponent {
               options={startDateOptions}
               placeholder={translations.startDatePlaceholder}
               value={startDate}
+              classNamePrefix="daterange-select"
             />
           </Content.InputColumn>
         </DateSection>
@@ -163,6 +164,7 @@ export default class RelativeDateRange extends React.PureComponent {
               options={endDateOptions}
               placeholder={translations.endDatePlaceholder}
               value={endDate}
+              classNamePrefix="daterange-select"
             />
           </Content.InputColumn>
         </DateSection>

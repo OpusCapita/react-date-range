@@ -183,6 +183,7 @@ export default class Period extends React.PureComponent {
               onChange={this.handleStartDateChange}
               options={startDateOptions}
               value={startDate}
+              classNamePrefix="daterange-select"
             />
           </Content.InputColumn>
         </DateSection>
@@ -209,6 +210,7 @@ export default class Period extends React.PureComponent {
             onChange={this.handleGranularityChange}
             options={granularities}
             value={this.getSelectedGranularity(granularities, endDate.unit)}
+            classNamePrefix="daterange-select"
           />
         </GranularitySection>
       </PeriodSection>

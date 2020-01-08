@@ -274,7 +274,11 @@ export default class DateRange extends React.PureComponent {
     if (e.target && e.target.parentNode
       && e.target.parentNode.className
       && e.target.parentNode.className.includes
-      && e.target.parentNode.className.includes('DayPicker')) {
+      && (
+        e.target.parentNode.className.includes('DayPicker')
+        || e.target.parentNode.className.includes('daterange-select')
+      )
+    ) {
       e.preventDefault();
       return;
     }
@@ -334,24 +338,22 @@ export default class DateRange extends React.PureComponent {
 
     return (
       <ThemeProvider theme={theme}>
-        <>
-          <DateRangeSection
-            id={id}
-            className={className}
-            ref={this.handleOverlayTargetRef}
-          >
-            <ReadOnlyInput showOverlay={showOverlay}>
-              <FormControl
-                type="text"
-                inputRef={this.handleInputRef}
-                {...inputProps}
-                readOnly="readonly"
-                value={value}
-                onClick={this.handleClick}
-              />
-              {this.renderCaret()}
-            </ReadOnlyInput>
-          </DateRangeSection>
+        <DateRangeSection
+          id={id}
+          className={className}
+          ref={this.handleOverlayTargetRef}
+        >
+          <ReadOnlyInput showOverlay={showOverlay}>
+            <FormControl
+              type="text"
+              inputRef={this.handleInputRef}
+              {...inputProps}
+              readOnly="readonly"
+              value={value}
+              onClick={this.handleClick}
+            />
+            {this.renderCaret()}
+          </ReadOnlyInput>
           <Overlay
             show={showOverlay}
             onHide={this.handleHide}
@@ -371,7 +373,7 @@ export default class DateRange extends React.PureComponent {
               translations={translations}
             />
           </Overlay>
-        </>
+        </DateRangeSection>
       </ThemeProvider>
     );
   }
