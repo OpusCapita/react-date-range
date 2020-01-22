@@ -3,6 +3,12 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 2.3.2
+* Upgrade `@opuscapita/oc-cm-common-layouts`
+* Upgrade packages
+
+## 2.3.1
 * Upgrade to `react-bootstrap@0.33.1`, add target ref to Overlay
 * Upgrade packages
 * Fix lint errors
