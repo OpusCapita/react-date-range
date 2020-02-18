@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FormGroup, Radio } from 'react-bootstrap';
 
-import { theme } from '@opuscapita/oc-cm-common-layouts';
+import { theme, Primitive } from '@opuscapita/oc-cm-common-layouts';
 
 import RangeTypes from './range-types';
 import propTypes from './prop-types';
@@ -31,6 +31,12 @@ const RadioButton = styled(Radio)`
     line-height: 100%;
     margin: 0 0 0 -20px;
   }
+`;
+
+const OkButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 export default class DateRangePopover extends React.PureComponent {
@@ -101,10 +107,24 @@ export default class DateRangePopover extends React.PureComponent {
     );
   }
 
+  renderOkButton = () => {
+    const { translations, hidePopover } = this.props;
+    return (
+      <OkButtonContainer>
+        <Primitive.Button
+          onClick={hidePopover}
+        >
+          {translate(translations, 'ok')}
+        </Primitive.Button>
+      </OkButtonContainer>
+    );
+  }
+
   render = () => (
     <PopoverSection>
       {this.renderRangeOptions()}
       {this.renderRangeComponent()}
+      {this.renderOkButton()}
     </PopoverSection>
   );
 }

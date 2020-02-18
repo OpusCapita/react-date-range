@@ -371,6 +371,7 @@ export default class DateRange extends React.PureComponent {
               selectedRangeType={selectedRangeType}
               relativeRange={relativeRange}
               translations={translations}
+              hidePopover={this.handleClick}
             />
           </Overlay>
         </DateRangeSection>

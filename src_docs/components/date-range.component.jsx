@@ -19,7 +19,7 @@ export default class DateRangeView extends React.PureComponent {
           <DateRange
             id="example3"
             enabled={{ absolute: true, relative: true, period: true }}
-            absoluteRange={{ className: 'test', dateFormat: 'L', numberOfMonths: 2 }}
+            absoluteRange={{ className: 'test', dateFormat: 'L' }}
           />
         </div>
       </>

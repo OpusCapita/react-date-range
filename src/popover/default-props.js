@@ -17,4 +17,5 @@ export default {
   relativeRange: relativeRangeDefaultProps,
   selectedRangeType: Object.keys(RangeTypes)[0],
   translations: translationDefaultProps,
+  hidePopover: () => {},
 };
