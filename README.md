@@ -108,6 +108,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | startDatePlaceholder | string                 | 'Select...' | Placeholder of select component |
 | to                   | string                 | 'To'        | To label                        |
 | week                 | weekTranslationShape   |             |                                 |
+| ok                   | string                 | 'OK'        | OK button label                 |
 
 - __datesTranslationsShape:__
 

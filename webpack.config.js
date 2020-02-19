@@ -121,6 +121,13 @@ const baseConfig = {
   },
   // Add your peer dependencies here to avoid bundling them to build
   externals: {
+    'prop-types': {
+      root: 'PropTypes',
+      commonjs2: 'prop-types',
+      commonjs: 'prop-types',
+      amd: 'prop-types',
+      umd: 'prop-types',
+    },
     react: {
       root: 'React',
       commonjs2: 'react',
@@ -134,6 +141,13 @@ const baseConfig = {
       commonjs: 'react-dom',
       amd: 'react-dom',
       umd: 'react-dom',
+    },
+    'styled-components': {
+      root: 'styled-components',
+      commonjs2: 'styled-components',
+      commonjs: 'styled-components',
+      amd: 'styled-components',
+      umd: 'styled-components',
     },
   },
 };

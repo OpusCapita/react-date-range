@@ -3,6 +3,10 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Change calendars to static type instead of popups
+* Add OK button that closes the popover
+* Change calendar colors for better visualization
+* Upgrade packages to latest
 
 ## 2.3.2
 * Upgrade `@opuscapita/oc-cm-common-layouts`

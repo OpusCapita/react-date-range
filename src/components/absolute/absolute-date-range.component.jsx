@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import uuidv4 from 'uuid/v4';
 
 import { DateInput } from '@opuscapita/react-datetime';
-import { Content } from '@opuscapita/oc-cm-common-layouts';
+import { Content, theme } from '@opuscapita/oc-cm-common-layouts';
 
 import DateSection from '../date-section.components';
 import Hyphen from '../hyphen.component';
@@ -18,12 +18,27 @@ import translate from '../../translations/translate';
 const AbsoluteRangeSection = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   height: 100%;
   width: 100%;
-  padding: 1rem 0 0 0;
-  align-items: center;
+  padding: ${theme.gutterWidth} 0 0 0;
   .form-group {
     margin-bottom: 0;
+  }
+  .oc-datetime-static-container {
+    margin-top: ${theme.gutterWidth};
+  }
+  .oc-datetime.start-date {
+    .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--outside) {
+      background-color: #ffdbc2;
+      color: ${theme.colors.grey10};
+    }
+  }
+  .oc-datetime.end-date {
+    .DayPicker-Day--selected:not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+      background-color: #ffdbc2;
+      color: ${theme.colors.grey10};
+    }
   }
 `;
 
@@ -224,6 +239,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
               showWeekNumbers={showWeekNumbers}
               toMonth={to}
               value={startDate}
+              calendarType="static"
             />
           </Content.InputColumn>
         </DateSection>
@@ -255,6 +271,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
               showOverlay={showOverlay === Overlays.END}
               showWeekNumbers={showWeekNumbers}
               value={endDate}
+              calendarType="static"
             />
           </Content.InputColumn>
         </DateSection>

@@ -49,4 +49,5 @@ export default {
     plural: 'weekdays',
     singular: 'weekday',
   },
+  ok: 'OK',
 };

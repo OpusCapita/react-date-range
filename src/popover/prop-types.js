@@ -19,4 +19,5 @@ export default {
   relativeRange: PropTypes.shape(relativeRangePropTypes),
   selectedRangeType: PropTypes.oneOf(Object.keys(RangeTypes)),
   translations: PropTypes.shape(translationPropTypes),
+  hidePopover: PropTypes.func,
 };
