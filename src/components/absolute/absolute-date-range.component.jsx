@@ -78,8 +78,11 @@ export default class AbsoluteDateRange extends React.PureComponent {
 
   isYearAutoFixed = (selector, startDate) => {
     const inputValue = document.querySelector(selector).value;
+    console.log(inputValue); // 16/03/20
     const year = startDate.year();
     const epoch = moment.unix(0).year();
+    console.log(year, epoch); // 2020, 1970
+    console.log(year < epoch, !inputValue.includes(year)); // false, true
     return year < epoch || !inputValue.includes(year);
   }
 
@@ -89,6 +92,7 @@ export default class AbsoluteDateRange extends React.PureComponent {
     let from = moment.utc(startDate);
     if (!from.isValid()) return;
     const { startDateId } = this.state;
+
     if (this.isYearAutoFixed(`.absolute-start-date #${startDateId}`, from)) return;
 
     const { endDate } = this.state;
