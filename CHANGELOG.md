@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed absolute range in case of YY format
 
 ## 2.4.0
 * Change calendars to static type instead of popups
