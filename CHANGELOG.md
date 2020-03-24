@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Upgraded `@opuscapita/react-datetime`
 
 ## 2.4.1
 * Fixed absolute range in case of YY format
