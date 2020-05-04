@@ -4,6 +4,10 @@
 
 ## <next>
 
+## 2.4.3
+* Fix missing `uuid` dependency
+* Upgrade some packages
+
 ## 2.4.2
 * Upgraded `@opuscapita/react-datetime`
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 import { DateInput } from '@opuscapita/react-datetime';
 import { Content, theme } from '@opuscapita/oc-cm-common-layouts';
